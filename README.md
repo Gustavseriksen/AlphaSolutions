@@ -1,3 +1,5 @@
+![alphasolutionsREADME](https://github.com/user-attachments/assets/f52f8285-ca8d-4b76-a6fc-39c6b29c5270)
+
 README file of the AlphaSolutions project. 
 
 
