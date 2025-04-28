@@ -12,6 +12,7 @@ public class ManagementSoftwareRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    //Adds ''Workers''
     //TODO
     public void addProjectManager() {
 
@@ -21,6 +22,8 @@ public class ManagementSoftwareRepository {
     public void addEmployee() {
 
     }
+
+    //Project:
 
     //TODO
     public void addProject(){
@@ -52,6 +55,31 @@ public class ManagementSoftwareRepository {
 
     //TODO
     public void editSubproject(){
+
+    }
+
+
+    //Task:
+
+    //TODO
+    public void addTask(){
+
+    }
+
+    //TODO
+    public void deleteTask(){
+
+    }
+
+    //TODO
+    public void editTask(){
+
+    }
+
+
+    //Checks if project/subproject/task is done
+    //TODO
+    public void checkIfDone (){
 
     }
 
