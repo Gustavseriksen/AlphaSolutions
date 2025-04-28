@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 
 public class Project {
+
     private int projectId;
     private String projectName;
     private String projectDescription;
@@ -26,16 +27,54 @@ public class Project {
         this.userId = userId;
     }
 
+// Getter & setter for ProjectID:
+    public int getProjectId() {
+        return projectId;
+    }
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
+    }
 
+// Getter & setter for ProjectName:
+    public String getProjectName() {
+        return projectName;
+    }
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
 
+// Getter & setter for ProjectDescription:
+    public String getProjectDescription() {
+        return projectDescription;
+    }
+    public void setProjectDescription(String projectDescription) {
+        this.projectDescription = projectDescription;
+    }
 
+// Getter & setter for ProjectStartDate:
+    public LocalDate getProjectStartDate() {
+        return projectStartDate;
+    }
+    public void setProjectStartDate(LocalDate projectStartDate) {
+        this.projectStartDate = projectStartDate;
+    }
 
+// Getter & setter for ProjectEndDate:
+    public LocalDate getProjectEndDate() {
+        return projectEndDate;
+    }
+    public void setProjectEndDate(LocalDate projectEndDate) {
+        this.projectEndDate = projectEndDate;
+    }
 
-
-
-
-
-
-
-
+// Getter & setter for UserID:
+    public int getUserId() {
+        return userId;
+    }
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 }
+
+
+
