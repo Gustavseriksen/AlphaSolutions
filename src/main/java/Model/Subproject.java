@@ -8,6 +8,7 @@ public class Subproject {
     private int projectID;
     private String subProjectName;
     private String subProjectDescription;
+    private String subPriority;
     private Date startDate;
     private Date endDate;
     private double estimatedHours;
@@ -15,22 +16,21 @@ public class Subproject {
     private Status status;
 
     //Constructor
-    public Subproject(int subProjectId, int projectID,
-                      Date startDate, String subProjectName,
-                      String subProjectDescription,
-                      Date endDate) {
 
+    public Subproject(int subProjectId, int projectID, String subProjectName,
+                      String subProjectDescription, String subPriority, Date startDate,
+                      Date endDate, double estimatedHours, double actualHoursUsed, Status status) {
         this.subProjectId = subProjectId;
         this.projectID = projectID;
-        this.startDate = startDate;
         this.subProjectName = subProjectName;
         this.subProjectDescription = subProjectDescription;
+        this.subPriority = subPriority;
+        this.startDate = startDate;
         this.endDate = endDate;
-        this.estimatedHours = 0;
-        this.actualHoursUsed = 0;
-        this.status = Status.NOT_DONE;
+        this.estimatedHours = estimatedHours;
+        this.actualHoursUsed = actualHoursUsed;
+        this.status = status;
     }
-
 
     //Getter and Setter for attributes
     public int getSubProjectId() {
@@ -55,6 +55,14 @@ public class Subproject {
 
     public String getSubProjectDescription() {
         return subProjectDescription;
+    }
+
+    public String getSubPriority() {
+        return subPriority;
+    }
+
+    public void setSubPriority(String subprojectPriority) {
+        this.subPriority = subprojectPriority;
     }
 
     public void setSubProjectDescription(String subProjectDescription) {
