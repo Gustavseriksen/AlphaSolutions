@@ -1,5 +1,8 @@
 package Repository;
 
+import Model.Employee;
+import Model.Project;
+import Model.ProjectManager;
 import Model.Status;
 import Model.Subproject;
 import Model.Task;
@@ -20,30 +23,37 @@ public class ManagementSoftwareRepository {
 
     //Adds ''Workers''
     //TODO
-    public void addProjectManager() {
-
+    public void addProjectManager(ProjectManager projectManager) {
+        String sql = "INSERT INTO projectmanagers (username, password) VALUES (?,?)";
+        jdbcTemplate.update(sql, projectManager.getUsername(), projectManager.getPassword());
     }
 
     //TODO
-    public void addEmployee() {
-
+    public void addEmployee(Employee employee) {
+        String sql = "INSERT INTO employees (name, password) VALUES (?,?)";
+        jdbcTemplate.update(sql, employee.getName(), employee.getPassword());
     }
 
     //Project:
 
     //TODO
-    public void addProject(){
+    public void addProject(Project project) {
+        String sql = "INSERT INTO projects (name, description, startDate, endDate) VALUES(?,?,?,?)";
+        jdbcTemplate.update(sql, project.getProjectName(), project.getProjectDescription(),
+                project.getProjectStartDate(), project.getProjectEndDate());
 
     }
 
     //TODO
-    public void deleteProject(){
+    public void deleteProject(int projectId) {
+    String sql = "DELETE FROM projects WHERE project_id = ?";
+    jdbcTemplate.update(sql, projectId);
 
     }
 
     //TODO
-    public void editProject(){
-
+    public void editProject() {
+    //er i tvivl om hvordan jeg skal lave den her nu
     }
 
 
@@ -96,7 +106,9 @@ public class ManagementSoftwareRepository {
                 Status.valueOf(rs.getString("subproject_status"))));
     }
 
+
     //Task:
+
     //TODO
     public void addTask(Task task){
         String sql = "INSERT INTO Tasks (subproject_id, task_name, task_description, task_priority," +
@@ -139,9 +151,10 @@ public class ManagementSoftwareRepository {
                 Status.valueOf(rs.getString("task_status"))));
     }
 
+
     //Checks if project/subproject/task is done
     //TODO
-    public void checkIfDone (){
+    public void checkIfDone() {
 
         //tænker ikke vi behøver denne metode?
         //Hvis vi bare har en get metode til project/sub/task har vi covered metoden her
