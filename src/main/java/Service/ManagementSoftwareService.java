@@ -1,5 +1,6 @@
 package Service;
 
+import Model.*;
 import Repository.ManagementSoftwareRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,21 +13,21 @@ public class ManagementSoftwareService {
     }
 
     // Worker
-    public void addProjectManager() {
-        managementSoftwareRepository.addProjectManager();
+    public void addProjectManager(ProjectManager projectManager) {
+        managementSoftwareRepository.addProjectManager(projectManager);
     }
 
-    public void addEmployee() {
-        managementSoftwareRepository.addEmployee();
+    public void addEmployee(Employee employee) {
+        managementSoftwareRepository.addEmployee(employee);
     }
 
     // Project
-    public void addProject() {
-        managementSoftwareRepository.addProject();
+    public void addProject(Project project) {
+        managementSoftwareRepository.addProject(project);
     }
 
-    public void deleteProject() {
-        managementSoftwareRepository.deleteProject();
+    public void deleteProject(int projectId) {
+        managementSoftwareRepository.deleteProject(projectId);
     }
 
     public void editProject() {
@@ -34,29 +35,33 @@ public class ManagementSoftwareService {
     }
 
     // Subproject
-    public void addSubproject() {
-        managementSoftwareRepository.addSubproject();
+    public void addSubproject(Subproject subproject) {
+        managementSoftwareRepository.addSubproject(subproject);
     }
 
-    public void deleteSubproject() {
-        managementSoftwareRepository.deleteSubproject();
+    public void deleteSubproject(int subprojectId) {
+        managementSoftwareRepository.deleteSubproject(subprojectId);
     }
 
-    public void editSubproject() {
-        managementSoftwareRepository.editSubproject();
+    public void editSubproject(int subprojectId, Subproject subproject) {
+        managementSoftwareRepository.editSubproject(subprojectId, subproject);
+    }
+
+    public void getSubprojectsByProjectId(int projectId){
+        managementSoftwareRepository.getSubsByProjectId(projectId);
     }
 
     // Task
-    public void addTask() {
-        managementSoftwareRepository.addTask();
+    public void addTask(Task task) {
+        managementSoftwareRepository.addTask(task);
     }
 
-    public void deleteTask() {
-        managementSoftwareRepository.deleteTask();
+    public void deleteTask(int taskId) {
+        managementSoftwareRepository.deleteTask(taskId);
     }
 
-    public void editTask() {
-        managementSoftwareRepository.editTask();
+    public void editTask(int taskId, Task task) {
+        managementSoftwareRepository.editTask(taskId, task);
     }
 
     // Check

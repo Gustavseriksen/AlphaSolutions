@@ -1,15 +1,9 @@
 package Repository;
 
-import Model.Employee;
-import Model.Project;
-import Model.ProjectManager;
-import Model.Status;
-import Model.Subproject;
-import Model.Task;
+import Model.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -46,40 +40,39 @@ public class ManagementSoftwareRepository {
 
     //TODO
     public void deleteProject(int projectId) {
-    String sql = "DELETE FROM projects WHERE project_id = ?";
-    jdbcTemplate.update(sql, projectId);
+        String sql = "DELETE FROM projects WHERE project_id = ?";
+        jdbcTemplate.update(sql, projectId);
 
     }
 
     //TODO
     public void editProject() {
-    //er i tvivl om hvordan jeg skal lave den her nu
+        //er i tvivl om hvordan jeg skal lave den her nu
     }
 
 
-
     //TODO
-    public void addSubproject(Subproject subproject){
+    public void addSubproject(Subproject subproject) {
 
-    String sql = "INSERT INTO Subprojects (project_id, subproject_name, subproject_description, " +
-            "subproject_priority, subproject_start_date, subproject_end_date, estimated_hours, " +
-            "actual_hours_used, subproject_status) VALUES(?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Subprojects (project_id, subproject_name, subproject_description, " +
+                "subproject_priority, subproject_start_date, subproject_end_date, estimated_hours, " +
+                "actual_hours_used, subproject_status) VALUES(?,?,?,?,?,?,?,?,?)";
 
-    jdbcTemplate.update(sql, subproject.getProjectID(), subproject.getSubProjectName(),
-            subproject.getSubProjectDescription(), subproject.getSubPriority(), subproject.getStartDate(),
-            subproject.getEndDate(), subproject.getEstimatedHours(), subproject.getActualHoursUsed(),
-            subproject.getStatus());
+        jdbcTemplate.update(sql, subproject.getProjectID(), subproject.getSubProjectName(),
+                subproject.getSubProjectDescription(), subproject.getSubPriority(), subproject.getStartDate(),
+                subproject.getEndDate(), subproject.getEstimatedHours(), subproject.getActualHoursUsed(),
+                subproject.getStatus());
 
     }
 
     //TODO
-    public void deleteSubproject(int subProjectId){
+    public void deleteSubproject(int subProjectId) {
         String sql = "DELETE FROM Subprojects WHERE subproject_id = ?";
         jdbcTemplate.update(sql, subProjectId);
     }
 
     //TODO
-    public void editSubproject(int subprojectId, Subproject subproject){
+    public void editSubproject(int subprojectId, Subproject subproject) {
         String sql = "UPDATE Subprojects SET  " +
                 "subproject_name = ?, subproject_description = ?, subproject_priority = ?, subproject_start_date = ?," +
                 " subproject_end_date = ?, estimated_hours = ?, actual_hours_used = ?, subproject_status = ?" +
@@ -110,7 +103,7 @@ public class ManagementSoftwareRepository {
     //Task:
 
     //TODO
-    public void addTask(Task task){
+    public void addTask(Task task) {
         String sql = "INSERT INTO Tasks (subproject_id, task_name, task_description, task_priority," +
                 "task_start_date, task_end_date, estimated_hours, actual_hours_used, task_status) " +
                 "VALUES(?,?,?,?,?,?,?,?,?)";
@@ -120,13 +113,13 @@ public class ManagementSoftwareRepository {
     }
 
     //TODO
-    public void deleteTask(int taskId){
+    public void deleteTask(int taskId) {
         String sql = "DELETE FROM Tasks WHERE task_id = ?";
         jdbcTemplate.update(sql, taskId);
     }
 
     //TODO
-    public void editTask(int taskId, Task task){
+    public void editTask(int taskId, Task task) {
         String sql = "UPDATE Tasks SET " +
                 "task_name = ?, task_description = ?, task_priority = ?, task_start_date = ?, " +
                 " task_end_date = ?, estimated_hours = ?, actual_hours_used = ?, task_status = ?" +
