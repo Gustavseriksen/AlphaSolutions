@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:https="">
+<head>
+  <meta charset="UTF-8">
+  <title>Project manager task</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <style>
+    .status-done {
+      background-color: #0d6efd; /* Bootstrap primary blå */
+      color: white; /* Hvid tekst så det kan læses på blå baggrund */
+    }
+    .task-box {
+      background-color: #e8f0fe; /* En lys blå farve */
+    }
+  </style>
+</head>
+<body class="d-flex flex-column min-vh-100 bg-body-tertiary">
+
+
+<!-- Top NAVBAR -->
+<nav class="navbar">
+  <a href="https://www.example.com/" class="logo-link ms-2">
+    <img src="/static/logo.png" alt="Logo" width="246" height="45">
+  </a>
+  <button class="signout-button">Sign out</button>
+</nav>
+<!-- Top NAVBAR (END) -->
+
+<!-- Top  -->
+<div class="container-fluid px-4 py-2">
+
+  <div class="row row-cols-1 row-cols-md-2 align-items-md-center g-5 py-1">
+    <div class="col d-flex flex-column align-items-start gap-2" style="margin-top: 70px;">
+      <h2 class="fw-bold text-body-emphasis">Task</h2>
+      <p class="text-body-secondary">Description blablabla blabla blablabla blablabla blablabla blablabla blabla
+        blablabla blablabla blablabla blablabla blablabla.</p>
+    </div>
+
+    <div class="col">
+      <div class="row row-cols-1 row-cols-sm-3 g-0">
+        <div class="bd-example-snippet bd-code-snippet">
+          <div class="bd-example m-0 border-0">
+            <ul class="list-group">
+              <li class="list-group-item">
+                <img src="/static/clock-fill.svg" alt="Clock" width="18" height="18">
+                Time estimate: 110
+              </li>
+              <li class="list-group-item">
+                <img src="/static/clock.svg" alt="Clock" width="18" height="18">
+                Time spent: 125
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: -75px;">
+        <div class="bd-example-snippet bd-code-snippet text-end">
+          <a href="https://www.example.com/">
+            <img src="/static/gear.svg" alt="Settings" width="60" height="60">
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Top (END) -->
+
+
+<!-- Add Task button -->
+<div class="text-end pe-3 mb-4">
+  <a href="https://www.example.com/">
+    <button class="btn btn-outline-dark" style="width: 150px; height: 50px;">
+      + Add task
+    </button>
+  </a>
+</div>
+<!-- Add Task button (END) -->
+
+
+<!-- Task -->
+<div class="container-fluid px-4">
+
+  <div class="row mb-2 text-center">
+    <div class="row g-1">
+
+      <div class="col-md-3 task-box border p-3 d-flex justify-content-center align-items-center">
+        Task #1
+      </div>
+
+      <div class="col-md-1 task-box border p-3 d-flex justify-content-center align-items-center">
+        Priority
+      </div>
+
+      <!-- Felt 3 opdelt vertikalt -->
+      <div class="col-md-2 p-0">
+        <div class="task-box border p-2 text-center">Time estimate: 10</div>
+        <div class="task-box border p-2 text-center">Time spent: 10</div>
+      </div>
+
+      <div class="col-md-2 border p-3 d-flex justify-content-center align-items-center status-done">
+        Done
+      </div>
+
+      <div class="col-md-1 task-box border p-3 d-flex justify-content-center align-items-center">
+        <a href="https://www.example.com/">
+          <img src="/static/trash-fill.svg" alt="delete-cross" width="22" height="22">
+        </a>
+      </div>
+
+      <div class="col-md-1 task-box border p-3 d-flex justify-content-center align-items-center">
+        <a href="https://www.example.com/">
+          <img src="/static/gear.svg" alt="Settings" width="22" height="22">
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="row mb-2 text-center">
+    <div class="row g-1">
+
+      <div class="col-md-3 task-box border p-3 d-flex justify-content-center align-items-center">
+        Task #2
+      </div>
+
+      <div class="col-md-1 task-box border p-3 d-flex justify-content-center align-items-center">
+        Priority
+      </div>
+
+      <!-- Felt 3 opdelt vertikalt -->
+      <div class="col-md-2 p-0">
+        <div class="task-box border p-2 text-center">Time estimate: 12</div>
+        <div class="task-box border p-2 text-center">Time spent: 7</div>
+      </div>
+
+      <div class="col-md-2 task-box border p-3 d-flex justify-content-center align-items-center">
+        In progress
+      </div>
+
+      <div class="col-md-1 task-box border p-3 d-flex justify-content-center align-items-center">
+        <a href="https://www.example.com/">
+          <img src="/static/trash-fill.svg" alt="delete-cross" width="22" height="22">
+        </a>
+      </div>
+
+      <div class="col-md-1 task-box border p-3 d-flex justify-content-center align-items-center">
+        <a href="https://www.example.com/">
+          <img src="/static/gear.svg" alt="Settings" width="22" height="22">
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="row mb-2 text-center">
+    <div class="row g-1">
+
+      <div class="col-md-3 task-box border p-3 d-flex justify-content-center align-items-center">
+        Task #3
+      </div>
+
+      <div class="col-md-1 task-box border p-3 d-flex justify-content-center align-items-center">
+        Priority
+      </div>
+
+      <!-- Felt 3 opdelt vertikalt -->
+      <div class="col-md-2 p-0">
+        <div class="task-box border p-2 text-center">Time estimate: 20</div>
+        <div class="task-box border p-2 text-center">Time spent: 0</div>
+      </div>
+
+      <div class="col-md-2 task-box border p-3 d-flex justify-content-center align-items-center">
+        Not started
+      </div>
+
+      <div class="col-md-1 task-box border p-3 d-flex justify-content-center align-items-center">
+        <a href="https://www.example.com/">
+        <img src="/static/trash-fill.svg" alt="delete-cross" width="22" height="22">
+        </a>
+      </div>
+
+      <div class="col-md-1 task-box border p-3 d-flex justify-content-center align-items-center">
+        <a href="https://www.example.com/">
+          <img src="/static/gear.svg" alt="Settings" width="22" height="22">
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<!-- Task (END) -->
+
+
+<!-- FOOTER -->
+<div class="container">
+  <footer class="py-3 my-0">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3"></ul>
+    <p class="text-center text-body-secondary">Customer Support: (+45) 35 20 30 40</p>
+  </footer>
+</div>
+<!-- FOOTER (END) -->
+
+
+</body>
+</html>

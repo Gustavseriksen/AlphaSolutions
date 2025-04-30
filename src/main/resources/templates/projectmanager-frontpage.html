@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:https="">
+<head>
+    <meta charset="UTF-8">
+    <title>Project manager frontpage</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Styling for grid -->
+    <style>
+        .themed-grid-col {
+            background-color: rgba(0, 123, 255, 0.15); /* let blå baggrund */
+            border: 1px solid rgba(0, 123, 255, 0.2); /* lidt blå kant */
+        }
+    </style>
+
+</head>
+<body class="d-flex flex-column min-vh-100 bg-body-tertiary">
+
+
+<!-- Top NAVBAR -->
+<nav class="navbar">
+    <a href="https://www.example.com/" class="logo-link ms-2">
+        <img src="/static/logo.png" alt="Logo" width="246" height="45">
+    </a>
+    <button class="signout-button">Sign out</button>
+</nav>
+<!-- Top NAVBAR (END) -->
+
+
+<!-- USERNAME -->
+<div class="px-4 py-5 my-5 text-center">
+    <img class="d-block mx-auto mb-1" src="/static/UserLogo.svg" alt="" width="72" height="57">
+    <h1 class="display-5 fw-bold text-body-emphasis">Username</h1>
+    <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">Welcome back Username! You can manage and view your projects below.</p>
+    </div>
+</div>
+<!-- USERNAME (END) -->
+
+
+<!-- Add button -->
+<div class="text-end pe-3 mb-4">
+    <a href="https://www.example.com/" target="_blank">
+        <button class="btn btn-outline-dark" style="width: 130px; height: 50px;">
+            + Add project
+        </button>
+    </a>
+</div>
+<!-- Add button (END) -->
+
+
+<!-- Subprojects -->
+<!-- <div class="container-fluid px-4">
+
+    <div class="row mb-2 text-center">
+        <div class="row g-1">
+
+            <div class="col-md-3 task-box border p-3 d-flex justify-content-center align-items-center">
+                Subproject #1
+            </div>  -->
+
+
+            <!-- Dates -->
+<!-- <div class="col-md-4 border">
+     <div class="row row-cols-2 h-100">
+         <div class="col-md-6 border d-flex align-items-center justify-content-center">Planned start: 01/04</div>
+         <div class="col-md-6 border d-flex align-items-center justify-content-center">Planned end: 05/05</div>
+         <div class="col-md-6 border d-flex align-items-center justify-content-center">Actual start: 01/04</div>
+         <div class="col-md-6 border d-flex align-items-center justify-content-center">Actual end: 28/04</div>
+     </div>
+ </div>  -->
+
+
+            <!-- Felt 3 opdelt vertikalt -->
+<!--    <div class="col-md-2 p-0">
+        <div class="task-box border p-2 text-center">Time estimate: 10</div>
+        <div class="task-box border p-2 text-center">Time spent: 10</div>
+    </div>
+
+    <div class="col-md-2 border p-3 d-flex justify-content-center align-items-center status-done">
+        Completed
+    </div>
+
+
+</div>
+</div>
+
+
+</div> -->
+<!-- Subprojects (END) -->
+
+
+<!-- Projects -->
+<div class="container-fluid px-4">
+
+    <div class="row mb-3 text-center">
+        <div class="col-md-7 themed-grid-col ">
+            <div class="pb-3">Project #1</div>
+            <div class="row">
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Time estimate: 110</div>
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Time spent: 125</div>
+            </div>
+        </div>
+
+
+        <!-- Dates -->
+        <div class="col-md-3 themed-grid-col">
+            <div class="row row-cols-2 h-100">
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Planned start: 01/04</div>
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Planned end: 05/05</div>
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Actual start: 01/04</div>
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Actual end: 28/04</div>
+            </div>
+        </div>
+
+
+        <!-- Status -->
+        <div class="col-md-1 themed-grid-col d-flex align-items-center justify-content-center">
+            Completed
+        </div>
+    </div>
+
+
+    <div class="row mb-3 text-center">
+        <div class="col-md-7 themed-grid-col ">
+            <div class="pb-3">Project #2</div>
+            <div class="row">
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Time estimate: 50</div>
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Time spent: 22</div>
+            </div>
+        </div>
+
+
+        <!-- Dates -->
+        <div class="col-md-3 themed-grid-col">
+            <div class="row row-cols-2 h-100">
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Planned start: 03/04</div>
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Planned end: 20/06</div>
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Actual start: 03/04</div>
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Actual end: ?</div>
+            </div>
+        </div>
+
+
+        <!-- Status -->
+        <div class="col-md-1 themed-grid-col d-flex align-items-center justify-content-center">
+            In progress
+        </div>
+    </div>
+
+    <div class="row mb-3 text-center">
+        <div class="col-md-7 themed-grid-col ">
+            <div class="pb-3">Project #3</div>
+            <div class="row">
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Time estimate: 80</div>
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Time spent: 10</div>
+            </div>
+        </div>
+
+
+        <!-- Dates -->
+        <div class="col-md-3 themed-grid-col">
+            <div class="row row-cols-2 h-100">
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Planned start: 29/04</div>
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Planned end: 10/07</div>
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Actual start: 25/04</div>
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Actual end: ?</div>
+            </div>
+        </div>
+
+
+        <!-- Status -->
+        <div class="col-md-1 themed-grid-col d-flex align-items-center justify-content-center">
+            In progress
+        </div>
+    </div>
+
+    <div class="row mb-3 text-center">
+        <div class="col-md-7 themed-grid-col ">
+            <div class="pb-3">Project #4</div>
+            <div class="row">
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Time estimate: 215</div>
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Time spent: 30</div>
+            </div>
+        </div>
+
+
+        <!-- Dates -->
+        <div class="col-md-3 themed-grid-col">
+            <div class="row row-cols-2 h-100">
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Planned start: 01/04</div>
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Planned end: 01/07</div>
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Actual start: 01/04</div>
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Actual end: ?</div>
+            </div>
+        </div>
+
+
+        <!-- Status -->
+        <div class="col-md-1 themed-grid-col d-flex align-items-center justify-content-center">
+            In progress
+        </div>
+    </div>
+
+    <div class="row mb-3 text-center">
+        <div class="col-md-7 themed-grid-col ">
+            <div class="pb-3">Project #5</div>
+            <div class="row">
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Time estimate: 135</div>
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Time spent: 0</div>
+            </div>
+        </div>
+
+
+        <!-- Dates -->
+        <div class="col-md-3 themed-grid-col">
+            <div class="row row-cols-2 h-100">
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Planned start: 01/08</div>
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Planned end: 01/09</div>
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Actual start: ?</div>
+                <div class="col-md-6 themed-grid-col d-flex align-items-center justify-content-center">Actual end: ?</div>
+            </div>
+        </div>
+
+
+        <!-- Status -->
+        <div class="col-md-1 themed-grid-col d-flex align-items-center justify-content-center">
+            Not started
+        </div>
+    </div>
+</div>
+<!-- Projects (END) -->
+
+<!-- FOOTER -->
+<div class="container">
+    <footer class="py-3 my-0">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3"></ul>
+        <p class="text-center text-body-secondary">Customer Support: (+45) 35 20 30 40</p>
+    </footer>
+</div>
+<!-- FOOTER (END) -->
+
+
+</body>
+</html>
