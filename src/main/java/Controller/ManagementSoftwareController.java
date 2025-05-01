@@ -87,13 +87,13 @@ public class ManagementSoftwareController {
         managementSoftwareService.deleteTask(taskId);
         return "redirect:/";
     }
-
+/*
     @PostMapping("/edit-task")
     public String editTask() {
         managementSoftwareService.editTask();
         return "redirect:/";
     }
-
+*/
     // Check if done
     @GetMapping("/check-if-done")
     public String checkIfDone(Model model) {
