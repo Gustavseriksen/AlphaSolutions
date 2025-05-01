@@ -1,5 +1,4 @@
-
-
+/* For header */
 .logo-link {
     display: inline-block; /* gør linket omkring billedet til en blok */
     text-decoration: none; /* ingen understregning */
@@ -24,3 +23,60 @@
 .signout-button:hover {
     background-color: #c82333; /* lidt mørkere rød ved hover */
 }
+/* For header (END) */
+
+
+
+
+/* Table fixed size */
+.table-fixed {
+    table-layout: fixed;
+    width: 100%;
+}
+/* Table fixed size (END) */
+
+/* -+ buttons */
+.image-swap {
+    position: relative;
+    display: inline-block;
+}
+.image-swap img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+.img-hover {
+    opacity: 0;
+}
+.image-swap:hover .img-hover {
+    opacity: 1;
+}
+.image-swap:hover .img-normal {
+    opacity: 0;
+}
+/* -+ buttons (END) */
+
+
+/* Hover Effect */
+.icon-hover {
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.icon-hover:hover {
+    transform: scale(1.2);
+}
+/* Hover Effect (END) */
+
+
+/* Header Hover Effect */
+.header-hover {
+    transition: background-color 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.header-hover:hover {
+    background-color: #f0f0f0; /* eller fx #e9ecef for Bootstrap-lignende hover */
+}
+/* Header Hover Effect (END) */
