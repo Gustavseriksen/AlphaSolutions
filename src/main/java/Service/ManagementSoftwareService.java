@@ -12,6 +12,12 @@ public class ManagementSoftwareService {
         this.managementSoftwareRepository = managementSoftwareRepository;
     }
 
+    // Admin
+
+    public Admin checkAdminCredentials(String username, String password) {
+        return managementSoftwareRepository.checkCredentials(username, password);
+    }
+
     // Worker
     public void addProjectManager(ProjectManager projectManager) {
         managementSoftwareRepository.addProjectManager(projectManager);
@@ -64,8 +70,8 @@ public class ManagementSoftwareService {
         managementSoftwareRepository.editTask(taskId, task);
     }
 
-    // Check
-    public void checkIfDone() {
-        managementSoftwareRepository.checkIfDone();
-    }
+//    // Check
+//    public void checkIfDone() {
+//        managementSoftwareRepository.checkIfDone();
+//    }
 }
