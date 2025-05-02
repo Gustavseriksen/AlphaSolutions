@@ -16,13 +16,11 @@ public class ManagementSoftwareRepository {
     }
 
     //Adds ''Workers''
-    //TODO
     public void addProjectManager(ProjectManager projectManager) {
         String sql = "INSERT INTO projectmanagers (username, password) VALUES (?,?)";
         jdbcTemplate.update(sql, projectManager.getUsername(), projectManager.getPassword());
     }
 
-    //TODO
     public void addEmployee(Employee employee) {
         String sql = "INSERT INTO employees (name, password) VALUES (?,?)";
         jdbcTemplate.update(sql, employee.getName(), employee.getPassword());
@@ -30,7 +28,6 @@ public class ManagementSoftwareRepository {
 
     //Project:
 
-    //TODO
     public void addProject(Project project) {
         String sql = "INSERT INTO projects (name, description, startDate, endDate) VALUES(?,?,?,?)";
         jdbcTemplate.update(sql, project.getProjectName(), project.getProjectDescription(),
@@ -38,20 +35,17 @@ public class ManagementSoftwareRepository {
 
     }
 
-    //TODO
     public void deleteProject(int projectId) {
         String sql = "DELETE FROM projects WHERE project_id = ?";
         jdbcTemplate.update(sql, projectId);
 
     }
 
-    //TODO
     public void editProject() {
         //er i tvivl om hvordan jeg skal lave den her nu
     }
 
 
-    //TODO
     public void addSubproject(Subproject subproject) {
 
         String sql = "INSERT INTO Subprojects (project_id, subproject_name, subproject_description, " +
@@ -65,13 +59,11 @@ public class ManagementSoftwareRepository {
 
     }
 
-    //TODO
     public void deleteSubproject(int subProjectId) {
         String sql = "DELETE FROM Subprojects WHERE subproject_id = ?";
         jdbcTemplate.update(sql, subProjectId);
     }
 
-    //TODO
     public void editSubproject(int subprojectId, Subproject subproject) {
         String sql = "UPDATE Subprojects SET  " +
                 "subproject_name = ?, subproject_description = ?, subproject_priority = ?, subproject_start_date = ?," +
@@ -102,7 +94,6 @@ public class ManagementSoftwareRepository {
 
     //Task:
 
-    //TODO
     public void addTask(Task task) {
         String sql = "INSERT INTO Tasks (subproject_id, task_name, task_description, task_priority," +
                 "task_start_date, task_end_date, estimated_hours, actual_hours_used, task_status) " +
@@ -112,13 +103,11 @@ public class ManagementSoftwareRepository {
                 task.getActualUsedHours(), task.getStatus());
     }
 
-    //TODO
     public void deleteTask(int taskId) {
         String sql = "DELETE FROM Tasks WHERE task_id = ?";
         jdbcTemplate.update(sql, taskId);
     }
 
-    //TODO
     public void editTask(int taskId, Task task) {
         String sql = "UPDATE Tasks SET " +
                 "task_name = ?, task_description = ?, task_priority = ?, task_start_date = ?, " +
