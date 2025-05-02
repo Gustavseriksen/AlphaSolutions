@@ -145,13 +145,4 @@ public class ManagementSoftwareRepository {
     }
 
 
-    //Checks if project/subproject/task is done
-    //TODO
-    public void checkIfDone() {
-
-        //tænker ikke vi behøver denne metode?
-        //Hvis vi bare har en get metode til project/sub/task har vi covered metoden her
-
-    }
-
 }
