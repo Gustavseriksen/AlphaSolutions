@@ -1,6 +1,7 @@
 package Repository;
 
 import Model.*;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +16,7 @@ public class ManagementSoftwareRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    //Adds ''Workers''
+    //Admin
     public void addProjectManager(ProjectManager projectManager) {
         String sql = "INSERT INTO projectmanagers (username, password) VALUES (?,?)";
         jdbcTemplate.update(sql, projectManager.getUsername(), projectManager.getPassword());
@@ -24,6 +25,20 @@ public class ManagementSoftwareRepository {
     public void addEmployee(Employee employee) {
         String sql = "INSERT INTO employees (name, password) VALUES (?,?)";
         jdbcTemplate.update(sql, employee.getName(), employee.getPassword());
+    }
+
+    public Admin checkCredentials(String username, String password) {
+        String sql = "SELECT * FROM Admins WHERE username = ? AND password = ?";
+
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{username, password}, (rs, rowNum) -> new Admin(
+                    rs.getInt("admin_id"),
+                    rs.getString("username"),
+                    rs.getString("password")));
+
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     //Project:
@@ -90,7 +105,6 @@ public class ManagementSoftwareRepository {
                 rs.getInt("actual_hours_used"),
                 Status.valueOf(rs.getString("subproject_status"))));
     }
-
 
     //Task:
 

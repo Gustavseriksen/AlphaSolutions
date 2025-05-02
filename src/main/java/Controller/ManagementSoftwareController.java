@@ -2,15 +2,14 @@ package Controller;
 
 import Model.*;
 import Service.ManagementSoftwareService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
+@RequestMapping("/alphaSolutions")
 public class ManagementSoftwareController {
     private final ManagementSoftwareService managementSoftwareService;
 
@@ -24,6 +23,28 @@ public class ManagementSoftwareController {
         return "index";
     }
 
+    // Admin -----------------------------------------------------------------------------
+
+    @PostMapping("/checkcredentials")
+    public String checkCredentials(@RequestParam String username, @RequestParam String password, HttpSession session) {
+
+        Admin admin = managementSoftwareService.checkAdminCredentials(username, password);
+
+        if (admin != null) {
+            session.setAttribute("ID", admin.getAdmin_id());
+            return "redirect:/admin-frontpage";
+        } else {
+            return "redirect:/index"; // Reload login page with an error message
+        }
+    }
+
+    @GetMapping("/admin-frontpage")
+    public String viewAdminFrontPage() {
+        return "admin-frontpage";
+    }
+
+
+
     // Adding a pm & emp ---------------------------------------------------------------------
     @PostMapping("/add-project-manager")
     public String addProjectManager(@ModelAttribute ProjectManager projectManager) {
@@ -36,6 +57,7 @@ public class ManagementSoftwareController {
         managementSoftwareService.addEmployee(employee);
         return "redirect:/";
     }
+
 
     // Project -----------------------------------------------------------------------------
     @PostMapping("/add-project")
@@ -94,10 +116,10 @@ public class ManagementSoftwareController {
         return "redirect:/";
     }
 */
-    // Check if done
-    @GetMapping("/check-if-done")
-    public String checkIfDone(Model model) {
-        managementSoftwareService.checkIfDone();
-        return "index";
-    }
+//    // Check if done
+//    @GetMapping("/check-if-done")
+//    public String checkIfDone(Model model) {
+//        managementSoftwareService.checkIfDone();
+//        return "index";
+//    }
 }
