@@ -4,6 +4,7 @@ import org.example.alphasolutions.Service.ManagementSoftwareService;
 import jakarta.servlet.http.HttpSession;
 import org.example.alphasolutions.Model.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -78,13 +79,27 @@ public class ManagementSoftwareController {
     }
 
     @GetMapping("/admin-projectmanagers-page")
-    public String viewAdminProjectManagersPage(HttpSession session) {
+    public String viewAdminProjectManagersPage(HttpSession session, Model model) {
         Integer ID = (Integer) session.getAttribute("ID");
 
         if (ID == null) {
             return "redirect:/alphaSolutions";
         }
+
+        model.addAttribute("projectManagers", managementSoftwareService.getAllProjectManagers());
+
         return "admin-projectmanagers-page";
+    }
+
+    @GetMapping("/admin-edit-projectmanager")
+    public String adminEditProjectManager(HttpSession session) {
+        Integer ID = (Integer) session.getAttribute("ID");
+
+        if (ID == null) {
+            return "redirect:/alphaSolutions";
+        }
+
+        return "admin-edit-projectmanager";
     }
 
     @GetMapping("/admin-employees-page")
@@ -99,12 +114,38 @@ public class ManagementSoftwareController {
     }
 
 
-    // Adding a pm & emp ---------------------------------------------------------------------
-    @PostMapping("/add-project-manager")
-    public String addProjectManager(@ModelAttribute ProjectManager projectManager) {
-        managementSoftwareService.addProjectManager(projectManager);
-        return "redirect:/"; // redirect to frontpage for now
+    @PostMapping("/deleteProjectManager/{projectManagerId}")
+    public String deleteProjectManager(@PathVariable int projectManagerId) {
+        managementSoftwareService.deleteProjectManager(projectManagerId);
+        return "redirect:/alphaSolutions/admin-projectmanagers-page";
     }
+
+    // Adding a pm & emp ---------------------------------------------------------------------
+    @GetMapping("/admin-add-projectmanager")
+    public String viewAddProjectManager(HttpSession session, Model model) {
+        Integer ID = (Integer) session.getAttribute("ID");
+
+        if (ID == null) {
+            return "redirect:/alphaSolutions";
+        }
+
+        model.addAttribute("projectmanager", new ProjectManager());
+
+        return "admin-add-projectmanager";
+    }
+    @PostMapping("/add-projectmanager")
+    public String addProjectManager(@ModelAttribute ProjectManager projectManager, HttpSession session) {
+        Integer ID = (Integer) session.getAttribute("ID");
+
+        if (ID == null) {
+            return "redirect:/alphaSolutions";
+        }
+
+        managementSoftwareService.addProjectManager(projectManager);
+        return "redirect:/alphaSolutions/admin-projectmanagers-page"; // redirect to frontpage for now
+    }
+
+
 
     @PostMapping("/add-employee")
     public String addEmployee(@ModelAttribute Employee employee) {

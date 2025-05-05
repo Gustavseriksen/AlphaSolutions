@@ -32,33 +32,20 @@
 
 <div class="container">
     <div class="text-end mb-2">
-        <a href="https://www.example.com/" target="_blank">
-            <img src="/person-plus-fill.svg" alt="Button" width="50" height="50">
+        <a th:href="@{/alphaSolutions/admin-add-projectmanager}" alt="Button" target="_blank">
+            <img src="/person-plus-fill.svg"  width="50" height="50">
         </a>
     </div>
 
     <hr class="mt-0 mb-4">
 
-    <div class="row row-cols-1 row-cols-md-4 g-3 text-center">
-        <div class="col themed-grid-col">01</div>
-        <div class="col themed-grid-col">Bertram</div>
-        <div class="col themed-grid-col">Edit</div>
-        <div class="col themed-grid-col"><code>Delete</code></div>
+    <div class="row row-cols-1 row-cols-md-4 g-3 text-center" th:each="projectManager : ${projectManagers}">
 
-        <div class="col themed-grid-col">02</div>
-        <div class="col themed-grid-col">GustavR</div>
-        <div class="col themed-grid-col">Edit</div>
-        <div class="col themed-grid-col"><code>Delete</code></div>
-
-        <div class="col themed-grid-col">03</div>
-        <div class="col themed-grid-col">Johan</div>
-        <div class="col themed-grid-col">Edit</div>
-        <div class="col themed-grid-col"><code>Delete</code></div>
-
-        <div class="col themed-grid-col">04</div>
-        <div class="col themed-grid-col">GustavE</div>
-        <div class="col themed-grid-col">Edit</div>
-        <div class="col themed-grid-col"><code>Delete</code></div>
+        <div class="col themed-grid-col" th:text="${projectManager.projectManagerId}" ></div>
+        <div class="col themed-grid-col" th:text="${projectManager.username}"></div>
+        <a class="col themed-grid-col" th:href="@{/alphaSolutions/admin-edit-projectmanager}">Edit</a>
+        <form th:action="@{/alphaSolutions/deleteProjectManager/{projectManagerId}(projectManagerId=${projectManager.getProjectManagerId()})}" method="post">
+            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button></form>
     </div>
 </div>
 
