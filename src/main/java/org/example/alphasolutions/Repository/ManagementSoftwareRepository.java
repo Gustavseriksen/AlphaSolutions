@@ -56,6 +56,20 @@ public class ManagementSoftwareRepository {
             return null;
         }
     }
+    public void deleteProjectManager(int projectManagerId) {
+        String sql = "DELETE FROM ProjectManagers WHERE manager_id = ?";
+
+        jdbcTemplate.update(sql, projectManagerId);
+    }
+
+    public List<ProjectManager> getAllProjectManager() {
+        String sql = "SELECT * FROM ProjectManagers";
+
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new ProjectManager(
+                rs.getInt("manager_id"),
+                rs.getString("username"),
+                rs.getString("password")));
+    }
 
     //Employee:
 

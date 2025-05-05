@@ -4,6 +4,8 @@ import org.example.alphasolutions.Repository.ManagementSoftwareRepository;
 import org.example.alphasolutions.Model.*;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ManagementSoftwareService {
     private final ManagementSoftwareRepository managementSoftwareRepository;
@@ -18,6 +20,10 @@ public class ManagementSoftwareService {
         return managementSoftwareRepository.checkAdminCredentials(username, password);
     }
 
+    public void deleteProjectManager(int projectManagerId) {
+        managementSoftwareRepository.deleteProjectManager(projectManagerId);
+    }
+
     // Employee
 
     public Employee checkEmployeeCredentials(String username, String password) {
@@ -30,6 +36,12 @@ public class ManagementSoftwareService {
 
     public void addEmployee(Employee employee) {
         managementSoftwareRepository.addEmployee(employee);
+    }
+
+    //Project Manager
+
+    public List<ProjectManager> getAllProjectManagers() {
+        return managementSoftwareRepository.getAllProjectManager();
     }
 
     // Project
