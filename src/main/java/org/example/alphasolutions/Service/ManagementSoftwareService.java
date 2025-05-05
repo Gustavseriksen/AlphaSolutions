@@ -15,10 +15,15 @@ public class ManagementSoftwareService {
     // Admin
 
     public Admin checkAdminCredentials(String username, String password) {
-        return managementSoftwareRepository.checkCredentials(username, password);
+        return managementSoftwareRepository.checkAdminCredentials(username, password);
     }
 
-    // Worker
+    // Employee
+
+    public Employee checkEmployeeCredentials(String username, String password) {
+        return managementSoftwareRepository.checkEmployeeCredentials(username, password);
+    }
+
     public void addProjectManager(ProjectManager projectManager) {
         managementSoftwareRepository.addProjectManager(projectManager);
     }
@@ -38,6 +43,10 @@ public class ManagementSoftwareService {
 
     public void editProject() {
         managementSoftwareRepository.editProject();
+    }
+
+    public ProjectManager checkProjectManagerCredentials(String username, String password) {
+        return managementSoftwareRepository.checkProjectManagerCredentials(username, password);
     }
 
     // Subproject

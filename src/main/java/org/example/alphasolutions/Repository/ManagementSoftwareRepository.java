@@ -27,12 +27,44 @@ public class ManagementSoftwareRepository {
         jdbcTemplate.update(sql, employee.getName(), employee.getPassword());
     }
 
-    public Admin checkCredentials(String username, String password) {
+    public Admin checkAdminCredentials(String username, String password) {
         String sql = "SELECT * FROM Admins WHERE username = ? AND password = ?";
 
         try {
             return jdbcTemplate.queryForObject(sql, new Object[]{username, password}, (rs, rowNum) -> new Admin(
                     rs.getInt("admin_id"),
+                    rs.getString("username"),
+                    rs.getString("password")));
+
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    //ProjectManager:
+
+    public ProjectManager checkProjectManagerCredentials(String username, String password) {
+        String sql = "SELECT * FROM ProjectManagers WHERE username = ? AND password = ?";
+
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{username, password}, (rs, rowNum) -> new ProjectManager(
+                    rs.getInt("manager_id"),
+                    rs.getString("username"),
+                    rs.getString("password")));
+
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    //Employee:
+
+    public Employee checkEmployeeCredentials(String username, String password) {
+        String sql = "SELECT * FROM Employees WHERE username = ? AND password = ?";
+
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{username, password}, (rs, rowNum) -> new Employee(
+                    rs.getInt("employee_id"),
                     rs.getString("username"),
                     rs.getString("password")));
 
@@ -60,6 +92,8 @@ public class ManagementSoftwareRepository {
         //er i tvivl om hvordan jeg skal lave den her nu
     }
 
+
+    // SubProject:
 
     public void addSubproject(Subproject subproject) {
 
