@@ -1,6 +1,6 @@
-package Repository;
+package org.example.alphasolutions.Repository;
 
-import Model.*;
+import org.example.alphasolutions.Model.*;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

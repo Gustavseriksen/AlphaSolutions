@@ -1,4 +1,4 @@
-package Model;
+package org.example.alphasolutions.Model;
 
 import java.util.Date;
 
