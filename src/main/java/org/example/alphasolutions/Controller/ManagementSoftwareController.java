@@ -22,6 +22,12 @@ public class ManagementSoftwareController {
         return "index";
     }
 
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate(); // sletter hele sessionen
+        return "redirect:/alphaSolutions"; // tilbage til login eller forside
+    }
+
     // Admin -----------------------------------------------------------------------------
 
     @PostMapping("/checkCredentials")
@@ -29,26 +35,68 @@ public class ManagementSoftwareController {
                                    @RequestParam String password,
                                    HttpSession session) {
 
-        Admin admin = managementSoftwareService.checkAdminCredentials(username, password);
+        if (username.startsWith("ADM")) {
+            Admin admin = managementSoftwareService.checkAdminCredentials(username, password);
+            if (admin != null) {
+                session.setAttribute("ID", admin.getAdmin_id());
+                return "redirect:/alphaSolutions/admin-frontpage";
+            } else {
+                return "redirect:/alphaSolutions"; // eller /index hvis det er din login-side
+            }
 
-        // 🔍 Udskriv til konsollen for at se, hvad du får tilbage
-        System.out.println("Admin login: " + username + " / " + password);
-        System.out.println("Resultat: " + admin);
+        } else if (username.startsWith("PM")) {
+            ProjectManager projectManager = managementSoftwareService.checkProjectManagerCredentials(username, password);
+            if (projectManager != null) {
+                session.setAttribute("ID", projectManager.getProjectManagerId());
+                return "redirect:/alphaSolutions/admin-frontpage";
+            } else {
+                return "redirect:/alphaSolutions"; // eller /index hvis det er din login-side
+            }
 
-        if (admin != null) {
-            session.setAttribute("ID", admin.getAdmin_id());
-            return "redirect:/alphaSolutions/admin-frontpage";
+        } else if (username.startsWith("EMP")) {
+            Employee employee = managementSoftwareService.checkEmployeeCredentials(username, password);
+            if (employee != null) {
+                session.setAttribute("ID", employee.getEmployee_id());
+                return "redirect:/alphaSolutions/admin-frontpage";
+            } else {
+                return "redirect:/alphaSolutions"; // eller /index hvis det er din login-side
+            }
         } else {
-            return "redirect:/alphaSolutions"; // eller /index hvis det er din login-side
+            return "redirect:/alphaSolutions";
         }
+
     }
 
-
     @GetMapping("/admin-frontpage")
-    public String viewAdminFrontPage() {
+    public String viewAdminFrontPage(HttpSession session) {
+        Integer ID = (Integer) session.getAttribute("ID");
+
+        if (ID == null) {
+            return "redirect:/alphaSolutions";
+        }
         return "admin-frontpage";
     }
 
+    @GetMapping("/admin-projectmanagers-page")
+    public String viewAdminProjectManagersPage(HttpSession session) {
+        Integer ID = (Integer) session.getAttribute("ID");
+
+        if (ID == null) {
+            return "redirect:/alphaSolutions";
+        }
+        return "admin-projectmanagers-page";
+    }
+
+    @GetMapping("/admin-employees-page")
+    public String viewAdminEmployeesPage(HttpSession session) {
+        Integer ID = (Integer) session.getAttribute("ID");
+
+        if (ID == null) {
+            return "redirect:/alphaSolutions";
+        }
+
+        return "admin-employees-page";
+    }
 
 
     // Adding a pm & emp ---------------------------------------------------------------------
@@ -63,6 +111,8 @@ public class ManagementSoftwareController {
         managementSoftwareService.addEmployee(employee);
         return "redirect:/";
     }
+
+    // Admin End -----------------------------------------------------------------------------
 
 
     // Project -----------------------------------------------------------------------------
