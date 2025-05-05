@@ -1,30 +1,31 @@
-package Model;
+package org.example.alphasolutions.Model;
 
-public class Admin {
+public class Employee {
 
-    private int admin_id;
+    private int employee_id;
     private String name;
     private String password;
 
-    public Admin(int admin_id, String name, String password) {
-        this.admin_id = admin_id;
+    public Employee(int employee_id, String name, String password) {
+        this.employee_id = employee_id;
         this.name = name;
         this.password = password;
     }
 
-
-    // Getter & setter for Admin_id:
-    public int getAdmin_id() {
-        return admin_id;
+    // Getter & setter for employee_id:
+    public int getEmployee_id() {
+        return employee_id;
     }
-    public void setAdmin_id(int admin_id) {
-        this.admin_id = admin_id;
+
+    public void setEmployee_id(int employee_id) {
+        this.employee_id = employee_id;
     }
 
     // Getter & setter for Name:
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }

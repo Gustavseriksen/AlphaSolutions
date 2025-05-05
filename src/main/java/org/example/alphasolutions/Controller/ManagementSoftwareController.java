@@ -1,10 +1,9 @@
-package Controller;
+package org.example.alphasolutions.Controller;
 
-import Model.*;
-import Service.ManagementSoftwareService;
+import org.example.alphasolutions.Service.ManagementSoftwareService;
 import jakarta.servlet.http.HttpSession;
+import org.example.alphasolutions.Model.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -25,18 +24,25 @@ public class ManagementSoftwareController {
 
     // Admin -----------------------------------------------------------------------------
 
-    @PostMapping("/checkcredentials")
-    public String checkCredentials(@RequestParam String username, @RequestParam String password, HttpSession session) {
+    @PostMapping("/checkCredentials")
+    public String checkCredentials(@RequestParam String username,
+                                   @RequestParam String password,
+                                   HttpSession session) {
 
         Admin admin = managementSoftwareService.checkAdminCredentials(username, password);
 
+        // 🔍 Udskriv til konsollen for at se, hvad du får tilbage
+        System.out.println("Admin login: " + username + " / " + password);
+        System.out.println("Resultat: " + admin);
+
         if (admin != null) {
             session.setAttribute("ID", admin.getAdmin_id());
-            return "redirect:/admin-frontpage";
+            return "redirect:/alphaSolutions/admin-frontpage";
         } else {
-            return "redirect:/index"; // Reload login page with an error message
+            return "redirect:/alphaSolutions"; // eller /index hvis det er din login-side
         }
     }
+
 
     @GetMapping("/admin-frontpage")
     public String viewAdminFrontPage() {

@@ -1,4 +1,4 @@
-package Model;
+package org.example.alphasolutions.Model;
 
 public class ProjectManager {
 
