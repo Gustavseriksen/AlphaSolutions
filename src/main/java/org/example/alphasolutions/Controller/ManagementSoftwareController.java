@@ -113,28 +113,39 @@ public class ManagementSoftwareController {
         return "admin-employees-page";
     }
 
-    //TODO MÅSKE FUCKER "VOID"
+
     @PostMapping("/deleteProjectManager/{projectManagerId}")
-    public void deleteProjectManager(@PathVariable int projectManagerId) {
+    public String deleteProjectManager(@PathVariable int projectManagerId) {
         managementSoftwareService.deleteProjectManager(projectManagerId);
+        return "redirect:/alphaSolutions/admin-projectmanagers-page";
     }
 
     // Adding a pm & emp ---------------------------------------------------------------------
     @GetMapping("/admin-add-projectmanager")
-    public String viewAddProjectManager(HttpSession session) {
+    public String viewAddProjectManager(HttpSession session, Model model) {
         Integer ID = (Integer) session.getAttribute("ID");
 
         if (ID == null) {
             return "redirect:/alphaSolutions";
         }
 
+        model.addAttribute("projectmanager", new ProjectManager());
+
         return "admin-add-projectmanager";
     }
-    @PostMapping("/add-project-manager")
-    public String addProjectManager(@ModelAttribute ProjectManager projectManager) {
+    @PostMapping("/add-projectmanager")
+    public String addProjectManager(@ModelAttribute ProjectManager projectManager, HttpSession session) {
+        Integer ID = (Integer) session.getAttribute("ID");
+
+        if (ID == null) {
+            return "redirect:/alphaSolutions";
+        }
+
         managementSoftwareService.addProjectManager(projectManager);
-        return "redirect:/alphaSolutions/admin-add-projectmanager"; // redirect to frontpage for now
+        return "redirect:/alphaSolutions/admin-projectmanagers-page"; // redirect to frontpage for now
     }
+
+
 
     @PostMapping("/add-employee")
     public String addEmployee(@ModelAttribute Employee employee) {

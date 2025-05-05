@@ -46,33 +46,6 @@
         <a class="col themed-grid-col" th:href="@{/alphaSolutions/admin-edit-projectmanager}">Edit</a>
         <form th:action="@{/alphaSolutions/deleteProjectManager/{projectManagerId}(projectManagerId=${projectManager.getProjectManagerId()})}" method="post">
             <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button></form>
-
-
-        <div class="col" th:each="wish : ${wishes}">
-            <div class="card shadow-sm">
-                <img src="/wish.png" class="card-img-top" alt="Wishlist image"
-                     style="height: 225px; object-fit: contain; width: 100%; max-width: 100%;">
-                <div class="card-body">
-                    <!-- Display wish details -->
-                    <p class="card-text" th:text="${wish.name}"></p>
-                    <p class="card-text" th:text="|Description: ${wish.description}|"></p>
-                    <p class="card-text">Link: <a th:href="${wish.link}" th:text="${wish.link}" target="_blank"></a></p>
-                    <p class="card-text" th:text="|Price: ${wish.price}|"></p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <!-- Form to delete a wish -->
-                            <form th:action="@{/wishlist/deleteWish/{wishID}(wishID=${wish.wishID})}"
-                                  method="post">
-                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-                            </form>
-                            <!-- Button to edit a wish -->
-                            <a type="button" class="btn btn-sm btn-outline-secondary"
-                               th:href="@{/wishlist/editwish(id=${wish.getWishID()})}">Edit</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
