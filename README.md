@@ -9,23 +9,31 @@ Our code can help both small companies as well as bigger coorparations manage th
 
 
 
-### How the program works.
-We have decided to split up between 3 roles: 
+## How the program works.
+We have 3 different roles: 
 - Admin, Project manager, Employee.
 Those 3 roles have different acceses:
 
 ### The admin role is used to:
 - Add new project managers
 - Add new employees
-Within tthe company, so they have the access to the different projects.
+- Remove employees or project managers in case they are let go or no longer relevant.
+Within the company, so they have the access to the different projects.
 
 ### The project manager role is used to:
 - Create new projects
   - Sub-projects
   - tasks
-- All the necessities for the projects, sub-projects and tasks. (Time-estimate, end-date, etc.)
+- All the necessities for the projects, sub-projects and tasks. (Time-estimate, end-date, employees)
 - Add employees to projects, sub-projects or tasks
 
 ### The employee role is used to: 
 - Mark tasks as done
 
+
+## Made by / credits:
+
+Johan Ingemann Andersen // https://github.com/johan-Andersen
+Gustav Søstrøm Eriksen // https://github.com/Gustavseriksen
+Bertram Kongstad Hansen // https://github.com/BertramHansen
+Gustav Hansen Reumert // https://github.com/gustav-hr
