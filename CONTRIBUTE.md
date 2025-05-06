@@ -17,6 +17,8 @@ Follow these steps to make your contribution:
    - Click the "Fork" button in the top-right corner.
 
 2. **Clone your fork**
+
+Git clone Alpha Solutions:
    ```bash
-   git clone [https://github.com/your-username/project-name.git](https://github.com/Gustavseriksen/AlphaSolutions)
-   Alpha Solutions
+   [[https://github.com/your-username/project-name.git]
+
