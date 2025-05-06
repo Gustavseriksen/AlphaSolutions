@@ -33,7 +33,7 @@ Within the company, so they have the access to the different projects.
 
 ## Made by / credits:
 
-Johan Ingemann Andersen // https://github.com/johan-Andersen
-Gustav Søstrøm Eriksen // https://github.com/Gustavseriksen
-Bertram Kongstad Hansen // https://github.com/BertramHansen
-Gustav Hansen Reumert // https://github.com/gustav-hr
+- Johan Ingemann Andersen // https://github.com/johan-Andersen
+- Gustav Søstrøm Eriksen // https://github.com/Gustavseriksen
+- Bertram Kongstad Hansen // https://github.com/BertramHansen
+- Gustav Hansen Reumert // https://github.com/gustav-hr
