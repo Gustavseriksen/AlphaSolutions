@@ -20,5 +20,5 @@ Follow these steps to make your contribution:
 
 Git clone Alpha Solutions:
    ```bash
-   [[https://github.com/your-username/project-name.git]
+   [https://github.com/Gustavseriksen/AlphaSolutions]
 
