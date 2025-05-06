@@ -28,7 +28,19 @@ Within the company, so they have the access to the different projects.
 - Add employees to projects, sub-projects or tasks
 
 ### The employee role is used to: 
-- Mark tasks as done
+- Submit a task as done (request review when a trask is done)
+- Mark how long it has taken to complete a task compared to the time-estinate set by the project manager
+
+
+## Technologies used
+- Java
+- Spring Boot
+- Spring Web
+- MySQL
+- HTML
+- CSS
+- Bootstrap
+- Thymeleaf
 
 
 ## Made by / credits:
