@@ -16,15 +16,12 @@ public class ManagementSoftwareRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    //Admin
+    //ADMIN -------------------------------------------------------------------------------------
+
+    // ADMIN PROJECT MANAGER -------------------------------------------------------------------------------------
     public void addProjectManager(ProjectManager projectManager) {
         String sql = "INSERT INTO projectmanagers (username, password) VALUES (?,?)";
         jdbcTemplate.update(sql, projectManager.getUsername(), projectManager.getPassword());
-    }
-
-    public void addEmployee(Employee employee) {
-        String sql = "INSERT INTO employees (name, password) VALUES (?,?)";
-        jdbcTemplate.update(sql, employee.getName(), employee.getPassword());
     }
 
     public Admin checkAdminCredentials(String username, String password) {
@@ -40,8 +37,6 @@ public class ManagementSoftwareRepository {
             return null;
         }
     }
-
-    //ProjectManager:
 
     public ProjectManager checkProjectManagerCredentials(String username, String password) {
         String sql = "SELECT * FROM ProjectManagers WHERE username = ? AND password = ?";
@@ -85,8 +80,12 @@ public class ManagementSoftwareRepository {
         jdbcTemplate.update(sql, projectManager.getUsername(), projectManager.getPassword(), projectManagerId);
     }
 
+    // ADMIN EMPLOYEE -------------------------------------------------------------------------------------
 
-    //Employee:
+    public void addEmployee(Employee employee) {
+        String sql = "INSERT INTO Employees (username, password) VALUES (?,?)";
+        jdbcTemplate.update(sql, employee.getUsername(), employee.getPassword());
+    }
 
     public Employee checkEmployeeCredentials(String username, String password) {
         String sql = "SELECT * FROM Employees WHERE username = ? AND password = ?";
@@ -101,6 +100,38 @@ public class ManagementSoftwareRepository {
             return null;
         }
     }
+
+    public List<Employee> getAllEmployees() {
+        String sql = "SELECT * FROM Employees";
+
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new Employee(
+                rs.getInt("employee_id"),
+                rs.getString("username"),
+                rs.getString("password")));
+    }
+
+    public Employee getEmployeeById(int employeeId) {
+        String sql = "SELECT * FROM Employees WHERE employee_id = ?";
+
+        return jdbcTemplate.queryForObject(sql, new Object[]{employeeId}, (rs, rowNum) -> new Employee(
+                rs.getInt("employee_id"),
+                rs.getString("username"),
+                rs.getString("password")));
+    }
+
+    public void editEmployeeById(int employeeId, Employee employee) {
+        String sql = "UPDATE Employees SET  " +
+                "username = ?, password = ? WHERE employee_id = ?";
+        jdbcTemplate.update(sql, employee.getUsername(), employee.getPassword(), employeeId);
+    }
+
+    public void deleteEmployee(int employeeId) {
+        String sql = "DELETE FROM Employees WHERE employee_id = ?";
+
+        jdbcTemplate.update(sql, employeeId);
+    }
+
+    // ADMIN END -------------------------------------------------------------------------------------
 
     //Project:
 

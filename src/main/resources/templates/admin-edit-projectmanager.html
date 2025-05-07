@@ -15,7 +15,9 @@
     <a th:href="@{/alphaSolutions/admin-frontpage}" class="logo-link ms-2">
         <img src="/logo.png" alt="Logo" width="246" height="45">
     </a>
-    <button class="signout-button">Sign out</button>
+    <form th:action="@{/alphaSolutions/logout}" method="post">
+        <button type="submit" class="signout-button">Sign out</button>
+    </form>
 </nav>
 <!-- Top NAVBAR (END) -->
 
@@ -30,16 +32,12 @@
 </div>
 <!-- Headline and image (END) -->
 
-
-<!-- Form to edit an existing project manager -->
-<!-- Form to edit an existing project manager -->
-
-
-
 <!-- Edit project manager -->
 <main class="d-flex flex-grow-2 justify-content-center align-items-center">
-    <form role="form" th:action="@{/alphaSolutions/admin-update-projectmanager/{projectManagerId}(projectManagerId=${projectManagerId})}" method="post" th:object="${projectManager}">
-    <div class="form-floating mb-3">
+    <form role="form"
+          th:action="@{/alphaSolutions/admin-update-projectmanager/{projectManagerId}(projectManagerId=${projectManagerId})}"
+          method="post" th:object="${projectManager}">
+        <div class="form-floating mb-3">
             <input type="text" class="form-control w-100" id="username" th:field="*{username}">
             <label for="username">Username</label>
         </div>
