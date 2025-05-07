@@ -52,6 +52,7 @@ public class ManagementSoftwareController {
             Admin admin = managementSoftwareService.checkAdminCredentials(username, password);
             if (admin != null) {
                 session.setAttribute("ID", admin.getAdmin_id());
+                session.setAttribute("username", admin.getName());
                 return "redirect:/alphaSolutions/admin-frontpage";
             } else {
                 return "redirect:/alphaSolutions"; // eller /index hvis det er din login-side
@@ -61,7 +62,8 @@ public class ManagementSoftwareController {
             ProjectManager projectManager = managementSoftwareService.checkProjectManagerCredentials(username, password);
             if (projectManager != null) {
                 session.setAttribute("ID", projectManager.getProjectManagerId());
-                return "redirect:/alphaSolutions/admin-frontpage";
+                session.setAttribute("username", projectManager.getUsername());
+                return "redirect:/alphaSolutions/projectmanager-frontpage";
             } else {
                 return "redirect:/alphaSolutions"; // eller /index hvis det er din login-side
             }
@@ -70,6 +72,7 @@ public class ManagementSoftwareController {
             Employee employee = managementSoftwareService.checkEmployeeCredentials(username, password);
             if (employee != null) {
                 session.setAttribute("ID", employee.getEmployee_id());
+                session.setAttribute("username", employee.getUsername());
                 return "redirect:/alphaSolutions/admin-frontpage";
             } else {
                 return "redirect:/alphaSolutions"; // eller /index hvis det er din login-side
@@ -83,12 +86,15 @@ public class ManagementSoftwareController {
     // ADMIN FRONTPAGE -----------------------------------------------------------------------------
 
     @GetMapping("/admin-frontpage")
-    public String viewAdminFrontPage(HttpSession session) {
+    public String viewAdminFrontPage(HttpSession session, Model model) {
         Integer ID = (Integer) session.getAttribute("ID");
 
         if (ID == null) {
             return "redirect:/alphaSolutions";
         }
+        String username = (String) session.getAttribute("username");
+
+        model.addAttribute("username", username);
         return "admin-frontpage";
     }
 
@@ -252,6 +258,45 @@ public class ManagementSoftwareController {
 
 
     // ADMIN END -----------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+    //PROJECT MANAGER ------------------------------------------------------------------------
+
+    @GetMapping("/projectmanager-frontpage")
+    public String viewProjectManagerFrontpage(HttpSession session, Model model){
+        Integer ID = (Integer) session.getAttribute("ID");
+
+        if (ID == null){
+            return "redirect:/alphaSolutions";
+        }
+
+        String username = (String) session.getAttribute("username");
+
+        model.addAttribute("username", username);
+
+        model.addAttribute("projects", managementSoftwareService.getAllProjects());
+
+        return "projectmanager-frontpage";
+    }
+
+    @GetMapping("/projectmanager-add-project")
+    public String viewAddProject(HttpSession session){
+        Integer ID = (Integer) session.getAttribute("ID");
+
+        if (ID == null){
+            return "redirect:/alphaSolutions";
+        }
+        return "projectmanager-add-project";
+
+    }
 
 /*
     // Project -----------------------------------------------------------------------------

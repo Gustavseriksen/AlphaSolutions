@@ -59,6 +59,9 @@ public class ManagementSoftwareService {
     public void addProjectManager(ProjectManager projectManager) {
         managementSoftwareRepository.addProjectManager(projectManager);
     }
+    public List<Project> getAllProjects(){
+        return managementSoftwareRepository.getAllProjects();
+    }
 
     // ADMIN END -------------------------------------------------------------------------------------------------------------
 

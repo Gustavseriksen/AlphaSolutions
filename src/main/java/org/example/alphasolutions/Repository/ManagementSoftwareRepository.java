@@ -153,6 +153,20 @@ public class ManagementSoftwareRepository {
         //er i tvivl om hvordan jeg skal lave den her nu
     }
 
+    public List<Project> getAllProjects() {
+        String sql = "SELECT * FROM Projects";
+
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new Project(
+                rs.getInt("project_id"),
+                rs.getString("project_name"),
+                rs.getString("project_description"),
+                rs.getDate("start_date"),
+                rs.getDate("end_date"),
+                rs.getInt("estimated_hours"),
+                rs.getInt("actual_hours_used"),
+                Status.valueOf(rs.getString("project_status")
+                )));
+    }
 
     // SubProject:
 
