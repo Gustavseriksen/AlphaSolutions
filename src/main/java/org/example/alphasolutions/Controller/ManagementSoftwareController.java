@@ -3,7 +3,6 @@ package org.example.alphasolutions.Controller;
 import org.example.alphasolutions.Service.ManagementSoftwareService;
 import jakarta.servlet.http.HttpSession;
 import org.example.alphasolutions.Model.*;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +27,11 @@ public class ManagementSoftwareController {
     public String logout(HttpSession session) {
         session.invalidate(); // sletter hele sessionen
         return "redirect:/alphaSolutions"; // tilbage til login eller forside
+    }
+
+    @GetMapping("/error-duplicate-username")
+    public String getAdminProjectManagersPage() {
+        return "error-duplicate-username";
     }
 
     // Admin -----------------------------------------------------------------------------
@@ -119,18 +123,6 @@ public class ManagementSoftwareController {
         return "redirect:/alphaSolutions/admin-projectmanagers-page";
     }
 
-    @GetMapping("/admin-employees-page")
-    public String viewAdminEmployeesPage(HttpSession session) {
-        Integer ID = (Integer) session.getAttribute("ID");
-
-        if (ID == null) {
-            return "redirect:/alphaSolutions";
-        }
-
-        return "admin-employees-page";
-    }
-
-
     @PostMapping("/deleteProjectManager/{projectManagerId}")
     public String deleteProjectManager(@PathVariable int projectManagerId) {
         managementSoftwareService.deleteProjectManager(projectManagerId);
@@ -177,24 +169,91 @@ public class ManagementSoftwareController {
 
     // ADMIN EMPLOYEE ENDPOINTS ---------------------------------------------------------------------
 
-    @GetMapping("/error-duplicate-username")
-    public String getAdminProjectManagersPage() {
-        return "error-duplicate-username";
+    @GetMapping("/admin-edit-employee/{employeeId}")
+    public String adminEditEmployee(@PathVariable int employeeId, HttpSession session, Model model) {
+        Integer ID = (Integer) session.getAttribute("ID");
+
+        if (ID == null) {
+            return "redirect:/alphaSolutions";
+        }
+
+        model.addAttribute("employee", managementSoftwareService.getEmployeeById(employeeId));
+        model.addAttribute("employeeId", employeeId);
+
+        return "admin-edit-employee";
+    }
+
+    @PostMapping("/admin-update-employee/{employeeId}")
+    public String adminUpdateEmployee(@PathVariable int employeeId, @ModelAttribute Employee employee) {
+        managementSoftwareService.editEmployeeById(employeeId, employee);
+
+        return "redirect:/alphaSolutions/admin-employees-page";
+    }
+
+    @GetMapping("/admin-employees-page")
+    public String viewAdminEmployeesPage(HttpSession session, Model model) {
+        Integer ID = (Integer) session.getAttribute("ID");
+
+        if (ID == null) {
+            return "redirect:/alphaSolutions";
+        }
+
+        model.addAttribute("employees", managementSoftwareService.getAllEmployees());
+
+        return "admin-employees-page";
+    }
+
+    @PostMapping("/deleteEmployee/{employeeId}")
+    public String deleteEmployee(@PathVariable int employeeId) {
+        managementSoftwareService.deleteEmployee(employeeId);
+        return "redirect:/alphaSolutions/admin-employees-page";
+    }
+
+
+    @GetMapping("/admin-add-employee")
+    public String viewAddEmployee(HttpSession session, Model model) {
+        Integer ID = (Integer) session.getAttribute("ID");
+        if (ID == null) {
+            return "redirect:/alphaSolutions";
+        }
+
+        model.addAttribute("employee", new Employee());
+        return "admin-add-employee";
     }
 
     @PostMapping("/add-employee")
-    public String addEmployee(@ModelAttribute Employee employee) {
-        managementSoftwareService.addEmployee(employee);
-        return "redirect:/";
+    public String addEmployee(@ModelAttribute Employee employee, HttpSession session) {
+        Integer ID = (Integer) session.getAttribute("ID");
+        if (ID == null) {
+            return "redirect:/alphaSolutions";
+        }
+
+        try {
+
+            String originalUsername = employee.getUsername();
+
+            if (!originalUsername.startsWith("EMP_")) {
+
+                employee.setUsername("EMP_" + originalUsername);
+
+            }
+            managementSoftwareService.addEmployee(employee);
+        } catch (Exception e) {
+            return "redirect:/alphaSolutions/error-duplicate-username";
+        }
+
+        return "redirect:/alphaSolutions/admin-employees-page"; // redirect to frontpage for now
     }
 
-    // Admin End -----------------------------------------------------------------------------
 
+    // ADMIN END -----------------------------------------------------------------------------
+
+/*
     // Project -----------------------------------------------------------------------------
     @PostMapping("/add-project")
     public String addProject(@ModelAttribute Project project) {
         managementSoftwareService.addProject(project);
-        return "redirect:/";
+        return "redirect:/alphaSolutions";
     }
 
     @PostMapping("/delete-project/{projectId}")

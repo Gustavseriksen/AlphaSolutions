@@ -3,14 +3,15 @@ package org.example.alphasolutions.Model;
 public class Employee {
 
     private int employee_id;
-    private String name;
+    private String username;
     private String password;
 
-    public Employee(int employee_id, String name, String password) {
+    public Employee(int employee_id, String username, String password) {
         this.employee_id = employee_id;
-        this.name = name;
+        this.username = username;
         this.password = password;
     }
+    public Employee() {}
 
     // Getter & setter for employee_id:
     public int getEmployee_id() {
@@ -22,12 +23,12 @@ public class Employee {
     }
 
     // Getter & setter for Name:
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     // Getter & setter for Password:

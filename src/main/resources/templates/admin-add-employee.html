@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:https="">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Admin add employee</title>
@@ -33,25 +33,26 @@
 
 <!-- Create new user -->
 <main class="d-flex flex-grow-2 justify-content-center align-items-center">
-    <form>
+    <form th:action="@{/alphaSolutions/add-employee}" th:object="${employee}" method="post">
+
         <div class="form-floating mb-3">
-            <input type="text" class="form-control w-100" id="username" placeholder="Username">
+            <input type="text" class="form-control w-100" id="username" name="username" placeholder="Username">
             <label for="username">Username</label>
         </div>
 
         <div class="form-floating mb-3">
-            <input type="password" class="form-control w-100" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Password</label>
+            <input type="password" class="form-control w-100" id="Password" name="password" placeholder="Password">
+            <label for="Password">Password</label>
         </div>
 
         <div class="d-flex justify-content-between gap-2">
-            <button type="button" class="btn btn-secondary w-50">Cancel</button>
+            <a th:href="@{admin-employees-page}" class="btn btn-secondary w-50" role="button">Cancel</a>
+
             <button type="submit" class="btn btn-primary w-50">Create</button>
         </div>
     </form>
 </main>
 <!-- Create new user (END) -->
-
 
 <!-- FOOTER -->
 <div class="container">
@@ -61,7 +62,6 @@
     </footer>
 </div>
 <!-- FOOTER (END) -->
-
 
 </body>
 </html>
