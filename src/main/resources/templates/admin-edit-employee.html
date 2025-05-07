@@ -12,10 +12,12 @@
 
 <!-- Top NAVBAR -->
 <nav class="navbar">
-    <a href="https://www.example.com/" class="logo-link ms-2">
-        <img src="/static/logo.png" alt="Logo" width="246" height="45">
+    <a th:href="@{/alphaSolutions/admin-frontpage}" class="logo-link ms-2">
+        <img src="/logo.png" alt="Logo" width="246" height="45">
     </a>
-    <button class="signout-button">Sign out</button>
+    <form th:action="@{/alphaSolutions/logout}" method="post">
+        <button type="submit" class="signout-button">Sign out</button>
+    </form>
 </nav>
 <!-- Top NAVBAR (END) -->
 
@@ -30,25 +32,29 @@
 </div>
 <!-- Headline and image (END) -->
 
-
-<!-- Create new user -->
+<!-- Edit employee -->
 <main class="d-flex flex-grow-2 justify-content-center align-items-center">
-    <form>
+
+    <form role="form"
+          th:action="@{/alphaSolutions/admin-update-employee/{employeeId}(employeeId=${employeeId})}"
+          method="post" th:object="${employee}">
         <div class="form-floating mb-3">
-            <input type="text" class="form-control w-100" id="username" placeholder="Username">
+            <input type="text" class="form-control w-100" id="username" th:field="*{username}">
             <label for="username">Username</label>
         </div>
 
         <div class="form-floating mb-3">
-            <input type="password" class="form-control w-100" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Password</label>
+            <input type="text" class="form-control w-100" id="Password" th:field="*{password}">
+            <label for="Password">Password</label>
         </div>
 
         <div class="d-flex justify-content-between gap-2">
-            <button type="button" class="btn btn-secondary w-50">Cancel</button>
+            <a th:href="@{/alphaSolutions/admin-employees-page}" class="btn btn-secondary w-50" role="button">Cancel</a>
+
             <button type="submit" class="btn btn-primary w-50">Save</button>
         </div>
     </form>
+
 </main>
 <!-- Create new user (END) -->
 

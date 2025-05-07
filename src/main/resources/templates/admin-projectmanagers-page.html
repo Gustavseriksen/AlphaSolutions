@@ -12,13 +12,15 @@
 
 <!-- Top NAVBAR -->
 <nav class="navbar">
-    <a href="https://www.example.com/" class="logo-link ms-2">
+    <a th:href="@{/alphaSolutions/admin-frontpage}" class="logo-link ms-2">
         <img src="/logo.png" alt="Logo" width="246" height="45">
     </a>
-    <button class="signout-button">Sign out</button>
+    <form th:action="@{/alphaSolutions/logout}" method="post">
+        <button type="submit" class="signout-button">Sign out</button>
+    </form>
+
 </nav>
 <!-- Top NAVBAR (END) -->
-
 
 <!-- Project Managers headline -->
 <div class="px-4 py-5 my-5 text-center">
@@ -32,8 +34,8 @@
 
 <div class="container">
     <div class="text-end mb-2">
-        <a th:href="@{/alphaSolutions/admin-add-projectmanager}" alt="Button" target="_blank">
-            <img src="/person-plus-fill.svg"  width="50" height="50">
+        <a th:href="@{/alphaSolutions/admin-add-projectmanager}" alt="Button">
+            <img src="/person-plus-fill.svg" width="50" height="50">
         </a>
     </div>
 
@@ -41,10 +43,12 @@
 
     <div class="row row-cols-1 row-cols-md-4 g-3 text-center" th:each="projectManager : ${projectManagers}">
 
-        <div class="col themed-grid-col" th:text="${projectManager.projectManagerId}" ></div>
+        <div class="col themed-grid-col" th:text="${projectManager.projectManagerId}"></div>
         <div class="col themed-grid-col" th:text="${projectManager.username}"></div>
-        <a class="col themed-grid-col" th:href="@{/alphaSolutions/admin-edit-projectmanager/{projectManagerId}(projectManagerId=${projectManager.getProjectManagerId()})}">Edit</a>
-        <form th:action="@{/alphaSolutions/deleteProjectManager/{projectManagerId}(projectManagerId=${projectManager.getProjectManagerId()})}" method="post">
+        <a class="col themed-grid-col"
+           th:href="@{/alphaSolutions/admin-edit-projectmanager/{projectManagerId}(projectManagerId=${projectManager.getProjectManagerId()})}">Edit</a>
+        <form th:action="@{/alphaSolutions/deleteProjectManager/{projectManagerId}(projectManagerId=${projectManager.getProjectManagerId()})}"
+              method="post">
             <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
         </form>
     </div>

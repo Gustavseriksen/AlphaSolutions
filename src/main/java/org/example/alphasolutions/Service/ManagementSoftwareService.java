@@ -14,32 +14,39 @@ public class ManagementSoftwareService {
         this.managementSoftwareRepository = managementSoftwareRepository;
     }
 
-    // Admin
+    // ADMIN -------------------------------------------------------------------------------------------------------------
 
     public Admin checkAdminCredentials(String username, String password) {
         return managementSoftwareRepository.checkAdminCredentials(username, password);
     }
 
-    public void deleteProjectManager(int projectManagerId) {
-        managementSoftwareRepository.deleteProjectManager(projectManagerId);
+    // ADMIN EMPLOYEE -------------------------------------------------------------------------------------------------------------
+
+    public void deleteEmployee(int employeeId) {
+        managementSoftwareRepository.deleteEmployee(employeeId);
     }
-
-    // Employee
-
+    public List<Employee> getAllEmployees() {
+        return managementSoftwareRepository.getAllEmployees();
+    }
+    public Employee getEmployeeById(int employeeId) {
+        return managementSoftwareRepository.getEmployeeById(employeeId);
+    }
     public Employee checkEmployeeCredentials(String username, String password) {
         return managementSoftwareRepository.checkEmployeeCredentials(username, password);
     }
-
-    public void addProjectManager(ProjectManager projectManager) {
-        managementSoftwareRepository.addProjectManager(projectManager);
-    }
-
     public void addEmployee(Employee employee) {
         managementSoftwareRepository.addEmployee(employee);
     }
+    public void editEmployeeById(int employeeId, Employee employee) {
+        managementSoftwareRepository.editEmployeeById(employeeId, employee);
+    }
 
-    //Project Manager
 
+    // ADMIN PROJECT MANAGER -------------------------------------------------------------------------------------------------------------
+
+    public void deleteProjectManager(int projectManagerId) {
+        managementSoftwareRepository.deleteProjectManager(projectManagerId);
+    }
     public List<ProjectManager> getAllProjectManagers() {
         return managementSoftwareRepository.getAllProjectManagers();
     }
@@ -49,6 +56,11 @@ public class ManagementSoftwareService {
     public void editProjectManagerById(int projectManagerId, ProjectManager projectManager) {
         managementSoftwareRepository.editProjectManagerById(projectManagerId, projectManager);
     }
+    public void addProjectManager(ProjectManager projectManager) {
+        managementSoftwareRepository.addProjectManager(projectManager);
+    }
+
+    // ADMIN END -------------------------------------------------------------------------------------------------------------
 
     // Project
     public void addProject(Project project) {
