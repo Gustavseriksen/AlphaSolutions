@@ -3,6 +3,7 @@ package org.example.alphasolutions.Controller;
 import org.example.alphasolutions.Service.ManagementSoftwareService;
 import jakarta.servlet.http.HttpSession;
 import org.example.alphasolutions.Model.*;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -91,15 +92,25 @@ public class ManagementSoftwareController {
         return "admin-projectmanagers-page";
     }
 
-    @GetMapping("/admin-edit-projectmanager")
-    public String adminEditProjectManager(HttpSession session) {
+    @GetMapping("/admin-edit-projectmanager/{projectManagerId}")
+    public String adminEditProjectManager(@PathVariable int projectManagerId, HttpSession session, Model model) {
         Integer ID = (Integer) session.getAttribute("ID");
 
         if (ID == null) {
             return "redirect:/alphaSolutions";
         }
 
+        model.addAttribute("projectManager", managementSoftwareService.getProjectManagerById(projectManagerId));
+        model.addAttribute("projectManagerId", projectManagerId);
+
         return "admin-edit-projectmanager";
+    }
+
+    @PostMapping("/admin-update-projectmanager/{projectManagerId}")
+    public String adminUpdateProjectManager(@PathVariable int projectManagerId, @ModelAttribute ProjectManager projectManager) {
+        managementSoftwareService.editProjectManagerById(projectManagerId, projectManager);
+
+        return "redirect:/alphaSolutions/admin-projectmanagers-page";
     }
 
     @GetMapping("/admin-employees-page")
@@ -133,6 +144,7 @@ public class ManagementSoftwareController {
 
         return "admin-add-projectmanager";
     }
+
     @PostMapping("/add-projectmanager")
     public String addProjectManager(@ModelAttribute ProjectManager projectManager, HttpSession session) {
         Integer ID = (Integer) session.getAttribute("ID");
@@ -141,11 +153,27 @@ public class ManagementSoftwareController {
             return "redirect:/alphaSolutions";
         }
 
-        managementSoftwareService.addProjectManager(projectManager);
+        try {
+
+        String originalUsername = projectManager.getUsername();
+
+        if (!originalUsername.startsWith("PM_")) {
+
+            projectManager.setUsername("PM_" + originalUsername);
+
+        }
+            managementSoftwareService.addProjectManager(projectManager);
+        } catch (Exception e) {
+            return "redirect:/alphaSolutions/error-duplicate-username";
+        }
+
         return "redirect:/alphaSolutions/admin-projectmanagers-page"; // redirect to frontpage for now
     }
 
-
+    @GetMapping("/error-duplicate-username")
+    public String getAdminProjectManagersPage() {
+        return "error-duplicate-username";
+    }
 
     @PostMapping("/add-employee")
     public String addEmployee(@ModelAttribute Employee employee) {

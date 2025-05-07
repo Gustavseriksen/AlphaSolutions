@@ -62,7 +62,7 @@ public class ManagementSoftwareRepository {
         jdbcTemplate.update(sql, projectManagerId);
     }
 
-    public List<ProjectManager> getAllProjectManager() {
+    public List<ProjectManager> getAllProjectManagers() {
         String sql = "SELECT * FROM ProjectManagers";
 
         return jdbcTemplate.query(sql, (rs, rowNum) -> new ProjectManager(
@@ -70,6 +70,21 @@ public class ManagementSoftwareRepository {
                 rs.getString("username"),
                 rs.getString("password")));
     }
+    public ProjectManager getProjectManagerById(int projectManagerId) {
+        String sql = "SELECT * FROM ProjectManagers WHERE manager_id = ?";
+
+        return jdbcTemplate.queryForObject(sql, new Object[]{projectManagerId}, (rs, rowNum) -> new ProjectManager(
+                rs.getInt("manager_id"),
+                rs.getString("username"),
+                rs.getString("password")));
+    }
+
+    public void editProjectManagerById(int projectManagerId, ProjectManager projectManager) {
+        String sql = "UPDATE ProjectManagers SET  " +
+                "username = ?, password = ? WHERE manager_id = ?";
+        jdbcTemplate.update(sql, projectManager.getUsername(), projectManager.getPassword(), projectManagerId);
+    }
+
 
     //Employee:
 
@@ -95,6 +110,7 @@ public class ManagementSoftwareRepository {
                 project.getProjectStartDate(), project.getProjectEndDate());
 
     }
+
 
     public void deleteProject(int projectId) {
         String sql = "DELETE FROM projects WHERE project_id = ?";

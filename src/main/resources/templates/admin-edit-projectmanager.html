@@ -31,17 +31,22 @@
 <!-- Headline and image (END) -->
 
 
-<!-- Create new user -->
+<!-- Form to edit an existing project manager -->
+<!-- Form to edit an existing project manager -->
+
+
+
+<!-- Edit project manager -->
 <main class="d-flex flex-grow-2 justify-content-center align-items-center">
-    <form>
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control w-100" id="username" placeholder="Username">
+    <form role="form" th:action="@{/alphaSolutions/admin-update-projectmanager/{projectManagerId}(projectManagerId=${projectManagerId})}" method="post" th:object="${projectManager}">
+    <div class="form-floating mb-3">
+            <input type="text" class="form-control w-100" id="username" th:field="*{username}">
             <label for="username">Username</label>
         </div>
 
         <div class="form-floating mb-3">
-            <input type="password" class="form-control w-100" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Password</label>
+            <input type="text" class="form-control w-100" id="Password" th:field="*{password}">
+            <label for="Password">Password</label>
         </div>
 
         <div class="d-flex justify-content-between gap-2">
@@ -50,7 +55,7 @@
         </div>
     </form>
 </main>
-<!-- Create new user (END) -->
+<!-- Edit project manager (END) -->
 
 
 <!-- FOOTER -->
@@ -62,6 +67,6 @@
 </div>
 <!-- FOOTER (END) -->
 
-
+</form>
 </body>
 </html>

@@ -41,7 +41,13 @@ public class ManagementSoftwareService {
     //Project Manager
 
     public List<ProjectManager> getAllProjectManagers() {
-        return managementSoftwareRepository.getAllProjectManager();
+        return managementSoftwareRepository.getAllProjectManagers();
+    }
+    public ProjectManager getProjectManagerById(int projectManagerId) {
+        return managementSoftwareRepository.getProjectManagerById(projectManagerId);
+    }
+    public void editProjectManagerById(int projectManagerId, ProjectManager projectManager) {
+        managementSoftwareRepository.editProjectManagerById(projectManagerId, projectManager);
     }
 
     // Project
