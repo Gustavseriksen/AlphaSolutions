@@ -43,9 +43,10 @@
 
         <div class="col themed-grid-col" th:text="${projectManager.projectManagerId}" ></div>
         <div class="col themed-grid-col" th:text="${projectManager.username}"></div>
-        <a class="col themed-grid-col" th:href="@{/alphaSolutions/admin-edit-projectmanager}">Edit</a>
+        <a class="col themed-grid-col" th:href="@{/alphaSolutions/admin-edit-projectmanager/{projectManagerId}(projectManagerId=${projectManager.getProjectManagerId()})}">Edit</a>
         <form th:action="@{/alphaSolutions/deleteProjectManager/{projectManagerId}(projectManagerId=${projectManager.getProjectManagerId()})}" method="post">
-            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button></form>
+            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+        </form>
     </div>
 </div>
 
