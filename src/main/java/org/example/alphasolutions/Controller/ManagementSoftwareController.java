@@ -32,6 +32,8 @@ public class ManagementSoftwareController {
 
     // Admin -----------------------------------------------------------------------------
 
+    // CHECK CREDENTIALS -----------------------------------------------------------------------------
+
     @PostMapping("/checkCredentials")
     public String checkCredentials(@RequestParam String username,
                                    @RequestParam String password,
@@ -69,6 +71,8 @@ public class ManagementSoftwareController {
 
     }
 
+    // ADMIN FRONTPAGE -----------------------------------------------------------------------------
+
     @GetMapping("/admin-frontpage")
     public String viewAdminFrontPage(HttpSession session) {
         Integer ID = (Integer) session.getAttribute("ID");
@@ -78,6 +82,8 @@ public class ManagementSoftwareController {
         }
         return "admin-frontpage";
     }
+
+    // ADMIN PROJECT MANAGERS ENDPOINTS -----------------------------------------------------------------------------
 
     @GetMapping("/admin-projectmanagers-page")
     public String viewAdminProjectManagersPage(HttpSession session, Model model) {
@@ -131,7 +137,6 @@ public class ManagementSoftwareController {
         return "redirect:/alphaSolutions/admin-projectmanagers-page";
     }
 
-    // Adding a pm & emp ---------------------------------------------------------------------
     @GetMapping("/admin-add-projectmanager")
     public String viewAddProjectManager(HttpSession session, Model model) {
         Integer ID = (Integer) session.getAttribute("ID");
@@ -155,13 +160,13 @@ public class ManagementSoftwareController {
 
         try {
 
-        String originalUsername = projectManager.getUsername();
+            String originalUsername = projectManager.getUsername();
 
-        if (!originalUsername.startsWith("PM_")) {
+            if (!originalUsername.startsWith("PM_")) {
 
-            projectManager.setUsername("PM_" + originalUsername);
+                projectManager.setUsername("PM_" + originalUsername);
 
-        }
+            }
             managementSoftwareService.addProjectManager(projectManager);
         } catch (Exception e) {
             return "redirect:/alphaSolutions/error-duplicate-username";
@@ -169,6 +174,8 @@ public class ManagementSoftwareController {
 
         return "redirect:/alphaSolutions/admin-projectmanagers-page"; // redirect to frontpage for now
     }
+
+    // ADMIN EMPLOYEE ENDPOINTS ---------------------------------------------------------------------
 
     @GetMapping("/error-duplicate-username")
     public String getAdminProjectManagersPage() {
@@ -182,7 +189,6 @@ public class ManagementSoftwareController {
     }
 
     // Admin End -----------------------------------------------------------------------------
-
 
     // Project -----------------------------------------------------------------------------
     @PostMapping("/add-project")
