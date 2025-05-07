@@ -25,9 +25,9 @@
 <!-- USERNAME -->
 <div class="px-4 py-5 my-5 text-center">
     <img class="d-block mx-auto mb-1" src="/UserLogo.svg" alt="" width="72" height="57">
-    <h1 class="display-5 fw-bold text-body-emphasis">Username</h1>
+    <h1 class="display-5 fw-bold text-body-emphasis" th:text="${username}">username</h1>
     <div class="col-lg-6 mx-auto">
-        <p class="lead mb-4">Welcome back Username! Choose one of the following options below.</p>
+        <p class="lead mb-4">Welcome back <span th:text="${username}">username</span>! You can manage and view your projects below.</p>
     </div>
 </div>
 <!-- USERNAME (END) -->

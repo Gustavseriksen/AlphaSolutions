@@ -15,16 +15,16 @@ public class Project {
 
     public Project(int projectId, String projectName,
                    String projectDescription, Date projectStartDate,
-                   Date projectEndDate) {
+                   Date projectEndDate, int estimatedHours, int actualHoursUsed, Status status) {
 
         this.projectId = projectId;
         this.projectName = projectName;
         this.projectDescription = projectDescription;
         this.projectStartDate = projectStartDate;
         this.projectEndDate = projectEndDate;
-        this.estimatedHours = 0;
-        this.actualHoursUsed = 0;
-        this.projectStatus = Status.NOT_DONE;
+        this.estimatedHours = estimatedHours;
+        this.actualHoursUsed = actualHoursUsed;
+        this.projectStatus = status;
     }
 
     // Getter & setter for ProjectID:
