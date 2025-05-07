@@ -12,7 +12,7 @@
 
 <!-- Top NAVBAR -->
 <nav class="navbar">
-    <a href="https://www.example.com/" class="logo-link ms-2">
+    <a th:href="@{/alphaSolutions/admin-frontpage}" class="logo-link ms-2">
         <img src="/logo.png" alt="Logo" width="246" height="45">
     </a>
     <button class="signout-button">Sign out</button>
@@ -32,7 +32,7 @@
 
 <div class="container">
     <div class="text-end mb-2">
-        <a th:href="@{/alphaSolutions/admin-add-projectmanager}" alt="Button" target="_blank">
+        <a th:href="@{/alphaSolutions/admin-add-projectmanager}" alt="Button">
             <img src="/person-plus-fill.svg"  width="50" height="50">
         </a>
     </div>
