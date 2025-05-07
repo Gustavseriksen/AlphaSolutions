@@ -29,9 +29,14 @@ public class ManagementSoftwareController {
         return "redirect:/alphaSolutions"; // tilbage til login eller forside
     }
 
-    @GetMapping("/error-duplicate-username")
-    public String getAdminProjectManagersPage() {
-        return "error-duplicate-username";
+    @GetMapping("/error-duplicate-username-employee")
+    public String getErrorDuplicateUsernameEmployee() {
+        return "error-duplicate-username-employee";
+    }
+
+    @GetMapping("/error-duplicate-username-projectmanager")
+    public String getErrorDuplicateUsernameProjectmanager() {
+        return "error-duplicate-username-projectmanager";
     }
 
     // Admin -----------------------------------------------------------------------------
@@ -161,7 +166,7 @@ public class ManagementSoftwareController {
             }
             managementSoftwareService.addProjectManager(projectManager);
         } catch (Exception e) {
-            return "redirect:/alphaSolutions/error-duplicate-username";
+            return "redirect:/alphaSolutions/error-duplicate-username-projectmanager";
         }
 
         return "redirect:/alphaSolutions/admin-projectmanagers-page"; // redirect to frontpage for now
@@ -239,7 +244,7 @@ public class ManagementSoftwareController {
             }
             managementSoftwareService.addEmployee(employee);
         } catch (Exception e) {
-            return "redirect:/alphaSolutions/error-duplicate-username";
+            return "redirect:/alphaSolutions/error-duplicate-username-employee";
         }
 
         return "redirect:/alphaSolutions/admin-employees-page"; // redirect to frontpage for now
