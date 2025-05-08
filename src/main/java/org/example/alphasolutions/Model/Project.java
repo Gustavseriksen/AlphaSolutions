@@ -1,21 +1,25 @@
 package org.example.alphasolutions.Model;
 
-import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 public class Project {
 
     private int projectId;
     private String projectName;
     private String projectDescription;
-    private Date projectStartDate;
-    private Date projectEndDate;
+    @DateTimeFormat(pattern ="yyyy-MM-dd")
+    private LocalDate projectStartDate;
+    @DateTimeFormat(pattern ="yyyy-MM-dd")
+    private LocalDate projectEndDate;
     private int estimatedHours;
     private int actualHoursUsed;
     private Status projectStatus;
 
     public Project(int projectId, String projectName,
-                   String projectDescription, Date projectStartDate,
-                   Date projectEndDate, int estimatedHours, int actualHoursUsed, Status status) {
+                   String projectDescription, LocalDate projectStartDate,
+                   LocalDate projectEndDate, int estimatedHours, int actualHoursUsed, Status status) {
 
         this.projectId = projectId;
         this.projectName = projectName;
@@ -26,6 +30,8 @@ public class Project {
         this.actualHoursUsed = actualHoursUsed;
         this.projectStatus = status;
     }
+
+    public Project(){}
 
     // Getter & setter for ProjectID:
     public int getProjectId() {
@@ -56,11 +62,11 @@ public class Project {
 
 // Getter & setter for ProjectStartDate:
 
-    public Date getProjectStartDate() {
+    public LocalDate getProjectStartDate() {
         return projectStartDate;
     }
 
-    public void setProjectStartDate(Date projectStartDate) {
+    public void setProjectStartDate(LocalDate projectStartDate) {
         this.projectStartDate = projectStartDate;
     }
 
@@ -68,11 +74,11 @@ public class Project {
 // Getter & setter for ProjectEndDate:
 
 
-    public Date getProjectEndDate() {
+    public LocalDate getProjectEndDate() {
         return projectEndDate;
     }
 
-    public void setProjectEndDate(Date projectEndDate) {
+    public void setProjectEndDate(LocalDate projectEndDate) {
         this.projectEndDate = projectEndDate;
     }
 

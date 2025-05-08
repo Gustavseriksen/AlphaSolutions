@@ -5,6 +5,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -51,6 +52,7 @@ public class ManagementSoftwareRepository {
             return null;
         }
     }
+
     public void deleteProjectManager(int projectManagerId) {
         String sql = "DELETE FROM ProjectManagers WHERE manager_id = ?";
 
@@ -65,6 +67,7 @@ public class ManagementSoftwareRepository {
                 rs.getString("username"),
                 rs.getString("password")));
     }
+
     public ProjectManager getProjectManagerById(int projectManagerId) {
         String sql = "SELECT * FROM ProjectManagers WHERE manager_id = ?";
 
@@ -136,9 +139,14 @@ public class ManagementSoftwareRepository {
     //Project:
 
     public void addProject(Project project) {
-        String sql = "INSERT INTO projects (name, description, startDate, endDate) VALUES(?,?,?,?)";
-        jdbcTemplate.update(sql, project.getProjectName(), project.getProjectDescription(),
-                project.getProjectStartDate(), project.getProjectEndDate());
+        String sql = "INSERT INTO projects (project_name, project_description, start_date, end_date, estimated_hours, actual_hours_used, project_status) VALUES(?,?,?,?,?,?,?)";
+        jdbcTemplate.update(sql, project.getProjectName(),
+                project.getProjectDescription(),
+                project.getProjectStartDate(),
+                project.getProjectEndDate(),
+                project.getEstimatedHours(),
+                project.getActualHoursUsed(),
+                project.getProjectStatus().toString());
 
     }
 
@@ -160,8 +168,8 @@ public class ManagementSoftwareRepository {
                 rs.getInt("project_id"),
                 rs.getString("project_name"),
                 rs.getString("project_description"),
-                rs.getDate("start_date"),
-                rs.getDate("end_date"),
+                rs.getObject("start_date", LocalDate.class),
+                rs.getObject("end_date", LocalDate.class),
                 rs.getInt("estimated_hours"),
                 rs.getInt("actual_hours_used"),
                 Status.valueOf(rs.getString("project_status")
@@ -179,7 +187,7 @@ public class ManagementSoftwareRepository {
         jdbcTemplate.update(sql, subproject.getProjectID(), subproject.getSubProjectName(),
                 subproject.getSubProjectDescription(), subproject.getSubPriority(), subproject.getStartDate(),
                 subproject.getEndDate(), subproject.getEstimatedHours(), subproject.getActualHoursUsed(),
-                subproject.getStatus());
+                subproject.getStatus().toString());
 
     }
 

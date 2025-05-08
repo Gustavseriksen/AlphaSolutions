@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Sign in</title>
@@ -22,7 +22,7 @@
 
 <!-- Top NAVBAR -->
 <nav class="navbar">
-    <a href="https://www.example.com/" class="logo-link ms-2">
+    <a th:href="@{/alphaSolutions/admin-frontpage}" class="logo-link ms-2">
         <img src="/logo.png" alt="Logo" width="246" height="45">
     </a>
 </nav>
@@ -32,8 +32,7 @@
     <main>
         <div class="row g-5">
             <div class="col-md-7 col-lg-8 mx-auto">
-
-                <form>
+                <form th:action="@{/alphaSolutions/add-project}" th:object="${project}" method="post">
                     <!-- Project Form Card -->
                     <div class="card shadow-sm rounded mb-4">
                         <div class="card-header fw-semibold">
@@ -42,23 +41,25 @@
                         <div class="card-body">
                             <div class="mb-3">
                                 <label for="projectName" class="form-label">Project Name</label>
-                                <input type="text" class="form-control" id="projectName" placeholder="Enter project name">
+                                <input type="text" class="form-control" id="projectName" th:field ="*{projectName}"
+                                       placeholder="Enter project name">
                             </div>
                             <div class="mb-3">
-                                <label for="description" class="form-label">Description</label>
-                                <textarea class="form-control" id="description" rows="3" placeholder="Enter description"></textarea>
+                                <label for="projectDescription" class="form-label">Description</label>
+                                <textarea class="form-control" id="projectDescription" th:field="*{projectDescription}" rows="3"
+                                          placeholder="Enter description"></textarea>
                             </div>
                             <div class="mb-3">
-                                <label for="timeEstimate" class="form-label">Time Estimate (hours)</label>
-                                <input type="number" class="form-control" id="timeEstimate" placeholder="e.g. 12">
+                                <label for="estimatedHours" class="form-label">Time Estimate (hours)</label>
+                                <input type="number" class="form-control" id="estimatedHours" th:field="*{estimatedHours}" placeholder="e.g. 12">
                             </div>
                             <div class="mb-3">
-                                <label for="plannedStart" class="form-label">Planned Start</label>
-                                <input type="date" class="form-control" id="plannedStart">
+                                <label for="projectStartDate" class="form-label">Planned Start</label>
+                                <input type="date" class="form-control" id="projectStartDate" name="projectStartDate" th:value="${project.projectStartDate}">
                             </div>
                             <div class="mb-3">
-                                <label for="plannedEnd" class="form-label">Planned End</label>
-                                <input type="date" class="form-control" id="plannedEnd">
+                                <label for="projectEndDate" class="form-label">Planned End</label>
+                                <input type="date" class="form-control" id="projectEndDate" name="projectEndDate" th:value="${project.projectEndDate}">
                             </div>
                         </div>
                     </div>
@@ -75,7 +76,8 @@
                                 <label class="form-check-label" for="radioDefault1">High</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault2" checked>
+                                <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault2"
+                                       checked>
                                 <label class="form-check-label" for="radioDefault2">Medium</label>
                             </div>
                             <div class="form-check">
@@ -93,15 +95,16 @@
                         </div>
                         <div class="card-body">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="statusRadio" id="statusCompleted" value="completed">
+                                <input class="form-check-input" type="radio" th:field="*{projectStatus}" value="COMPLETED" id="statusCompleted">
                                 <label class="form-check-label" for="statusCompleted">Completed</label>
+
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="statusRadio" id="statusInProgress" value="in-progress" checked>
+                                <input class="form-check-input" type="radio" th:field="*{projectStatus}" value="IN_PROGRESS" id="statusInProgress">
                                 <label class="form-check-label" for="statusInProgress">In progress</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="statusRadio" id="statusNotStarted" value="not-started">
+                                <input class="form-check-input" type="radio" th:field="*{projectStatus}" value="NOT_STARTED" id="statusNotStarted">
                                 <label class="form-check-label" for="statusNotStarted">Not started</label>
                             </div>
                         </div>
@@ -118,8 +121,12 @@
                                 <table class="table align-items-center mb-0">
                                     <thead>
                                     <tr>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employee</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-end">Select</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Employee
+                                        </th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-end">
+                                            Select
+                                        </th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -128,7 +135,8 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div>
-                                                    <img src="/person-fill.svg" class="avatar avatar-sm me-3 border-radius-lg" alt="user">
+                                                    <img src="/person-fill.svg"
+                                                         class="avatar avatar-sm me-3 border-radius-lg" alt="user">
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">John Michael</h6>
@@ -139,88 +147,6 @@
                                             <input type="checkbox" name="select-author" value="john-michael">
                                         </td>
                                     </tr>
-
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    <img src="/person-fill.svg" class="avatar avatar-sm me-3 border-radius-lg" alt="user">
-                                                </div>
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">John Michael</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-end pe-3">
-                                            <input type="checkbox" name="select-author" value="john-michael">
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    <img src="/person-fill.svg" class="avatar avatar-sm me-3 border-radius-lg" alt="user">
-                                                </div>
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">John Michael</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-end pe-3">
-                                            <input type="checkbox" name="select-author" value="john-michael">
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    <img src="/person-fill.svg" class="avatar avatar-sm me-3 border-radius-lg" alt="user">
-                                                </div>
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">John Michael</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-end pe-3">
-                                            <input type="checkbox" name="select-author" value="john-michael">
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    <img src="/person-fill.svg" class="avatar avatar-sm me-3 border-radius-lg" alt="user">
-                                                </div>
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">John Michael</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-end pe-3">
-                                            <input type="checkbox" name="select-author" value="john-michael">
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    <img src="/person-fill.svg" class="avatar avatar-sm me-3 border-radius-lg" alt="user">
-                                                </div>
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">John Michael</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-end pe-3">
-                                            <input type="checkbox" name="select-author" value="john-michael">
-                                        </td>
-                                    </tr>
-
-
                                     </tbody>
                                 </table>
                             </div>
@@ -230,7 +156,8 @@
 
                     <!-- Submit/Cancel Buttons -->
                     <div class="d-flex justify-content-end mt-4 gap-2">
-                        <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                        <a th:href="@{projectmanager-frontpage}" role="button"
+                           class="btn btn-outline-secondary">Cancel</a>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>
