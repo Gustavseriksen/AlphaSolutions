@@ -95,8 +95,8 @@ public class ManagementSoftwareService {
         managementSoftwareRepository.editSubproject(subprojectId, subproject);
     }
 
-    public void getSubprojectsByProjectId(int projectId){
-        managementSoftwareRepository.getSubsByProjectId(projectId);
+    public List<Subproject> getSubprojectsByProjectId(int projectId){
+        return managementSoftwareRepository.getSubsByProjectId(projectId);
     }
 
     // Task

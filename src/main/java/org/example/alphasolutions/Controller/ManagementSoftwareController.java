@@ -307,6 +307,18 @@ public class ManagementSoftwareController {
     }
 
 
+    @GetMapping("/projectmanager-project/{projectId}")
+    public String viewProject(HttpSession session, @PathVariable int projectId, Model model){
+
+        Integer ID = (Integer) session.getAttribute("ID");
+        if (ID == null) {
+            return "redirect:/alphaSolutions";
+        }
+
+        model.addAttribute("subprojects", managementSoftwareService.getSubprojectsByProjectId(projectId));
+
+        return "projectmanager-project";
+    }
 /*
     // Project -----------------------------------------------------------------------------
     @PostMapping("/add-project")
