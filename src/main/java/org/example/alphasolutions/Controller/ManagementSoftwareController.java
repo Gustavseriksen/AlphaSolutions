@@ -1,8 +1,11 @@
 package org.example.alphasolutions.Controller;
 
-import org.example.alphasolutions.Service.ManagementSoftwareService;
 import jakarta.servlet.http.HttpSession;
-import org.example.alphasolutions.Model.*;
+import org.example.alphasolutions.Model.Admin;
+import org.example.alphasolutions.Model.Employee;
+import org.example.alphasolutions.Model.Project;
+import org.example.alphasolutions.Model.ProjectManager;
+import org.example.alphasolutions.Service.ManagementSoftwareService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -260,21 +263,13 @@ public class ManagementSoftwareController {
     // ADMIN END -----------------------------------------------------------------------------
 
 
-
-
-
-
-
-
-
-
     //PROJECT MANAGER ------------------------------------------------------------------------
 
     @GetMapping("/projectmanager-frontpage")
-    public String viewProjectManagerFrontpage(HttpSession session, Model model){
+    public String viewProjectManagerFrontpage(HttpSession session, Model model) {
         Integer ID = (Integer) session.getAttribute("ID");
 
-        if (ID == null){
+        if (ID == null) {
             return "redirect:/alphaSolutions";
         }
 
@@ -288,15 +283,29 @@ public class ManagementSoftwareController {
     }
 
     @GetMapping("/projectmanager-add-project")
-    public String viewAddProject(HttpSession session){
+    public String viewAddProject(HttpSession session, Model model) {
         Integer ID = (Integer) session.getAttribute("ID");
 
-        if (ID == null){
+        if (ID == null) {
             return "redirect:/alphaSolutions";
         }
+        model.addAttribute("project", new Project());
         return "projectmanager-add-project";
 
     }
+
+    @PostMapping("/add-project")
+    public String addProject(@ModelAttribute Project project, HttpSession session) {
+
+        Integer ID = (Integer) session.getAttribute("ID");
+        if (ID == null) {
+            return "redirect:/alphaSolutions";
+        }
+        managementSoftwareService.addProject(project);
+
+        return "redirect:/alphaSolutions/projectmanager-frontpage";
+    }
+
 
 /*
     // Project -----------------------------------------------------------------------------
