@@ -81,6 +81,12 @@ public class ManagementSoftwareService {
 
     }
 
+    public List<Employee> getEmployeesByProjectId(int projectId) {
+        return managementSoftwareRepository.getEmployeesByProjectId(projectId);
+    }
+
+
+
 
     // Project
     public void addProject(Project project) {

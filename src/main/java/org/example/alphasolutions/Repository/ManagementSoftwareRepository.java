@@ -176,6 +176,13 @@ public class ManagementSoftwareRepository {
         jdbcTemplate.update(sql, employeeId, projectId);
     }
 
+    public List<Employee> getEmployeesByProjectId(int projectId) {
+        String sql = "SELECT e.* FROM Employees e " +
+                "JOIN EmployeeProjects ep ON e.employee_id = ep.employee_id " +
+                "WHERE ep.project_id = ?";
+        return jdbcTemplate.query(sql, new EmployeeRowMappers(), projectId);
+    }
+
     // PROJECT MANAGER, SUBPROJECT -------------------------------------------------------------------------------------
 
     public void addSubproject(Subproject subproject) {

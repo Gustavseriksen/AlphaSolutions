@@ -76,7 +76,9 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td class="border-bottom-0 fw-normal fs-6 text-wrap">Martinjensen69, Peterbelly22, XfactorMartin94, ChristianEriksen00</td>
+                        <td class="border-bottom-0 fw-normal fs-6 text-wrap">
+                            <span th:each="emp : ${employeeMap[project.projectId]}" th:text="${emp.username + ', '}"></span>
+                        </td>
                         <td class="border-bottom-0 fw-normal fs-6" th:text="${project.estimatedHours}">
                         <td class="border-bottom-0 fw-normal fs-6" th:text="${project.actualHoursUsed}">
 
