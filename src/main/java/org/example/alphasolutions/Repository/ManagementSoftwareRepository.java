@@ -1,9 +1,14 @@
 package org.example.alphasolutions.Repository;
 
 import org.example.alphasolutions.Model.*;
+import org.example.alphasolutions.Repository.RowMappers.EmployeeRowMappers;
+import org.example.alphasolutions.Repository.RowMappers.EmployeeRowMappers;
+import org.example.alphasolutions.Repository.RowMappers.ProjectManagerRowMappers;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.example.alphasolutions.Repository.RowMappers.AdminRowMappers;
+
 
 import java.time.LocalDate;
 import java.util.List;
@@ -28,11 +33,8 @@ public class ManagementSoftwareRepository {
     public Admin checkAdminCredentials(String username, String password) {
         String sql = "SELECT * FROM Admins WHERE username = ? AND password = ?";
 
-        try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{username, password}, (rs, rowNum) -> new Admin(
-                    rs.getInt("admin_id"),
-                    rs.getString("username"),
-                    rs.getString("password")));
+        try { // RowMapper der bliver brugt under AdminRowMappers:
+            return jdbcTemplate.queryForObject(sql, new Object[]{username, password}, new AdminRowMappers());
 
         } catch (EmptyResultDataAccessException e) {
             return null;
@@ -43,10 +45,8 @@ public class ManagementSoftwareRepository {
         String sql = "SELECT * FROM ProjectManagers WHERE username = ? AND password = ?";
 
         try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{username, password}, (rs, rowNum) -> new ProjectManager(
-                    rs.getInt("manager_id"),
-                    rs.getString("username"),
-                    rs.getString("password")));
+            return jdbcTemplate.queryForObject(sql, new Object[]{username, password}, new ProjectManagerRowMappers());
+
 
         } catch (EmptyResultDataAccessException e) {
             return null;
@@ -62,19 +62,15 @@ public class ManagementSoftwareRepository {
     public List<ProjectManager> getAllProjectManagers() {
         String sql = "SELECT * FROM ProjectManagers";
 
-        return jdbcTemplate.query(sql, (rs, rowNum) -> new ProjectManager(
-                rs.getInt("manager_id"),
-                rs.getString("username"),
-                rs.getString("password")));
+        return jdbcTemplate.query(sql, new ProjectManagerRowMappers());
+
     }
 
     public ProjectManager getProjectManagerById(int projectManagerId) {
         String sql = "SELECT * FROM ProjectManagers WHERE manager_id = ?";
 
-        return jdbcTemplate.queryForObject(sql, new Object[]{projectManagerId}, (rs, rowNum) -> new ProjectManager(
-                rs.getInt("manager_id"),
-                rs.getString("username"),
-                rs.getString("password")));
+        return jdbcTemplate.queryForObject(sql, new Object[]{projectManagerId}, new ProjectManagerRowMappers());
+
     }
 
     public void editProjectManagerById(int projectManagerId, ProjectManager projectManager) {
@@ -94,10 +90,7 @@ public class ManagementSoftwareRepository {
         String sql = "SELECT * FROM Employees WHERE username = ? AND password = ?";
 
         try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{username, password}, (rs, rowNum) -> new Employee(
-                    rs.getInt("employee_id"),
-                    rs.getString("username"),
-                    rs.getString("password")));
+            return jdbcTemplate.queryForObject(sql, new Object[]{username, password}, new EmployeeRowMappers());
 
         } catch (EmptyResultDataAccessException e) {
             return null;
@@ -106,20 +99,16 @@ public class ManagementSoftwareRepository {
 
     public List<Employee> getAllEmployees() {
         String sql = "SELECT * FROM Employees";
-
-        return jdbcTemplate.query(sql, (rs, rowNum) -> new Employee(
-                rs.getInt("employee_id"),
-                rs.getString("username"),
-                rs.getString("password")));
+        // Her genbruger vi rowmappers fra klassen EmployeeRowMappers:
+        return jdbcTemplate.query(sql, new EmployeeRowMappers());
     }
 
     public Employee getEmployeeById(int employeeId) {
         String sql = "SELECT * FROM Employees WHERE employee_id = ?";
 
-        return jdbcTemplate.queryForObject(sql, new Object[]{employeeId}, (rs, rowNum) -> new Employee(
-                rs.getInt("employee_id"),
-                rs.getString("username"),
-                rs.getString("password")));
+        // Her genbruger vi kode inde fra EmployeeRowMappers-klassen:
+        return jdbcTemplate.queryForObject(sql, new Object[]{employeeId}, new EmployeeRowMappers());
+
     }
 
     public void editEmployeeById(int employeeId, Employee employee) {
