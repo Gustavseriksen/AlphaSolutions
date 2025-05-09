@@ -12,9 +12,9 @@
 
 <!-- Top NAVBAR -->
 <nav class="navbar">
-    <a href="https://www.example.com/" class="logo-link ms-2">
+    <div class="logo-link ms-2">
         <img src="/logo.png" alt="Logo" width="246" height="45">
-    </a>
+    </div>
     <form th:action="@{/alphaSolutions/logout}" method="post">
     <button type="submit" class="signout-button">Sign out</button>
     </form>
@@ -69,8 +69,8 @@
                         <th class="border-bottom-0 fw-semibold fs-6">Time Estimate</th>
                         <th class="border-bottom-0 fw-semibold fs-6">Time Spent</th>
                         <th class="border-bottom-0 fw-semibold fs-6">Priority</th>
-                        <th class="border-bottom-0 fw-semibold fs-6">Start</th>
-                        <th class="border-bottom-0 fw-semibold fs-6">End</th>
+                        <th class="border-bottom-0 fw-semibold fs-6">Planned start</th>
+                        <th class="border-bottom-0 fw-semibold fs-6">Planned end</th>
                         <th class="border-bottom-0 fw-semibold fs-6">Edit</th>
                     </tr>
                     </thead>
@@ -84,13 +84,11 @@
                         </td>
 
                         <td class="border-bottom-0 fw-normal fs-6">
-                            <span class="d-block fw-normal" th:text=" 'Planned start:' + ${project.projectStartDate}">Planned start: 01/04</span>
-                            <span class="d-block fw-light">Actual start: 01/04</span>
+                            <span class="d-block fw-normal" th:text="${project.projectStartDate}"></span>
                         </td>
 
                         <td class="border-bottom-0 fw-normal fs-6">
-                            <span class="d-block fw-normal" th:text=" 'Planned end: ' + ${project.projectEndDate}">Planned End: 05/05</span>
-                            <span class="d-block fw-light">Actual End: 28/04</span>
+                            <span class="d-block fw-normal" th:text="${project.projectEndDate}"></span>
                         </td>
 
 
