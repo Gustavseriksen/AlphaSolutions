@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -297,13 +299,21 @@ public class ManagementSoftwareController {
         }
 
         String username = (String) session.getAttribute("username");
+        List<Project> projects = managementSoftwareService.getAllProjects();
+
+        // Tilføj map med ansatte pr. projekt
+        Map<Integer, List<Employee>> employeeMap = new HashMap<>();
+        for (Project project : projects) {
+            employeeMap.put(project.getProjectId(), managementSoftwareService.getEmployeesByProjectId(project.getProjectId()));
+        }
 
         model.addAttribute("username", username);
-
-        model.addAttribute("projects", managementSoftwareService.getAllProjects());
+        model.addAttribute("projects", projects);
+        model.addAttribute("employeeMap", employeeMap);
 
         return "projectmanager-frontpage";
     }
+
 
     @GetMapping("/projectmanager-add-project")
     public String viewAddProject(HttpSession session, Model model) {
