@@ -65,6 +65,23 @@ public class ManagementSoftwareService {
 
     // ADMIN END -------------------------------------------------------------------------------------------------------------
 
+    // PROJECT MANAGER -------------------------------------------------------------------------------------------------------------
+
+    public void addProjectWithEmployees(Project project, List<Integer> employeeIds) {
+        managementSoftwareRepository.addProject(project);
+
+        int projectId = managementSoftwareRepository.getLastInsertedProjectId();
+        if (employeeIds != null) {
+            for (int employeeId : employeeIds) {
+                managementSoftwareRepository.assignEmployeeToProject(employeeId, projectId);
+            }
+
+        }
+
+
+    }
+
+
     // Project
     public void addProject(Project project) {
         managementSoftwareRepository.addProject(project);
@@ -111,6 +128,9 @@ public class ManagementSoftwareService {
     public void editTask(int taskId, Task task) {
         managementSoftwareRepository.editTask(taskId, task);
     }
+
+
+
 
 //    // Check
 //    public void checkIfDone() {

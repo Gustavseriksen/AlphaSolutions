@@ -8,8 +8,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.example.alphasolutions.Repository.RowMappers.AdminRowMappers;
-
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -125,7 +123,7 @@ public class ManagementSoftwareRepository {
 
     // ADMIN END -------------------------------------------------------------------------------------
 
-    //Project:
+    //PROJECT MANAGER, PROJECT -------------------------------------------------------------------------------------
 
     public void addProject(Project project) {
         String sql = "INSERT INTO projects (project_name, project_description, start_date, end_date, estimated_hours, actual_hours_used, project_priority, project_status) VALUES(?,?,?,?,?,?,?,?)";
@@ -167,8 +165,18 @@ public class ManagementSoftwareRepository {
                 )));
     }
 
+    public int getLastInsertedProjectId() {
+        String sql = "SELECT LAST_INSERT_ID()";
+        return jdbcTemplate.queryForObject(sql, Integer.class);
 
-    // SubProject:
+    }
+
+    public void assignEmployeeToProject(int employeeId, int projectId) {
+        String sql = "INSERT INTO EmployeeProjects (employee_id, project_id) VALUES(?,?)";
+        jdbcTemplate.update(sql, employeeId, projectId);
+    }
+
+    // PROJECT MANAGER, SUBPROJECT -------------------------------------------------------------------------------------
 
     public void addSubproject(Subproject subproject) {
 

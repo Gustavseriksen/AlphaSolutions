@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/alphaSolutions")
@@ -310,18 +312,21 @@ public class ManagementSoftwareController {
         if (ID == null || !ID.endsWith("PM")) {
             return "redirect:/alphaSolutions";
         }
+
         model.addAttribute("project", new Project());
+        model.addAttribute("employees", managementSoftwareService.getAllEmployees());
         return "projectmanager-add-project";
 
     }
 
     @PostMapping("/add-project")
-    public String addProject(@ModelAttribute Project project, HttpSession session) {
+    public String addProject(@ModelAttribute Project project, @RequestParam(value = "selectedEmployees", required = false) List<Integer> selectedEmployeeIds, HttpSession session) {
         String ID = (String) session.getAttribute("ID");
         if (ID == null || !ID.endsWith("PM")) {
             return "redirect:/alphaSolutions";
         }
-        managementSoftwareService.addProject(project);
+
+        managementSoftwareService.addProjectWithEmployees(project, selectedEmployeeIds);
 
         return "redirect:/alphaSolutions/projectmanager-frontpage";
     }
@@ -338,6 +343,8 @@ public class ManagementSoftwareController {
 
         return "projectmanager-project";
     }
+
+
 /*
     // Project -----------------------------------------------------------------------------
     @PostMapping("/add-project")
