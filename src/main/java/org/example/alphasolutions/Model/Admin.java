@@ -3,12 +3,12 @@ package org.example.alphasolutions.Model;
 public class Admin {
 
     private int admin_id;
-    private String name;
+    private String username;
     private String password;
 
-    public Admin(int admin_id, String name, String password) {
+    public Admin(int admin_id, String username, String password) {
         this.admin_id = admin_id;
-        this.name = name;
+        this.username = username;
         this.password = password;
     }
 
@@ -22,11 +22,11 @@ public class Admin {
     }
 
     // Getter & setter for Name:
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
     public void setName(String name) {
-        this.name = name;
+        this.username = name;
     }
 
     // Getter & setter for Password:

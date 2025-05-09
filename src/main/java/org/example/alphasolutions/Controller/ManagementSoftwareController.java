@@ -54,8 +54,8 @@ public class ManagementSoftwareController {
         if (username.startsWith("ADM")) {
             Admin admin = managementSoftwareService.checkAdminCredentials(username, password);
             if (admin != null) {
-                session.setAttribute("ID", admin.getAdmin_id());
-                session.setAttribute("username", admin.getName());
+                session.setAttribute("ID", admin.getAdmin_id() + "ADM");
+                session.setAttribute("username", admin.getUsername());
                 return "redirect:/alphaSolutions/admin-frontpage";
             } else {
                 return "redirect:/alphaSolutions"; // eller /index hvis det er din login-side
@@ -64,7 +64,7 @@ public class ManagementSoftwareController {
         } else if (username.startsWith("PM")) {
             ProjectManager projectManager = managementSoftwareService.checkProjectManagerCredentials(username, password);
             if (projectManager != null) {
-                session.setAttribute("ID", projectManager.getProjectManagerId());
+                session.setAttribute("ID", projectManager.getProjectManagerId() + "PM");
                 session.setAttribute("username", projectManager.getUsername());
                 return "redirect:/alphaSolutions/projectmanager-frontpage";
             } else {
@@ -74,25 +74,24 @@ public class ManagementSoftwareController {
         } else if (username.startsWith("EMP")) {
             Employee employee = managementSoftwareService.checkEmployeeCredentials(username, password);
             if (employee != null) {
-                session.setAttribute("ID", employee.getEmployee_id());
+                session.setAttribute("ID", employee.getEmployee_id() + "EMP");
                 session.setAttribute("username", employee.getUsername());
-                return "redirect:/alphaSolutions/admin-frontpage";
+                return "redirect:/alphaSolutions/employee-frontpage";
             } else {
                 return "redirect:/alphaSolutions"; // eller /index hvis det er din login-side
             }
         } else {
             return "redirect:/alphaSolutions";
         }
-
     }
 
     // ADMIN FRONTPAGE -----------------------------------------------------------------------------
 
     @GetMapping("/admin-frontpage")
     public String viewAdminFrontPage(HttpSession session, Model model) {
-        Integer ID = (Integer) session.getAttribute("ID");
+        String ID = (String) session.getAttribute("ID");
 
-        if (ID == null) {
+        if (ID == null || !ID.endsWith("ADM")) {
             return "redirect:/alphaSolutions";
         }
         String username = (String) session.getAttribute("username");
@@ -101,13 +100,13 @@ public class ManagementSoftwareController {
         return "admin-frontpage";
     }
 
-    // ADMIN PROJECT MANAGERS ENDPOINTS -----------------------------------------------------------------------------
+    // ADMIN PROJECT MANAGERS ENDPOINTS/METHODS -----------------------------------------------------------------------------
 
     @GetMapping("/admin-projectmanagers-page")
     public String viewAdminProjectManagersPage(HttpSession session, Model model) {
-        Integer ID = (Integer) session.getAttribute("ID");
+        String ID = (String) session.getAttribute("ID");
 
-        if (ID == null) {
+        if (ID == null || !ID.endsWith("ADM")) {
             return "redirect:/alphaSolutions";
         }
 
@@ -118,9 +117,9 @@ public class ManagementSoftwareController {
 
     @GetMapping("/admin-edit-projectmanager/{projectManagerId}")
     public String adminEditProjectManager(@PathVariable int projectManagerId, HttpSession session, Model model) {
-        Integer ID = (Integer) session.getAttribute("ID");
+        String ID = (String) session.getAttribute("ID");
 
-        if (ID == null) {
+        if (ID == null || !ID.endsWith("ADM")) {
             return "redirect:/alphaSolutions";
         }
 
@@ -131,23 +130,34 @@ public class ManagementSoftwareController {
     }
 
     @PostMapping("/admin-update-projectmanager/{projectManagerId}")
-    public String adminUpdateProjectManager(@PathVariable int projectManagerId, @ModelAttribute ProjectManager projectManager) {
-        managementSoftwareService.editProjectManagerById(projectManagerId, projectManager);
+    public String adminUpdateProjectManager(@PathVariable int projectManagerId, @ModelAttribute ProjectManager projectManager, HttpSession session) {
+        String ID = (String) session.getAttribute("ID");
 
+        if (ID == null || !ID.endsWith("ADM")) {
+            return "redirect:/alphaSolutions";
+        }
+
+        managementSoftwareService.editProjectManagerById(projectManagerId, projectManager);
         return "redirect:/alphaSolutions/admin-projectmanagers-page";
     }
 
     @PostMapping("/deleteProjectManager/{projectManagerId}")
-    public String deleteProjectManager(@PathVariable int projectManagerId) {
+    public String deleteProjectManager(@PathVariable int projectManagerId, HttpSession session) {
+        String ID = (String) session.getAttribute("ID");
+
+        if (ID == null || !ID.endsWith("ADM")) {
+            return "redirect:/alphaSolutions";
+        }
+
         managementSoftwareService.deleteProjectManager(projectManagerId);
         return "redirect:/alphaSolutions/admin-projectmanagers-page";
     }
 
     @GetMapping("/admin-add-projectmanager")
     public String viewAddProjectManager(HttpSession session, Model model) {
-        Integer ID = (Integer) session.getAttribute("ID");
+        String ID = (String) session.getAttribute("ID");
 
-        if (ID == null) {
+        if (ID == null || !ID.endsWith("ADM")) {
             return "redirect:/alphaSolutions";
         }
 
@@ -158,9 +168,9 @@ public class ManagementSoftwareController {
 
     @PostMapping("/add-projectmanager")
     public String addProjectManager(@ModelAttribute ProjectManager projectManager, HttpSession session) {
-        Integer ID = (Integer) session.getAttribute("ID");
+        String ID = (String) session.getAttribute("ID");
 
-        if (ID == null) {
+        if (ID == null || !ID.endsWith("ADM")) {
             return "redirect:/alphaSolutions";
         }
 
@@ -181,13 +191,13 @@ public class ManagementSoftwareController {
         return "redirect:/alphaSolutions/admin-projectmanagers-page"; // redirect to frontpage for now
     }
 
-    // ADMIN EMPLOYEE ENDPOINTS ---------------------------------------------------------------------
+    // ADMIN EMPLOYEE ENDPOINTS/METHODS ---------------------------------------------------------------------
 
     @GetMapping("/admin-edit-employee/{employeeId}")
     public String adminEditEmployee(@PathVariable int employeeId, HttpSession session, Model model) {
-        Integer ID = (Integer) session.getAttribute("ID");
+        String ID = (String) session.getAttribute("ID");
 
-        if (ID == null) {
+        if (ID == null || !ID.endsWith("ADM")) {
             return "redirect:/alphaSolutions";
         }
 
@@ -198,7 +208,13 @@ public class ManagementSoftwareController {
     }
 
     @PostMapping("/admin-update-employee/{employeeId}")
-    public String adminUpdateEmployee(@PathVariable int employeeId, @ModelAttribute Employee employee) {
+    public String adminUpdateEmployee(@PathVariable int employeeId, @ModelAttribute Employee employee, HttpSession session) {
+        String ID = (String) session.getAttribute("ID");
+
+        if (ID == null || !ID.endsWith("ADM")) {
+            return "redirect:/alphaSolutions";
+        }
+
         managementSoftwareService.editEmployeeById(employeeId, employee);
 
         return "redirect:/alphaSolutions/admin-employees-page";
@@ -206,9 +222,9 @@ public class ManagementSoftwareController {
 
     @GetMapping("/admin-employees-page")
     public String viewAdminEmployeesPage(HttpSession session, Model model) {
-        Integer ID = (Integer) session.getAttribute("ID");
+        String ID = (String) session.getAttribute("ID");
 
-        if (ID == null) {
+        if (ID == null || !ID.endsWith("ADM")) {
             return "redirect:/alphaSolutions";
         }
 
@@ -218,16 +234,21 @@ public class ManagementSoftwareController {
     }
 
     @PostMapping("/deleteEmployee/{employeeId}")
-    public String deleteEmployee(@PathVariable int employeeId) {
+    public String deleteEmployee(@PathVariable int employeeId, HttpSession session) {
+        String ID = (String) session.getAttribute("ID");
+
+        if (ID == null || !ID.endsWith("ADM")) {
+            return "redirect:/alphaSolutions";
+        }
+
         managementSoftwareService.deleteEmployee(employeeId);
         return "redirect:/alphaSolutions/admin-employees-page";
     }
 
-
     @GetMapping("/admin-add-employee")
     public String viewAddEmployee(HttpSession session, Model model) {
-        Integer ID = (Integer) session.getAttribute("ID");
-        if (ID == null) {
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("ADM")) {
             return "redirect:/alphaSolutions";
         }
 
@@ -237,8 +258,8 @@ public class ManagementSoftwareController {
 
     @PostMapping("/add-employee")
     public String addEmployee(@ModelAttribute Employee employee, HttpSession session) {
-        Integer ID = (Integer) session.getAttribute("ID");
-        if (ID == null) {
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("ADM")) {
             return "redirect:/alphaSolutions";
         }
 
@@ -267,9 +288,9 @@ public class ManagementSoftwareController {
 
     @GetMapping("/projectmanager-frontpage")
     public String viewProjectManagerFrontpage(HttpSession session, Model model) {
-        Integer ID = (Integer) session.getAttribute("ID");
+        String ID = (String) session.getAttribute("ID");
 
-        if (ID == null) {
+        if (ID == null || !ID.endsWith("PM")) {
             return "redirect:/alphaSolutions";
         }
 
@@ -284,9 +305,9 @@ public class ManagementSoftwareController {
 
     @GetMapping("/projectmanager-add-project")
     public String viewAddProject(HttpSession session, Model model) {
-        Integer ID = (Integer) session.getAttribute("ID");
+        String ID = (String) session.getAttribute("ID");
 
-        if (ID == null) {
+        if (ID == null || !ID.endsWith("PM")) {
             return "redirect:/alphaSolutions";
         }
         model.addAttribute("project", new Project());
@@ -296,9 +317,8 @@ public class ManagementSoftwareController {
 
     @PostMapping("/add-project")
     public String addProject(@ModelAttribute Project project, HttpSession session) {
-
-        Integer ID = (Integer) session.getAttribute("ID");
-        if (ID == null) {
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("PM")) {
             return "redirect:/alphaSolutions";
         }
         managementSoftwareService.addProject(project);
@@ -309,9 +329,8 @@ public class ManagementSoftwareController {
 
     @GetMapping("/projectmanager-project/{projectId}")
     public String viewProject(HttpSession session, @PathVariable int projectId, Model model){
-
-        Integer ID = (Integer) session.getAttribute("ID");
-        if (ID == null) {
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("PM")) {
             return "redirect:/alphaSolutions";
         }
 
