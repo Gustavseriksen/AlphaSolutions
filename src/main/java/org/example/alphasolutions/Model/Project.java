@@ -9,17 +9,18 @@ public class Project {
     private int projectId;
     private String projectName;
     private String projectDescription;
-    @DateTimeFormat(pattern ="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate projectStartDate;
-    @DateTimeFormat(pattern ="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate projectEndDate;
     private int estimatedHours;
     private int actualHoursUsed;
+    private Priority projectPriority;
     private Status projectStatus;
 
     public Project(int projectId, String projectName,
                    String projectDescription, LocalDate projectStartDate,
-                   LocalDate projectEndDate, int estimatedHours, int actualHoursUsed, Status status) {
+                   LocalDate projectEndDate, int estimatedHours, int actualHoursUsed, Priority priority, Status status) {
 
         this.projectId = projectId;
         this.projectName = projectName;
@@ -28,10 +29,12 @@ public class Project {
         this.projectEndDate = projectEndDate;
         this.estimatedHours = estimatedHours;
         this.actualHoursUsed = actualHoursUsed;
+        this.projectPriority = priority;
         this.projectStatus = status;
     }
 
-    public Project(){}
+    public Project() {
+    }
 
     // Getter & setter for ProjectID:
     public int getProjectId() {
@@ -83,7 +86,7 @@ public class Project {
     }
 
 
-// Getter & setter for estimated hours:
+    // Getter & setter for estimated hours:
     public int getEstimatedHours() {
         return estimatedHours;
     }
@@ -92,7 +95,7 @@ public class Project {
         this.estimatedHours = estimatedHours;
     }
 
-// Getter & setter for actualHoursUsed:
+    // Getter & setter for actualHoursUsed:
     public int getActualHoursUsed() {
         return actualHoursUsed;
     }
@@ -101,7 +104,17 @@ public class Project {
         this.actualHoursUsed = actualHoursUsed;
     }
 
-// Getter & setter for projectStatus:
+    // Getter & setter for projectPriority:
+    public Priority getProjectPriority() {
+        return projectPriority;
+    }
+
+    public void setProjectPriority(Priority projectPriority) {
+        this.projectPriority = projectPriority;
+    }
+
+
+    // Getter & setter for projectStatus:
     public Status getProjectStatus() {
         return projectStatus;
     }

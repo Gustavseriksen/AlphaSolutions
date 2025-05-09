@@ -79,8 +79,9 @@
                         <td class="border-bottom-0 fw-normal fs-6 text-wrap">Martinjensen69, Peterbelly22, XfactorMartin94, ChristianEriksen00</td>
                         <td class="border-bottom-0 fw-normal fs-6" th:text="${project.estimatedHours}">
                         <td class="border-bottom-0 fw-normal fs-6" th:text="${project.actualHoursUsed}">
+
                         <td class="border-bottom-0">
-                            <span class="badge bg-primary rounded-3 fw-semibold fs-6">Low</span>
+                            <span class="badge bg-primary rounded-3 fw-semibold fs-6" th:text="${project.projectPriority}">Low</span>
                         </td>
 
                         <td class="border-bottom-0 fw-normal fs-6">

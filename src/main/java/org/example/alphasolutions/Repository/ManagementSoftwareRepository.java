@@ -139,13 +139,14 @@ public class ManagementSoftwareRepository {
     //Project:
 
     public void addProject(Project project) {
-        String sql = "INSERT INTO projects (project_name, project_description, start_date, end_date, estimated_hours, actual_hours_used, project_status) VALUES(?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO projects (project_name, project_description, start_date, end_date, estimated_hours, actual_hours_used, project_priority, project_status) VALUES(?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(sql, project.getProjectName(),
                 project.getProjectDescription(),
                 project.getProjectStartDate(),
                 project.getProjectEndDate(),
                 project.getEstimatedHours(),
                 project.getActualHoursUsed(),
+                project.getProjectPriority().toString(),
                 project.getProjectStatus().toString());
 
     }
@@ -172,7 +173,8 @@ public class ManagementSoftwareRepository {
                 rs.getObject("end_date", LocalDate.class),
                 rs.getInt("estimated_hours"),
                 rs.getInt("actual_hours_used"),
-                Status.valueOf(rs.getString("project_status")
+                Priority.valueOf(rs.getString("project_priority")),
+                        Status.valueOf(rs.getString("project_status")
                 )));
     }
 
