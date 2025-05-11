@@ -51,11 +51,11 @@ public class ManagementSoftwareRepository {
         }
     }
 
-    public void deleteProjectManager(int projectManagerId) {
-        String sql = "DELETE FROM ProjectManagers WHERE manager_id = ?";
+        public void deleteProjectManager(int projectManagerId) {
+            String sql = "DELETE FROM ProjectManagers WHERE manager_id = ?";
 
-        jdbcTemplate.update(sql, projectManagerId);
-    }
+            jdbcTemplate.update(sql, projectManagerId);
+        }
 
     public List<ProjectManager> getAllProjectManagers() {
         String sql = "SELECT * FROM ProjectManagers";
