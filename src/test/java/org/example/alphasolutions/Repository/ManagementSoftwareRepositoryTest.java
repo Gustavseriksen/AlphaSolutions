@@ -137,6 +137,39 @@ class ManagementSoftwareRepositoryTest {
         assertTrue(projectFound, "New project should exist in database");
     }
 
+    @Test
+    void testDeleteProject() {
+
+        //Check that the project exists before deletion (by retrieving it)
+        Project projectForDelete = repository.getProjectByProjectId(1);
+        assertNotNull(projectForDelete, "Should exist");
+
+        //deletes project
+        repository.deleteProject(1);
+
+        //Makes sure that it is deleted by getting the list of all projects and expecting the size to be 0
+        assertEquals(repository.getAllProjects().size(), 0);
+    }
+
+    @Test
+    void testGetAllProjects() {
+        //Gets all projects
+        List<Project> projects = repository.getAllProjects();
+
+        // Checks that the list is not null and not empty
+        assertNotNull(projects, "Should NOT be null");
+        assertFalse(projects.isEmpty(), "Should NOT be empty");
+
+        // Checks the number of projects based on the test database
+        assertEquals(1, projects.size(), "The expected value does not match the actual");
+    }
+    @Test
+    void testGetProjectByProjectId() {
+        // Positive test for getProjectByProjectId
+        Project existingProject = repository.getProjectByProjectId(1); //1 project is inserted
+        assertNotNull(existingProject, "Project with id 1 should exist");
+    }
+
 
 
 }

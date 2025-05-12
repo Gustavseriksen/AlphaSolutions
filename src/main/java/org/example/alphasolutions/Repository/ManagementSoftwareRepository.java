@@ -1,13 +1,13 @@
 package org.example.alphasolutions.Repository;
 
 import org.example.alphasolutions.Model.*;
-import org.example.alphasolutions.Repository.RowMappers.EmployeeRowMappers;
+import org.example.alphasolutions.Repository.RowMappers.AdminRowMappers;
 import org.example.alphasolutions.Repository.RowMappers.EmployeeRowMappers;
 import org.example.alphasolutions.Repository.RowMappers.ProjectManagerRowMappers;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.example.alphasolutions.Repository.RowMappers.AdminRowMappers;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -51,11 +51,11 @@ public class ManagementSoftwareRepository {
         }
     }
 
-        public void deleteProjectManager(int projectManagerId) {
-            String sql = "DELETE FROM ProjectManagers WHERE manager_id = ?";
+    public void deleteProjectManager(int projectManagerId) {
+        String sql = "DELETE FROM ProjectManagers WHERE manager_id = ?";
 
-            jdbcTemplate.update(sql, projectManagerId);
-        }
+        jdbcTemplate.update(sql, projectManagerId);
+    }
 
     public List<ProjectManager> getAllProjectManagers() {
         String sql = "SELECT * FROM ProjectManagers";
@@ -161,7 +161,24 @@ public class ManagementSoftwareRepository {
                 rs.getInt("estimated_hours"),
                 rs.getInt("actual_hours_used"),
                 Priority.valueOf(rs.getString("project_priority")),
-                        Status.valueOf(rs.getString("project_status")
+                Status.valueOf(rs.getString("project_status")
+                )));
+    }
+
+    public Project getProjectByProjectId(int projectId) {
+
+        String sql = "SELECT * FROM projects WHERE project_id = ?";
+
+        return jdbcTemplate.queryForObject(sql, new Object[]{projectId}, (rs, rowNum) -> new Project(
+                rs.getInt("project_id"),
+                rs.getString("project_name"),
+                rs.getString("project_description"),
+                rs.getObject("start_date", LocalDate.class),
+                rs.getObject("end_date", LocalDate.class),
+                rs.getInt("estimated_hours"),
+                rs.getInt("actual_hours_used"),
+                Priority.valueOf(rs.getString("project_priority")),
+                Status.valueOf(rs.getString("project_status")
                 )));
     }
 
@@ -182,7 +199,6 @@ public class ManagementSoftwareRepository {
                 "WHERE ep.project_id = ?";
         return jdbcTemplate.query(sql, new EmployeeRowMappers(), projectId);
     }
-
     // PROJECT MANAGER, SUBPROJECT -------------------------------------------------------------------------------------
 
     public void addSubproject(Subproject subproject) {
