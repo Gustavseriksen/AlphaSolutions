@@ -1,9 +1,11 @@
 package org.example.alphasolutions.Repository;
 
 import org.example.alphasolutions.Model.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDate;
@@ -20,6 +22,14 @@ class ManagementSoftwareRepositoryTest {
 
     @Autowired
     ManagementSoftwareRepository repository;
+
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+
+    @BeforeEach
+    void clearEmployeeProjects() {
+        jdbcTemplate.update("DELETE FROM EmployeeProjects");
+    }
 
 
     @Test
@@ -170,6 +180,21 @@ class ManagementSoftwareRepositoryTest {
         assertNotNull(existingProject, "Project with id 1 should exist");
     }
 
+    @Test
+    void testAssignEmployeeToProjectSimpleAssert() {
+        // Defines existing employye and project id
+        int existingEmployeeId = 1;
+        int existingProjectId = 1;
+
+        // Assigns the employees to the project by id
+        repository.assignEmployeeToProject(existingProjectId, existingEmployeeId);
+
+        // Gets the list of assigned employees
+        List<Employee> employees = repository.getEmployeesByProjectId(existingProjectId);
+
+        // Verifies that the list is not empty
+        assertFalse(employees.isEmpty(), "Should be at least 1 employee assigned");
+    }
 
 
 }

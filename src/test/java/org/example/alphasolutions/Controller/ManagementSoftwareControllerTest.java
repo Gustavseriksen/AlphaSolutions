@@ -15,9 +15,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(ManagementSoftwareController.class)
@@ -90,7 +90,7 @@ class ManagementSoftwareControllerTest {
     @Test
     void viewProjectManagersPage_Admin_SessionIsOK() throws Exception {
         List<ProjectManager> dummyManagers = List.of(new ProjectManager(1, "PM_Alice", "he1"), new ProjectManager(2, "PM_Bob", "john"));
-        Mockito.when(managementSoftwareService.getAllProjectManagers()).thenReturn(dummyManagers);
+        when(managementSoftwareService.getAllProjectManagers()).thenReturn(dummyManagers);
 
         mockMvc.perform(get("/alphaSolutions/admin-projectmanagers-page")
                         .sessionAttr("ID", 1))
@@ -101,8 +101,44 @@ class ManagementSoftwareControllerTest {
     }
 
     @Test
-    void adminEditProjectManager() {
+    void viewAdminEditProjectManager_withAdminSession_returnsOkAndModel() throws Exception {
+        // Arrange
+        int projectManagerId = 5;
+        ProjectManager dummyManager = new ProjectManager(projectManagerId, "PM_Test", "testpass");
 
+        //makes sure that it does not use the real service
+        when(managementSoftwareService.getProjectManagerById(projectManagerId)).thenReturn(dummyManager);
+
+        // Act & Assert
+        mockMvc.perform(get("/alphaSolutions/admin-edit-projectmanager/{projectManagerId}", projectManagerId)
+                        .sessionAttr("ID", "1_ADM")) // Simulerer en admin session
+                .andExpect(status().isOk())
+                .andExpect(view().name("admin-edit-projectmanager"))
+                .andExpect(model().attributeExists("projectManager"))
+                .andExpect(model().attribute("projectManager", dummyManager))
+                .andExpect(model().attributeExists("projectManagerId"))
+                .andExpect(model().attribute("projectManagerId", projectManagerId));
+
+        // Verify service interaction
+        verify(managementSoftwareService).getProjectManagerById(projectManagerId);
+    }
+
+
+    @Test
+    void adminUpdateProjectManager_withAdminSession_callsServiceAndRedirects() throws Exception {
+        // Arrange
+        int projectManagerId = 5;
+        ProjectManager updatedManager = new ProjectManager(projectManagerId, "UpdatedPM", "newpass");
+
+        // Act & Assert
+        mockMvc.perform(post("/alphaSolutions/admin-update-projectmanager/{projectManagerId}", projectManagerId)
+                        .sessionAttr("ID", "1_ADM")
+                        .flashAttr("projectManager", updatedManager)) // Simulates form-data via flashAttr
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/alphaSolutions/admin-projectmanagers-page"));
+
+        // Verify service interaction
+        verify(managementSoftwareService).editProjectManagerById(projectManagerId, updatedManager);
     }
 
     @Test
