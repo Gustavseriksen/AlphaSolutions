@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -343,7 +344,7 @@ public class ManagementSoftwareController {
 
 
     @GetMapping("/projectmanager-project/{projectId}")
-    public String viewProject(HttpSession session, @PathVariable int projectId, Model model){
+    public String viewProject(HttpSession session, @PathVariable int projectId, Model model) {
         String ID = (String) session.getAttribute("ID");
         if (ID == null || !ID.endsWith("PM")) {
             return "redirect:/alphaSolutions";
@@ -355,6 +356,55 @@ public class ManagementSoftwareController {
     }
 
 
+    @GetMapping("/projectmanager-edit-project/{projectId}")
+    public String editProjectbyId(@PathVariable int projectId, HttpSession session, Model model) {
+        String ID = (String) session.getAttribute("ID");
+
+        if (ID == null || !ID.endsWith("PM")) {
+            return "redirect:/alphaSolutions";
+        }
+
+        List<Integer> projectEmployeesIds = new ArrayList<>();
+        for(Employee e : managementSoftwareService.getEmployeesByProjectId(projectId)) {
+            projectEmployeesIds.add(e.getEmployee_id());
+        }
+
+
+        model.addAttribute("project", managementSoftwareService.getProjectById(projectId));
+        model.addAttribute("employees", managementSoftwareService.getAllEmployees());
+        model.addAttribute("projectEmployeesIds", projectEmployeesIds);
+
+        return "projectmanager-edit-project";
+
+    }
+
+    @PostMapping("/projectmanager-update-project/{projectId}")
+    public String updateProjectByID(@PathVariable int projectId,
+                                    @ModelAttribute Project project,
+                                    @RequestParam(value = "selectedEmployees", required = false) List<Integer> selectedEmployeeIds,
+                                    HttpSession session) {
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("PM")) {
+            return "redirect:/alphaSolutions";
+        }
+
+        managementSoftwareService.updateProjectWithEmployees(projectId, project, selectedEmployeeIds);
+        return "redirect:/alphaSolutions/projectmanager-frontpage";
+    }
+
+
+    @PostMapping("/projectmanager-delete-project/{projectId}")
+    public String deleteProject(@PathVariable int projectId, HttpSession session) {
+        String ID = (String) session.getAttribute("ID");
+
+        if (ID == null || !ID.endsWith("PM")) {
+            return "redirect:/alphaSolutions";
+        }
+
+        managementSoftwareService.deleteProject(projectId);
+        return "redirect:/alphaSolutions/projectmanager-frontpage";
+
+    }
 /*
     // Project -----------------------------------------------------------------------------
     @PostMapping("/add-project")
@@ -419,4 +469,4 @@ public class ManagementSoftwareController {
 //        managementSoftwareService.checkIfDone();
 //        return "index";
 //    }
-}
+    }
