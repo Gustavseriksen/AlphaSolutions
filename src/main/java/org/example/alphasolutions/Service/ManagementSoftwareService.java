@@ -135,7 +135,22 @@ public class ManagementSoftwareService {
         managementSoftwareRepository.editTask(taskId, task);
     }
 
+    public Project getProjectById(int projectId) {
+        return managementSoftwareRepository.getProjectById(projectId);
 
+    }
+
+    public void updateProjectWithEmployees(int projectId, Project project, List<Integer> selectedEmployeeIds) {
+        managementSoftwareRepository.updateProject(projectId, project);
+
+        managementSoftwareRepository.deleteAllEmployeeAssignmentsFromProject(projectId);
+
+        if (selectedEmployeeIds != null) {
+            for (int employeeId : selectedEmployeeIds) {
+                managementSoftwareRepository.assignEmployeeToProject(employeeId, projectId);
+            }
+        }
+    }
 
 
 //    // Check
