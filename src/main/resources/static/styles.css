@@ -80,3 +80,11 @@
     background-color: #f0f0f0; /* eller fx #e9ecef for Bootstrap-lignende hover */
 }
 /* Header Hover Effect (END) */
+
+/* Employee profile image sizing */
+.avatar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+/* Employee profile image sizing (END) */
