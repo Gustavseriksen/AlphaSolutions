@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Edit subproject</title>
+  <title>Edit task</title>
   <!-- External stylesheets -->
   <link rel="stylesheet" href="/styles.css">
   <!-- Bootstrap CSS for responsive design and styling -->
@@ -14,43 +14,45 @@
 <!-- TOP NAVBAR -->
 <nav class="navbar">
   <!-- Logo -->
-  <a th:href="@{/alphaSolutions/projectmanager-frontpage}" class="logo-link ms-2">
-    <img src="/logo.png" alt="Logo" width="246" height="45">
+  <a th:href="@{/alphaSolutions/pm/projectmanager-frontpage}" class="logo-link ms-2">
+    <img src="/static/logo.png" alt="Logo" width="246" height="45">
   </a>
 </nav>
 <!-- TOP NAVBAR (END) -->
 
-
 <!-- FORM CONTAINER -->
 <div class="container my-5">
+
 
   <main>
     <div class="row g-5">
 
       <div class="col-md-7 col-lg-8 mx-auto">
 
-        <!-- Form to edit a project -->
-        <form th:action="@{/alphaSolutions/edit-subproject/{subProjectId}/{projectId}(subProjectId=${subprojectId}, projectId=${projectId})}"
-              th:object="${subproject}" method="post">
+        <!-- Form to edit a task -->
+        <form th:action="@{/alphaSolutions/pm/projectmanager-update-task/{taskId}(taskId=${task.taskId})}"
+              th:object="${task}" method="post">
 
-          <!-- Project Card "Edit Project" -->
+          <!-- Project Card "Edit Task" -->
           <div class="card shadow-sm rounded mb-4">
             <div class="card-header fw-semibold">
-              Edit Subproject
+              Edit Task
             </div>
             <div class="card-body">
 
-              <!-- Input: Subproject Name -->
+              <!-- Input: Task Name -->
               <div class="mb-3">
-                <label for="subprojectName" class="form-label">Subproject Name</label>
-                <input type="text" class="form-control" id="subprojectName" th:field="*{subProjectName}"  placeholder="Enter project subname">
+                <label for="taskName" class="form-label">Task Name</label>
+                <input type="text" class="form-control" id="taskName" th:field="*{taskName}"  placeholder="Enter project taskname">
               </div>
 
-              <!-- Input: Subproject Description -->
+
+              <!-- Input: Task Description -->
               <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" rows="3" th:field="*{subProjectDescription}"  placeholder="Enter description"></textarea>
+                <textarea class="form-control" id="description" rows="3" th:field="*{taskDescription}"  placeholder="Enter description"></textarea>
               </div>
+
 
               <!-- Input: Time Estimate -->
               <div class="mb-3">
@@ -58,21 +60,10 @@
                 <input type="number" class="form-control" id="timeEstimate" th:field="*{estimatedHours}"  placeholder="e.g. 12">
               </div>
 
-              <!-- Input: Start Date -->
-              <div class="mb-3">
-                <label for="plannedStart" class="form-label">Planned Start</label>
-                <input type="date" class="form-control" id="plannedStart" th:field="*{startDate}">
-              </div>
-
-              <!-- Input: End Date -->
-              <div class="mb-3">
-                <label for="plannedEnd" class="form-label">Planned End</label>
-                <input type="date" class="form-control" id="plannedEnd" th:field="*{endDate}">
-              </div>
 
             </div>
           </div>
-          <!-- Subproject Form Card (END) -->
+          <!-- task Form Card (END) -->
 
           <!-- Priority Selection -->
           <div class="card shadow-sm rounded mb-4">
@@ -83,19 +74,19 @@
 
               <!-- Radio button: High -->
               <div class="form-check">
-                <input class="form-check-input" type="radio" id="priorityHigh" value="HIGH" th:field="*{subPriority}">
+                <input class="form-check-input" type="radio" id="priorityHigh" value="HIGH" th:field="*{taskPriority}">
                 <label class="form-check-label" for="priorityHigh">High</label>
               </div>
 
               <!-- Radio button: Medium -->
               <div class="form-check">
-                <input class="form-check-input" type="radio" id="priorityMedium" value="MEDIUM" th:field="*{subPriority}">
+                <input class="form-check-input" type="radio" id="priorityMedium" value="MEDIUM" th:field="*{taskPriority}">
                 <label class="form-check-label" for="priorityMedium">Medium</label>
               </div>
 
               <!-- Radio button: Low -->
               <div class="form-check">
-                <input class="form-check-input" type="radio" id="priorityLow" value="LOW" th:field="*{subPriority}">
+                <input class="form-check-input" type="radio" id="priorityLow" value="LOW" th:field="*{taskPriority}">
                 <label class="form-check-label" for="priorityLow">Low</label>
               </div>
 
@@ -113,19 +104,19 @@
 
               <!-- Radio button: Completed -->
               <div class="form-check">
-                <input class="form-check-input" type="radio" id="statusCompleted" th:field="*{status}" value="COMPLETED">
+                <input class="form-check-input" type="radio" id="statusCompleted" th:field="*{taskStatus}" value="COMPLETED">
                 <label class="form-check-label" for="statusCompleted">Completed</label>
               </div>
 
               <!-- Radio button: In Progress -->
               <div class="form-check">
-                <input class="form-check-input" type="radio" id="statusInProgress" th:field="*{status}" value="IN_PROGRESS">
+                <input class="form-check-input" type="radio" id="statusInProgress" th:field="*{taskStatus}" value="IN_PROGRESS">
                 <label class="form-check-label" for="statusInProgress">In progress</label>
               </div>
 
               <!-- Radio button: Not Started -->
               <div class="form-check">
-                <input class="form-check-input" type="radio" id="statusNotStarted" th:field="*{status}" value="NOT_STARTED">
+                <input class="form-check-input" type="radio" id="statusNotStarted" th:field="*{taskStatus}" value="NOT_STARTED">
                 <label class="form-check-label" for="statusNotStarted">Not started</label>
               </div>
 
@@ -137,7 +128,7 @@
           <div class="d-flex justify-content-between mt-4">
             <!-- Cancel-button -->
             <div>
-              <a th:href="@{/alphaSolutions/projectmanager-frontpage}" class="btn btn-outline-secondary" role="button">Cancel</a>
+              <a th:href="@{/alphaSolutions/pm/projectmanager-frontpage}" class="btn btn-outline-secondary" role="button">Cancel</a>
             </div>
             <!-- Submit-button -->
             <div class="d-flex gap-2">

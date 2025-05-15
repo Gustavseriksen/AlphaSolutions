@@ -25,7 +25,7 @@
   <main>
     <div class="row g-5">
       <div class="col-md-7 col-lg-8 mx-auto">
-        <form th:action="@{/alphaSolutions/add-subproject}" th:object="${subproject}" method="post">
+        <form th:action="@{/alphaSolutions/pm/add-subproject}" th:object="${subproject}" method="post">
           <!-- Project Form Card -->
           <input type="hidden" th:field="*{projectId}" />
 
@@ -117,7 +117,7 @@
 
           <!-- Submit/Cancel Buttons -->
           <div class="d-flex justify-content-end mt-4 gap-2">
-            <a th:href="@{/alphaSolutions/projectmanager-project/{projectId}(projectId=${projectId})}" role="button"
+            <a th:href="@{/alphaSolutions/pm/projectmanager-project/{projectId}(projectId=${projectId})}" role="button"
                class="btn btn-outline-secondary">Cancel</a>
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>

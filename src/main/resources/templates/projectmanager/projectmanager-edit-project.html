@@ -14,7 +14,7 @@
 <!-- TOP NAVBAR -->
 <nav class="navbar">
   <!-- Logo -->
-  <a th:href="@{/alphaSolutions/projectmanager-frontpage}" class="logo-link ms-2">
+  <a th:href="@{/alphaSolutions/pm/projectmanager-frontpage}" class="logo-link ms-2">
     <img src="/static/logo.png" alt="Logo" width="246" height="45">
   </a>
 </nav>
@@ -30,7 +30,7 @@
       <div class="col-md-7 col-lg-8 mx-auto">
 
         <!-- Form to edit a project -->
-        <form th:action="@{/alphaSolutions/projectmanager-update-project/{projectId}(projectId=${project.projectId})}"
+        <form th:action="@{/alphaSolutions/pm/projectmanager-update-project/{projectId}(projectId=${project.projectId})}"
               th:object="${project}" method="post">
 
           <!-- Project Card "Edit Project" -->
@@ -191,7 +191,7 @@
           <div class="d-flex justify-content-between mt-4">
             <!-- Cancel-button -->
             <div>
-              <a th:href="@{/alphaSolutions/projectmanager-frontpage}" class="btn btn-outline-secondary" role="button">Cancel</a>
+              <a th:href="@{/alphaSolutions/pm/projectmanager-frontpage}" class="btn btn-outline-secondary" role="button">Cancel</a>
             </div>
             <!-- Submit-button -->
             <div class="d-flex gap-2">
@@ -211,7 +211,7 @@
 
 <!-- DELETE-BUTTON -->
 <div class="d-flex justify-content-center mt-0 mb-0">
-  <form th:action="@{/alphaSolutions/projectmanager-delete-project/{projectId}(projectId=${project.projectId})}"
+  <form th:action="@{/alphaSolutions/pm/projectmanager-delete-project/{projectId}(projectId=${project.projectId})}"
         method="post">
     <button type="submit" class="btn btn-danger">Delete Project</button>
   </form>

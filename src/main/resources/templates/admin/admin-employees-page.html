@@ -43,7 +43,7 @@
 <!-- BACK BUTTON -->
 <div class="px-3 mb-4">
     <!-- Left: Return-arrow image-link with hover effect -->
-    <a th:href="@{/alphaSolutions/admin-frontpage}">
+    <a th:href="@{/alphaSolutions/admin/admin-frontpage}">
         <img src="/arrow-return-left.svg" alt="Return" class="icon-hover" style="height: 40px;">
     </a>
 </div>
@@ -53,7 +53,7 @@
 <!-- Add employee button (plus icon) -->
 <div class="container">
     <div class="text-end mb-2">
-        <a th:href="@{/alphaSolutions/admin-add-employee}" alt="button">
+        <a th:href="@{/alphaSolutions/admin/admin-add-employee}" alt="button">
             <img src="/person-plus-fill.svg" width="50" height="50">
         </a>
     </div>
@@ -69,9 +69,9 @@
         <div class="col themed-grid-col" th:text="${employee.username}"></div>
         <!-- Edit link -->
         <a class="col themed-grid-col"
-           th:href="@{/alphaSolutions/admin-edit-employee/{employeeId}(employeeId=${employee.getEmployee_id()})}">Edit</a>
+           th:href="@{/alphaSolutions/admin/admin-edit-employee/{employeeId}(employeeId=${employee.getEmployee_id()})}">Edit</a>
         <!-- Delete button with form -->
-        <form th:action="@{/alphaSolutions/deleteEmployee/{employeeId}(employeeId=${employee.getEmployee_id()})}"
+        <form th:action="@{/alphaSolutions/admin/deleteEmployee/{employeeId}(employeeId=${employee.getEmployee_id()})}"
               method="post">
             <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
         </form>

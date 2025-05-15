@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Admin add employee</title>
+    <title>Admin edit project manager</title>
     <!-- External stylesheets -->
     <link rel="stylesheet" href="/styles.css">
     <!-- Bootstrap CSS for responsive design and styling -->
@@ -15,56 +15,60 @@
 <!-- TOP NAVBAR -->
 <nav class="navbar">
     <!-- Logo-link -->
-    <a th:href="@{/alphaSolutions/admin-frontpage}" class="logo-link ms-2">
+    <a th:href="@{/alphaSolutions/admin/admin-frontpage}" class="logo-link ms-2">
         <img src="/logo.png" alt="Logo" width="246" height="45">
     </a>
     <!-- Logout button -->
-    <form th:action="@{/alphaSolutions/logout}" method="post">
+    <form th:action="@{/alphaSolutions/auth/logout}" method="post">
         <button type="submit" class="signout-button">Sign out</button>
     </form>
 </nav>
 <!-- TOP NAVBAR (END) -->
 
+
 <!-- PAGE HEADER -->
 <div class="px-4 py-5 my-5 text-center">
     <!-- User image -->
-    <img class="d-block mx-auto mb-1" src="/person-plus-fill.svg" alt="" width="64" height="64">
+    <img class="d-block mx-auto mb-1" src="/person-fill-edit.svg" alt="" width="64" height="64">
     <!-- Main title -->
-    <h1 class="display-5 fw-bold text-body-emphasis">Add employee</h1>
+    <h1 class="display-5 fw-bold text-body-emphasis">Edit project manager</h1>
     <!-- Subtitle -->
     <div class="col-lg-6 mx-auto">
-        <p class="lead mb-4">Fill out the form below to add a new employee.</p>
+        <p class="lead mb-4"> Make desired changes to project manager in the form below.</p>
     </div>
 </div>
 <!-- PAGE HEADER (END) -->
 
 
-<!-- CREATE NEW EMPLOYEE FORM -->
+<!-- EDIT PROJECT-MANAGER FORM -->
 <main class="d-flex flex-grow-2 justify-content-center align-items-center">
-    <!-- Form submits data to add-employee endpoint -->
-    <form th:action="@{/alphaSolutions/add-employee}" th:object="${employee}" method="post">
+    <!-- Form posts updated projectManager data using projectManagerId path variable -->
+    <form role="form"
+          th:action="@{/alphaSolutions/admin/admin-update-projectmanager/{projectManagerId}(projectManagerId=${projectManagerId})}"
+          method="post" th:object="${projectManager}">
 
-        <!-- Username input -->
+        <!-- Input field for username (bound via Thymeleaf) -->
         <div class="form-floating mb-3">
-            <input type="text" class="form-control w-100" id="username" name="username" placeholder="Username">
+            <input type="text" class="form-control w-100" id="username" th:field="*{username}">
             <label for="username">Username</label>
         </div>
 
-        <!-- Password input -->
+        <!-- Input field for password (bound via Thymeleaf) -->
         <div class="form-floating mb-3">
-            <input type="password" class="form-control w-100" id="Password" name="password" placeholder="Password">
+            <input type="text" class="form-control w-100" id="Password" th:field="*{password}">
             <label for="Password">Password</label>
         </div>
 
-        <!-- Cancel and Submit buttons -->
+        <!-- Cancel and Save buttons -->
         <div class="d-flex justify-content-between gap-2">
-            <a th:href="@{admin-employees-page}" class="btn btn-secondary w-50" role="button">Cancel</a>
+            <a th:href="@{/alphaSolutions/admin/admin-projectmanagers-page}" class="btn btn-secondary w-50" role="button">Cancel</a>
 
-            <button type="submit" class="btn btn-primary w-50">Create</button>
+            <button type="submit" class="btn btn-primary w-50">Save</button>
         </div>
     </form>
 </main>
-<!-- CREATE NEW EMPLOYEE FORM (END) -->
+<!-- EDIT PROJECT-MANAGER FORM (END) -->
+
 
 <!-- FOOTER -->
 <div class="container">

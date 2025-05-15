@@ -27,12 +27,12 @@ public class AdminController {
         String ID = (String) session.getAttribute("ID");
 
         if (ID == null || !ID.endsWith("ADM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
         String username = (String) session.getAttribute("username");
 
         model.addAttribute("username", username);
-        return "admin-frontpage";
+        return "/admin/admin-frontpage";
     }
 
     //Project managers page
@@ -41,12 +41,12 @@ public class AdminController {
         String ID = (String) session.getAttribute("ID");
 
         if (ID == null || !ID.endsWith("ADM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         model.addAttribute("projectManagers", projectManagerService.getAllProjectManagers());
 
-        return "admin-projectmanagers-page";
+        return "/admin/admin-projectmanagers-page";
     }
 
     //Edit project managers page
@@ -55,13 +55,13 @@ public class AdminController {
         String ID = (String) session.getAttribute("ID");
 
         if (ID == null || !ID.endsWith("ADM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         model.addAttribute("projectManager", projectManagerService.getProjectManagerById(projectManagerId));
         model.addAttribute("projectManagerId", projectManagerId);
 
-        return "admin-edit-projectmanager";
+        return "/admin/admin-edit-projectmanager";
     }
 
     //Update project manager
@@ -70,11 +70,11 @@ public class AdminController {
         String ID = (String) session.getAttribute("ID");
 
         if (ID == null || !ID.endsWith("ADM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         projectManagerService.editProjectManagerById(projectManagerId, projectManager);
-        return "redirect:/alphaSolutions/admin-projectmanagers-page";
+        return "redirect:/alphaSolutions/admin/admin-projectmanagers-page";
     }
 
     //Delete project manager
@@ -83,11 +83,11 @@ public class AdminController {
         String ID = (String) session.getAttribute("ID");
 
         if (ID == null || !ID.endsWith("ADM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         projectManagerService.deleteProjectManager(projectManagerId);
-        return "redirect:/alphaSolutions/admin-projectmanagers-page";
+        return "redirect:/alphaSolutions/admin/admin-projectmanagers-page";
     }
 
     //Add project manager
@@ -96,12 +96,12 @@ public class AdminController {
         String ID = (String) session.getAttribute("ID");
 
         if (ID == null || !ID.endsWith("ADM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         model.addAttribute("projectmanager", new ProjectManager());
 
-        return "admin-add-projectmanager";
+        return "/admin/admin-add-projectmanager";
     }
 
     //post to add project manager
@@ -110,7 +110,7 @@ public class AdminController {
         String ID = (String) session.getAttribute("ID");
 
         if (ID == null || !ID.endsWith("ADM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         try {
@@ -124,10 +124,10 @@ public class AdminController {
             }
             projectManagerService.addProjectManager(projectManager);
         } catch (Exception e) {
-            return "redirect:/alphaSolutions/error-duplicate-username-projectmanager";
+            return "redirect:/alphaSolutions/auth/error-duplicate-username-projectmanager";
         }
 
-        return "redirect:/alphaSolutions/admin-projectmanagers-page"; // redirect to frontpage for now
+        return "redirect:/alphaSolutions/admin/admin-projectmanagers-page"; // redirect to frontpage for now
     }
 
     //PROJECT MANAGER END
@@ -137,11 +137,11 @@ public class AdminController {
     public String viewAddEmployee(HttpSession session, Model model) {
         String ID = (String) session.getAttribute("ID");
         if (ID == null || !ID.endsWith("ADM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         model.addAttribute("employee", new Employee());
-        return "admin-add-employee";
+        return "/admin/admin-add-employee";
     }
 
     //Post to add employee
@@ -149,7 +149,7 @@ public class AdminController {
     public String addEmployee(@ModelAttribute Employee employee, HttpSession session) {
         String ID = (String) session.getAttribute("ID");
         if (ID == null || !ID.endsWith("ADM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         try {
@@ -163,10 +163,10 @@ public class AdminController {
             }
             employeeService.addEmployee(employee);
         } catch (Exception e) {
-            return "redirect:/alphaSolutions/error-duplicate-username-employee";
+            return "redirect:/alphaSolutions/auth/error-duplicate-username-employee";
         }
 
-        return "redirect:/alphaSolutions/admin-employees-page"; // redirect to frontpage for now
+        return "redirect:/alphaSolutions/admin/admin-employees-page"; // redirect to frontpage for now
     }
 
     //Employee page
@@ -175,12 +175,12 @@ public class AdminController {
         String ID = (String) session.getAttribute("ID");
 
         if (ID == null || !ID.endsWith("ADM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         model.addAttribute("employees", employeeService.getAllEmployees());
 
-        return "admin-employees-page";
+        return "/admin/admin-employees-page";
     }
 
     //Employee edit page
@@ -189,13 +189,13 @@ public class AdminController {
         String ID = (String) session.getAttribute("ID");
 
         if (ID == null || !ID.endsWith("ADM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         model.addAttribute("employee", employeeService.getEmployeeById(employeeId));
         model.addAttribute("employeeId", employeeId);
 
-        return "admin-edit-employee";
+        return "/admin/admin-edit-employee";
     }
 
     //Update employee
@@ -204,12 +204,12 @@ public class AdminController {
         String ID = (String) session.getAttribute("ID");
 
         if (ID == null || !ID.endsWith("ADM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         employeeService.editEmployeeById(employeeId, employee);
 
-        return "redirect:/alphaSolutions/admin-employees-page";
+        return "redirect:/alphaSolutions/admin/admin-employees-page";
     }
 
 
@@ -219,11 +219,11 @@ public class AdminController {
         String ID = (String) session.getAttribute("ID");
 
         if (ID == null || !ID.endsWith("ADM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         employeeService.deleteEmployee(employeeId);
-        return "redirect:/alphaSolutions/admin-employees-page";
+        return "redirect:/alphaSolutions/admin/admin-employees-page";
     }
 
 

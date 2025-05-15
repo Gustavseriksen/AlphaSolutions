@@ -64,7 +64,7 @@ public class AuthController {
     @PostMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate(); // sletter hele sessionen
-        return "redirect:/alphaSolutions"; // tilbage til login eller forside
+        return "index"; // tilbage til login eller forside
     }
 
     @GetMapping("/error-duplicate-username-employee")

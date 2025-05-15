@@ -15,11 +15,11 @@
 <!-- TOP NAVBAR -->
 <nav class="navbar">
   <!-- Logo -->
-  <a th:href="@{/alphaSolutions/projectmanager-frontpage}" class="logo-link ms-2">
+  <a th:href="@{/alphaSolutions/pm/projectmanager-frontpage}" class="logo-link ms-2">
     <img src="/logo.png" alt="Logo" width="246" height="45">
   </a>
   <!-- Sign-out button -->
-  <form th:action="@{/alphaSolutions/logout}" method="post">
+  <form th:action="@{/alphaSolutions/auth/logout}" method="post">
     <button type="submit" class="signout-button">Sign out</button>
   </form>
 </nav>
@@ -61,7 +61,7 @@
       <!-- Project-edit -->
       <div style="margin-top: -75px;">
         <div class="bd-example-snippet bd-code-snippet text-end">
-          <a th:href="@{/alphaSolutions/projectmanager-edit-subproject/{subprojectId}(subprojectId=${subproject.subprojectId})}">
+          <a th:href="@{/alphaSolutions/pm/projectmanager-edit-subproject/{subprojectId}(subprojectId=${subproject.subprojectId})}">
             <img src="/gear.svg" alt="Settings" class="icon-hover" width="60" height="60">
           </a>
         </div>
@@ -76,11 +76,11 @@
 <!-- ADD TASK AND BACK BUTTON -->
 <div class="d-flex justify-content-between align-items-center px-3 mb-4">
   <!-- Left: Return-arrow image-link with hover effect -->
-  <a th:href="@{/alphaSolutions/projectmanager-frontpage}">
+  <a th:href="@{/alphaSolutions/pm/projectmanager-frontpage}">
     <img src="/arrow-return-left.svg" alt="Return" class="icon-hover" style="height: 40px;">
   </a>
   <!-- Right: Add Task button -->
-  <a th:href="@{/alphaSolutions/projectmanager-add-task}" >
+  <a th:href="@{/alphaSolutions/pm/projectmanager-add-task}" >
     <button class="btn btn-outline-dark" style="width: 150px; height: 50px;">
       + Add task
     </button>
@@ -176,7 +176,7 @@
 
                 <!-- Edit image-link -->
             <td class="border-bottom-0 fw-semibold fs-4">
-              <a th:href="@{/alphaSolutions/projectmanager-edit-task/{taskId}(taskId=${task.taskId})}">
+              <a th:href="@{/alphaSolutions/pm/projectmanager-edit-task/{taskId}(taskId=${task.taskId})}">
                 <img src="/gear.svg" alt="Settings" class="icon-hover" width="22" height="22">
               </a>
             </td>

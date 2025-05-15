@@ -15,11 +15,11 @@
 <!-- TOP NAVBAR -->
 <nav class="navbar">
     <!-- Logo -->
-    <a th:href="@{/alphaSolutions/projectmanager-frontpage}" class="logo-link ms-2">
+    <a th:href="@{/alphaSolutions/pm/projectmanager-frontpage}" class="logo-link ms-2">
         <img src="/logo.png" alt="Logo" width="246" height="45">
     </a>
     <!-- Sign-out button -->
-    <form th:action="@{/alphaSolutions/logout}" method="post">
+    <form th:action="@{/alphaSolutions/auth/logout}" method="post">
         <button type="submit" class="signout-button">Sign out</button>
     </form>
 </nav>
@@ -60,7 +60,7 @@
             <!-- Project-edit -->
             <div style="margin-top: -75px;">
                 <div class="bd-example-snippet bd-code-snippet text-end">
-                    <a th:href="@{/alphaSolutions/projectmanager-edit-project}">
+                    <a th:href="@{/alphaSolutions/pm/projectmanager-edit-project}">
                         <img src="/gear.svg" alt="Settings" class="icon-hover" width="60" height="60">
                     </a>
                 </div>
@@ -73,17 +73,17 @@
 
 
 
-<!-- ADD TASK AND BACK BUTTON -->
+<!-- ADD SUBPROJECT AND BACK BUTTON -->
 <div class="d-flex justify-content-between align-items-center px-3 mb-4">
     <!-- Left: Return-arrow image-link with hover effect -->
-    <a th:href="@{/alphaSolutions/projectmanager-frontpage}">
+    <a th:href="@{/alphaSolutions/pm/projectmanager-frontpage}">
         <img src="/arrow-return-left.svg" alt="Return" class="icon-hover" style="height: 40px;">
     </a>
-    <!-- Right: Add Task button -->
-    <a th:href="@{/alphaSolutions/projectmanager-add-subproject/{projectId}(projectId=${project.projectId})}">
-        <button class="btn btn-outline-dark" style="width: 150px; height: 50px;">
+    <!-- Right: Add subproject button -->
+    <a th:href="@{/alphaSolutions/pm/projectmanager-add-subproject/{projectId}(projectId=${project.projectId})}">
+        <button class="btn btn-outline-dark" style="width: 170px; height: 50px;">
 
-            + Add task
+            + Add Subproject
         </button>
     </a>
 </div>
@@ -104,7 +104,7 @@
 
         <!-- Link for subproject view page -->
 
-        <a th:href="@{/alphaSolutions/projectmanager-task/{subprojectId}(subprojectId=${subproject.subProjectId})}" class="card-header d-flex justify-content-between align-items-center text-decoration-none header-hover">
+        <a th:href="@{/alphaSolutions/pm/projectmanager-task/{subprojectId}(subprojectId=${subproject.subProjectId})}" class="card-header d-flex justify-content-between align-items-center text-decoration-none header-hover">
 
             <!-- SubprojectName -->
             <span class="text-dark" th:text="${subproject.subProjectName}"></span>
@@ -151,10 +151,10 @@
 
                     <tbody>
                     <tr> <!-- Time estimate -->
-                        <td class="border-bottom-0 fw-normal fs-6" th:text="${project.estimatedHours}"></td>
+                        <td class="border-bottom-0 fw-normal fs-6" th:text="${subproject.estimatedHours}"></td>
 
                         <!-- Time spent -->
-                        <td class="border-bottom-0 fw-normal fs-6" th:text="${project.actualHoursUsed}"></td>
+                        <td class="border-bottom-0 fw-normal fs-6" th:text="${subproject.actualHoursUsed}"></td>
 
                         <!-- Priority with color coordination (Switch-case) -->
                         <td class="border-bottom-0">
@@ -171,14 +171,14 @@
 
                         <!-- Edit image-link -->
                         <td class="border-bottom-0 fw-semibold fs-4">
-                            <a th:href="@{/alphaSolutions/edit-subproject/{subProjectId}/{projectId}(subProjectId=${subproject.subProjectId}, projectId=${project.projectId})}">
+                            <a th:href="@{/alphaSolutions/pm/edit-subproject/{subProjectId}/{projectId}(subProjectId=${subproject.subProjectId}, projectId=${project.projectId})}">
                                 <img src="/gear.svg" alt="Settings" class="icon-hover" width="22" height="22">
                             </a>
                         </td>
 
                                 <!-- Delete image-link -->
                         <td class="border-bottom-0 fw-semibold fs-4">
-                            <form th:action="@{/alphaSolutions/delete-subproject/{subProjectId}/{projectId}(subProjectId=${subproject.subProjectId}, projectId=${project.projectId})}" method="post">
+                            <form th:action="@{/alphaSolutions/pm/delete-subproject/{subProjectId}/{projectId}(subProjectId=${subproject.subProjectId}, projectId=${project.projectId})}" method="post">
                                 <button type="submit" style="border: none; background: none; padding: 0;"
                                         onclick="return confirm('Are you sure you want to delete this subproject?');">
                                     <img src="/trash-fill.svg" alt="delete" class="icon-hover" width="22" height="22">

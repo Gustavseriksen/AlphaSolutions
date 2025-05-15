@@ -17,7 +17,7 @@
     <!-- Logo -->
     <img src="/logo.png" alt="Logo" width="246" height="45" class="ms-2">
     <!-- Logout button -->
-    <form th:action="@{/alphaSolutions/logout}" method="post">
+    <form th:action="@{/alphaSolutions/auth/logout}" method="post">
         <button type="submit" class="signout-button">Sign out</button>
     </form>
 </nav>
@@ -48,7 +48,7 @@
                 <p>Click the "View" button to view all employees. You can add new employees, edit existing ones, or
                     delete
                     them.</p>
-                <a type="button" class="btn btn-outline-secondary" th:href="@{/alphaSolutions/admin-employees-page}">View</a>
+                <a type="button" class="btn btn-outline-secondary" th:href="@{/alphaSolutions/admin/admin-employees-page}">View</a>
             </div>
         </div>
 
@@ -59,7 +59,7 @@
                 <p>Click the "View" button to view all project managers. You can add new project managers, edit existing
                     ones, or delete them.</p>
                 <a type="button" class="btn btn-outline-secondary"
-                   th:href="@{/alphaSolutions/admin-projectmanagers-page}">View</a>
+                   th:href="@{/alphaSolutions/admin/admin-projectmanagers-page}">View</a>
             </div>
         </div>
 

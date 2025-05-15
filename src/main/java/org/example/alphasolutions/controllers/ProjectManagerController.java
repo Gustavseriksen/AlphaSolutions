@@ -4,7 +4,6 @@ import jakarta.servlet.http.HttpSession;
 import org.example.alphasolutions.models.Employee;
 import org.example.alphasolutions.models.Project;
 import org.example.alphasolutions.models.Subproject;
-import org.example.alphasolutions.repositories.SubprojectRepository;
 import org.example.alphasolutions.services.EmployeeProjectsService;
 import org.example.alphasolutions.services.EmployeeService;
 import org.example.alphasolutions.services.ProjectService;
@@ -40,8 +39,10 @@ public class ProjectManagerController {
         String ID = (String) session.getAttribute("ID");
 
         if (ID == null || !ID.endsWith("PM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
+
+        //model.addAttribute("session", session.getAttribute("ID"));
 
         String username = (String) session.getAttribute("username");
         List<Project> projects = projectService.getAllProjects();
@@ -56,7 +57,7 @@ public class ProjectManagerController {
         model.addAttribute("projects", projects);
         model.addAttribute("employeeMap", employeeMap);
 
-        return "projectmanager-frontpage";
+        return "/projectmanager/projectmanager-frontpage";
     }
 
 
@@ -65,12 +66,12 @@ public class ProjectManagerController {
         String ID = (String) session.getAttribute("ID");
 
         if (ID == null || !ID.endsWith("PM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         model.addAttribute("project", new Project());
         model.addAttribute("employees", employeeService.getAllEmployees());
-        return "projectmanager-add-project";
+        return "/projectmanager/projectmanager-add-project";
 
     }
 
@@ -78,12 +79,12 @@ public class ProjectManagerController {
     public String addProject(@ModelAttribute Project project, @RequestParam(value = "selectedEmployees", required = false) List<Integer> selectedEmployeeIds, HttpSession session) {
         String ID = (String) session.getAttribute("ID");
         if (ID == null || !ID.endsWith("PM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         employeeProjectsService.addProjectWithEmployees(project, selectedEmployeeIds);
 
-        return "redirect:/alphaSolutions/projectmanager-frontpage";
+        return "redirect:/alphaSolutions/pm/projectmanager-frontpage";
     }
 
 
@@ -92,7 +93,7 @@ public class ProjectManagerController {
         String ID = (String) session.getAttribute("ID");
 
         if (ID == null || !ID.endsWith("PM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         List<Integer> projectEmployeesIds = new ArrayList<>();
@@ -105,7 +106,7 @@ public class ProjectManagerController {
         model.addAttribute("employees", employeeService.getAllEmployees());
         model.addAttribute("projectEmployeesIds", projectEmployeesIds);
 
-        return "projectmanager-edit-project";
+        return "/projectmanager/projectmanager-edit-project";
 
     }
 
@@ -116,11 +117,11 @@ public class ProjectManagerController {
                                     HttpSession session) {
         String ID = (String) session.getAttribute("ID");
         if (ID == null || !ID.endsWith("PM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         employeeProjectsService.updateProjectWithEmployees(projectId, project, selectedEmployeeIds);
-        return "redirect:/alphaSolutions/projectmanager-frontpage";
+        return "redirect:/alphaSolutions/pm/projectmanager-frontpage";
     }
 
 
@@ -129,11 +130,11 @@ public class ProjectManagerController {
         String ID = (String) session.getAttribute("ID");
 
         if (ID == null || !ID.endsWith("PM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         projectService.deleteProject(projectId);
-        return "redirect:/alphaSolutions/projectmanager-frontpage";
+        return "redirect:/alphaSolutions/pm/projectmanager-frontpage";
 
     }
 
@@ -141,21 +142,21 @@ public class ProjectManagerController {
     public String viewProject(HttpSession session, @PathVariable int projectId, Model model) {
         String ID = (String) session.getAttribute("ID");
         if (ID == null || !ID.endsWith("PM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         model.addAttribute("project", projectService.getProjectByProjectId(projectId));
         model.addAttribute("subprojects", subprojectService.getSubprojectsByProjectId(projectId));
 
 
-        return "projectmanager-project";
+        return "/projectmanager/projectmanager-project";
     }
 
     @GetMapping("/projectmanager-add-subproject/{projectId}")
     public String projectmanagerAddSubproject(HttpSession session, Model model, @PathVariable int projectId) {
         String ID = (String) session.getAttribute("ID");
         if (ID == null || !ID.endsWith("PM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         Subproject subproject = new Subproject();
@@ -163,42 +164,42 @@ public class ProjectManagerController {
 
         model.addAttribute("subproject", subproject);
 
-        return "projectmanager-add-subproject";
+        return "/projectmanager/projectmanager-add-subproject";
     }
 
     @PostMapping("/add-subproject")
     public String addSubproject(HttpSession session, @ModelAttribute Subproject subproject) {
         String ID = (String) session.getAttribute("ID");
         if (ID == null || !ID.endsWith("PM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         subprojectService.addSubproject(subproject);
-        return "redirect:/alphaSolutions/projectmanager-project/" + subproject.getProjectId();
+        return "redirect:/alphaSolutions/pm/projectmanager-project/" + subproject.getProjectId();
     }
 
     @PostMapping("/delete-subproject/{subprojectId}/{projectId}")
     public String deleteSubproject(HttpSession session, @PathVariable int subprojectId, @PathVariable int projectId) {
         String ID = (String) session.getAttribute("ID");
         if (ID == null || !ID.endsWith("PM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         subprojectService.deleteSubproject(subprojectId);
-        return "redirect:/alphaSolutions/projectmanager-project/" + projectId;
+        return "redirect:/alphaSolutions/pm/projectmanager-project/" + projectId;
     }
 
     @GetMapping("/edit-subproject/{subprojectId}/{projectId}")
     public String editSubproject(HttpSession session, @PathVariable int subprojectId, @PathVariable int projectId, Model model) {
         String ID = (String) session.getAttribute("ID");
         if (ID == null || !ID.endsWith("PM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         model.addAttribute("subprojectId", subprojectId);
         model.addAttribute("projectId", projectId);
         model.addAttribute("subproject", subprojectService.getSubprojectBySubId(subprojectId));
-        return "projectmanager-edit-subproject";
+        return "/projectmanager/projectmanager-edit-subproject";
     }
 
     @PostMapping("/edit-subproject/{subprojectId}/{projectId}")
@@ -206,11 +207,11 @@ public class ProjectManagerController {
                                  @ModelAttribute Subproject subproject) {
         String ID = (String) session.getAttribute("ID");
         if (ID == null || !ID.endsWith("PM")) {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
 
         subprojectService.editSubproject(subprojectId, subproject);
-        return "redirect:/alphaSolutions/projectmanager-project/" + projectId;
+        return "redirect:/alphaSolutions/pm/projectmanager-project/" + projectId;
     }
 
 }
