@@ -5,10 +5,12 @@ import org.example.alphasolutions.Repository.RowMappers.AdminRowMappers;
 import org.example.alphasolutions.Repository.RowMappers.EmployeeRowMappers;
 import org.example.alphasolutions.Repository.RowMappers.ProjectManagerRowMappers;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -204,12 +206,12 @@ public class ManagementSoftwareRepository {
     public void addSubproject(Subproject subproject) {
 
         String sql = "INSERT INTO Subprojects (project_id, subproject_name, subproject_description, " +
-                "subproject_priority, subproject_start_date, subproject_end_date, estimated_hours, " +
+                "start_date, end_date,subproject_priority, estimated_hours, " +
                 "actual_hours_used, subproject_status) VALUES(?,?,?,?,?,?,?,?,?)";
 
-        jdbcTemplate.update(sql, subproject.getProjectID(), subproject.getSubProjectName(),
-                subproject.getSubProjectDescription(), subproject.getSubPriority(), subproject.getStartDate(),
-                subproject.getEndDate(), subproject.getEstimatedHours(), subproject.getActualHoursUsed(),
+        jdbcTemplate.update(sql, subproject.getProjectId(), subproject.getSubProjectName(),
+                subproject.getSubProjectDescription(), subproject.getStartDate(),
+                subproject.getEndDate(), subproject.getSubPriority().toString(), subproject.getEstimatedHours(), subproject.getActualHoursUsed(),
                 subproject.getStatus().toString());
 
     }
@@ -220,15 +222,29 @@ public class ManagementSoftwareRepository {
     }
 
     public void editSubproject(int subprojectId, Subproject subproject) {
-        String sql = "UPDATE Subprojects SET  " +
-                "subproject_name = ?, subproject_description = ?, subproject_priority = ?, subproject_start_date = ?," +
-                " subproject_end_date = ?, estimated_hours = ?, actual_hours_used = ?, subproject_status = ?" +
+        String sql = "UPDATE Subprojects SET " +
+                "subproject_name = ?, " +
+                "subproject_description = ?, " +
+                "start_date = ?, " +
+                "end_date = ?, " +
+                "subproject_priority = ?, " +
+                "estimated_hours = ?, " +
+                "actual_hours_used = ?, " +
+                "subproject_status = ? " +
                 "WHERE subproject_id = ?";
-        jdbcTemplate.update(sql, subproject.getSubProjectName(), subproject.getSubProjectDescription(),
-                subproject.getSubPriority(), subproject.getStartDate(), subproject.getEndDate(),
-                subproject.getEstimatedHours(), subproject.getActualHoursUsed(), subproject.getStatus(),
+
+        jdbcTemplate.update(sql,
+                subproject.getSubProjectName(),
+                subproject.getSubProjectDescription(),
+                subproject.getStartDate(),
+                subproject.getEndDate(),
+                subproject.getSubPriority().toString(),
+                subproject.getEstimatedHours(),
+                subproject.getActualHoursUsed(),
+                subproject.getStatus().toString(),
                 subprojectId);
     }
+
 
     public List<Subproject> getSubsByProjectId(int projectId) {
         String sql = "SELECT * FROM Subprojects WHERE project_id = ?";
@@ -238,9 +254,9 @@ public class ManagementSoftwareRepository {
                 rs.getInt("project_id"),
                 rs.getString("subproject_name"),
                 rs.getString("subproject_description"),
-                rs.getString("subproject_priority"),
-                rs.getDate("subproject_start_date"),
-                rs.getDate("subproject_end_date"),
+                Priority.valueOf(rs.getString("subproject_priority")),
+                rs.getDate("start_date"),
+                rs.getDate("end_date"),
                 rs.getInt("estimated_hours"),
                 rs.getInt("actual_hours_used"),
                 Status.valueOf(rs.getString("subproject_status"))));
@@ -252,7 +268,7 @@ public class ManagementSoftwareRepository {
         String sql = "INSERT INTO Tasks (subproject_id, task_name, task_description, task_priority," +
                 "task_start_date, task_end_date, estimated_hours, actual_hours_used, task_status) " +
                 "VALUES(?,?,?,?,?,?,?,?,?)";
-        jdbcTemplate.update(sql, task.getSubProjectId(), task.getTaskName(), task.getDescription(),
+        jdbcTemplate.update(sql, task.getSubProjectId(), task.getTaskName(),
                 task.getPriority(), task.getStartDate(), task.getEndDate(), task.getEstimatedHours(),
                 task.getActualUsedHours(), task.getStatus());
     }
@@ -267,7 +283,7 @@ public class ManagementSoftwareRepository {
                 "task_name = ?, task_description = ?, task_priority = ?, task_start_date = ?, " +
                 " task_end_date = ?, estimated_hours = ?, actual_hours_used = ?, task_status = ?" +
                 "WHERE task_id = ?";
-        jdbcTemplate.update(sql, task.getTaskName(), task.getDescription(), task.getPriority(), task.getStartDate(),
+        jdbcTemplate.update(sql, task.getTaskName(), task.getPriority(), task.getStartDate(),
                 task.getEndDate(), task.getEstimatedHours(), task.getActualUsedHours(), task.getStatus(), taskId);
     }
 
@@ -278,7 +294,6 @@ public class ManagementSoftwareRepository {
                 rs.getInt("task_id"),
                 rs.getInt("subproject_id"),
                 rs.getString("task_name"),
-                rs.getString("task_description"),
                 rs.getString("task_priority"),
                 rs.getDate("task_start_date"),
                 rs.getDate("task_end_date"),
@@ -322,4 +337,22 @@ public class ManagementSoftwareRepository {
         String sql = "DELETE FROM EmployeeProjects WHERE project_id = ?";
         jdbcTemplate.update(sql, projectId);
     }
+
+    public Subproject getSubprojectBySubId(int subprojectId) {
+        String sql = "SELECT * FROM Subprojects WHERE subproject_id=?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{subprojectId}, (rs, rowNum) -> new Subproject(
+                rs.getInt("subproject_id"),
+                rs.getInt("project_id"),
+                rs.getString("subproject_name"),
+                rs.getString("subproject_description"),
+                Priority.valueOf(rs.getString("subproject_priority")),
+                rs.getDate("start_date"),
+                rs.getDate("end_date"),
+                rs.getInt("estimated_hours"),
+                rs.getInt("actual_hours_used"),
+                Status.valueOf(rs.getString("subproject_status"))
+        ));
+    }
+
+
 }

@@ -7,7 +7,6 @@ public class Task {
     private int taskId;
     private int subProjectId;
     private String taskName;
-    private String description;
     private String priority;
     private Date startDate;
     private Date endDate;
@@ -15,13 +14,12 @@ public class Task {
     private double actualUsedHours;
     private Status status;
 
-    public Task(int taskId, int subProjectId, String taskName, String description,
+    public Task(int taskId, int subProjectId, String taskName,
                 String priority, Date startDate, Date endDate, double estimatedHours,
                 double actualUsedHours, Status status) {
         this.taskId = taskId;
         this.subProjectId = subProjectId;
         this.taskName = taskName;
-        this.description = description;
         this.priority = priority;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -53,14 +51,6 @@ public class Task {
 
     public void setTaskName(String taskName) {
         this.taskName = taskName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getPriority() {

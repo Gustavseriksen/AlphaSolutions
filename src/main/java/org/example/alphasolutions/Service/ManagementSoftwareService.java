@@ -105,6 +105,10 @@ public class ManagementSoftwareService {
         return managementSoftwareRepository.checkProjectManagerCredentials(username, password);
     }
 
+    public Project getProjectByProjectId(int projectId) {
+        return managementSoftwareRepository.getProjectByProjectId(projectId);
+    }
+
     // Subproject
     public void addSubproject(Subproject subproject) {
         managementSoftwareRepository.addSubproject(subproject);
@@ -150,6 +154,10 @@ public class ManagementSoftwareService {
                 managementSoftwareRepository.assignEmployeeToProject(employeeId, projectId);
             }
         }
+    }
+
+    public Subproject getSubprojectBySubId(int subprojectId) {
+        return managementSoftwareRepository.getSubprojectBySubId(subprojectId);
     }
 
 

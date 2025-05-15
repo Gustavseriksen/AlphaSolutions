@@ -1,15 +1,19 @@
 package org.example.alphasolutions.Model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Subproject {
 
     private int subProjectId;
-    private int projectID;
+    private int projectId;
     private String subProjectName;
     private String subProjectDescription;
-    private String subPriority;
+    private Priority subPriority;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
     private double estimatedHours;
     private double actualHoursUsed;
@@ -17,11 +21,11 @@ public class Subproject {
 
     //Constructor
 
-    public Subproject(int subProjectId, int projectID, String subProjectName,
-                      String subProjectDescription, String subPriority, Date startDate,
+    public Subproject(int subProjectId, int projectId, String subProjectName,
+                      String subProjectDescription, Priority subPriority, Date startDate,
                       Date endDate, double estimatedHours, double actualHoursUsed, Status status) {
         this.subProjectId = subProjectId;
-        this.projectID = projectID;
+        this.projectId = projectId;
         this.subProjectName = subProjectName;
         this.subProjectDescription = subProjectDescription;
         this.subPriority = subPriority;
@@ -32,6 +36,8 @@ public class Subproject {
         this.status = status;
     }
 
+    public Subproject(){}
+
     //Getter and Setter for attributes
     public int getSubProjectId() {
         return subProjectId;
@@ -41,12 +47,12 @@ public class Subproject {
         this.subProjectId = subProjectId;
     }
 
-    public int getProjectID() {
-        return projectID;
+    public int getProjectId() {
+        return projectId;
     }
 
-    public void setProjectID(int projectID) {
-        this.projectID = projectID;
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
     }
 
     public String getSubProjectName() {
@@ -57,11 +63,11 @@ public class Subproject {
         return subProjectDescription;
     }
 
-    public String getSubPriority() {
+    public Priority getSubPriority() {
         return subPriority;
     }
 
-    public void setSubPriority(String subprojectPriority) {
+    public void setSubPriority(Priority subprojectPriority) {
         this.subPriority = subprojectPriority;
     }
 
