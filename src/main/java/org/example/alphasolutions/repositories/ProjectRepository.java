@@ -94,19 +94,5 @@ public class ProjectRepository {
         );
     }
 
-    public Project getProjectById(int projectId) {
-        String sql = "SELECT * FROM Projects WHERE project_id =?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{projectId}, (rs, rowNum) -> new Project(
-                rs.getInt("project_id"),
-                rs.getString("project_name"),
-                rs.getString("project_description"),
-                rs.getObject("start_date", LocalDate.class),
-                rs.getObject("end_date", LocalDate.class),
-                rs.getInt("estimated_hours"),
-                rs.getInt("actual_hours_used"),
-                Priority.valueOf(rs.getString("project_priority")),
-                Status.valueOf(rs.getString("project_status"))
-        ));
-    }
 
 }
