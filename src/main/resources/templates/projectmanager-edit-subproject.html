@@ -15,7 +15,7 @@
 <nav class="navbar">
   <!-- Logo -->
   <a th:href="@{/alphaSolutions/projectmanager-frontpage}" class="logo-link ms-2">
-    <img src="/static/logo.png" alt="Logo" width="246" height="45">
+    <img src="/logo.png" alt="Logo" width="246" height="45">
   </a>
 </nav>
 <!-- TOP NAVBAR (END) -->
@@ -29,11 +29,11 @@
 
       <div class="col-md-7 col-lg-8 mx-auto">
 
-        <!-- Form to edit a subproject -->
-        <form th:action="@{/alphaSolutions/projectmanager-update-subproject/{subprojectId}(subprojectId=${subproject.subprojectId})}"
+        <!-- Form to edit a project -->
+        <form th:action="@{/alphaSolutions/edit-subproject/{subProjectId}/{projectId}(subProjectId=${subprojectId}, projectId=${projectId})}"
               th:object="${subproject}" method="post">
 
-          <!-- Project Card "Edit Subproject" -->
+          <!-- Project Card "Edit Project" -->
           <div class="card shadow-sm rounded mb-4">
             <div class="card-header fw-semibold">
               Edit Subproject
@@ -43,13 +43,13 @@
               <!-- Input: Subproject Name -->
               <div class="mb-3">
                 <label for="subprojectName" class="form-label">Subproject Name</label>
-                <input type="text" class="form-control" id="subprojectName" th:field="*{subprojectName}"  placeholder="Enter project subname">
+                <input type="text" class="form-control" id="subprojectName" th:field="*{subProjectName}"  placeholder="Enter project subname">
               </div>
 
               <!-- Input: Subproject Description -->
               <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" rows="3" th:field="*{subprojectDescription}"  placeholder="Enter description"></textarea>
+                <textarea class="form-control" id="description" rows="3" th:field="*{subProjectDescription}"  placeholder="Enter description"></textarea>
               </div>
 
               <!-- Input: Time Estimate -->
@@ -61,13 +61,13 @@
               <!-- Input: Start Date -->
               <div class="mb-3">
                 <label for="plannedStart" class="form-label">Planned Start</label>
-                <input type="date" class="form-control" id="plannedStart" th:field="*{subprojectStartDate}">
+                <input type="date" class="form-control" id="plannedStart" th:field="*{startDate}">
               </div>
 
               <!-- Input: End Date -->
               <div class="mb-3">
                 <label for="plannedEnd" class="form-label">Planned End</label>
-                <input type="date" class="form-control" id="plannedEnd" th:field="*{subprojectEndDate}">
+                <input type="date" class="form-control" id="plannedEnd" th:field="*{endDate}">
               </div>
 
             </div>
@@ -83,19 +83,19 @@
 
               <!-- Radio button: High -->
               <div class="form-check">
-                <input class="form-check-input" type="radio" id="priorityHigh" value="HIGH" th:field="*{subprojectPriority}">
+                <input class="form-check-input" type="radio" id="priorityHigh" value="HIGH" th:field="*{subPriority}">
                 <label class="form-check-label" for="priorityHigh">High</label>
               </div>
 
               <!-- Radio button: Medium -->
               <div class="form-check">
-                <input class="form-check-input" type="radio" id="priorityMedium" value="MEDIUM" th:field="*{subprojectPriority}">
+                <input class="form-check-input" type="radio" id="priorityMedium" value="MEDIUM" th:field="*{subPriority}">
                 <label class="form-check-label" for="priorityMedium">Medium</label>
               </div>
 
               <!-- Radio button: Low -->
               <div class="form-check">
-                <input class="form-check-input" type="radio" id="priorityLow" value="LOW" th:field="*{subprojectPriority}">
+                <input class="form-check-input" type="radio" id="priorityLow" value="LOW" th:field="*{subPriority}">
                 <label class="form-check-label" for="priorityLow">Low</label>
               </div>
 
@@ -113,19 +113,19 @@
 
               <!-- Radio button: Completed -->
               <div class="form-check">
-                <input class="form-check-input" type="radio" id="statusCompleted" th:field="*{subprojectStatus}" value="COMPLETED">
+                <input class="form-check-input" type="radio" id="statusCompleted" th:field="*{status}" value="COMPLETED">
                 <label class="form-check-label" for="statusCompleted">Completed</label>
               </div>
 
               <!-- Radio button: In Progress -->
               <div class="form-check">
-                <input class="form-check-input" type="radio" id="statusInProgress" th:field="*{subprojectStatus}" value="IN_PROGRESS">
+                <input class="form-check-input" type="radio" id="statusInProgress" th:field="*{status}" value="IN_PROGRESS">
                 <label class="form-check-label" for="statusInProgress">In progress</label>
               </div>
 
               <!-- Radio button: Not Started -->
               <div class="form-check">
-                <input class="form-check-input" type="radio" id="statusNotStarted" th:field="*{subprojectStatus}" value="NOT_STARTED">
+                <input class="form-check-input" type="radio" id="statusNotStarted" th:field="*{status}" value="NOT_STARTED">
                 <label class="form-check-label" for="statusNotStarted">Not started</label>
               </div>
 

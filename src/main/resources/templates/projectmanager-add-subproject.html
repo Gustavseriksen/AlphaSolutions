@@ -13,155 +13,119 @@
 
 <!-- TOP NAVBAR -->
 <nav class="navbar">
-    <a th:href="@{/alphaSolutions/projectmanager-project}" class="logo-link ms-2">
-        <img src="/logo.png" alt="Logo" width="246" height="45">
-    </a>
+  <a th:href="@{/alphaSolutions/projectmanager-frontpage}" class="logo-link ms-2">
+    <img src="/logo.png" alt="Logo" width="246" height="45">
+  </a>
 </nav>
 <!-- TOP NAVBAR (END) -->
 
 
 <!-- FORM CONTAINER -->
 <div class="container my-5">
+  <main>
+    <div class="row g-5">
+      <div class="col-md-7 col-lg-8 mx-auto">
+        <form th:action="@{/alphaSolutions/add-subproject}" th:object="${subproject}" method="post">
+          <!-- Project Form Card -->
+          <input type="hidden" th:field="*{projectId}" />
 
-    <main>
-        <div class="row g-5">
-
-            <div class="col-md-7 col-lg-8 mx-auto">
-
-                <!-- Form to add a subproject -->
-                <form th:action="@{/alphaSolutions/add-subproject}" th:object="${subproject}" method="post">
-
-                    <!-- Project Card "Add subProject" -->
-                    <div class="card shadow-sm rounded mb-4">
-                        <div class="card-header fw-semibold">
-                            Add Subproject
-                        </div>
-                        <div class="card-body">
-
-                            <!-- Input: Subproject Name -->
-                            <div class="mb-3">
-                                <label for="subprojectName" class="form-label">Subproject Name</label>
-                                <input type="text" class="form-control" id="subprojectName" th:field="*{subprojectName}"
-                                       placeholder="Enter subproject name">
-                            </div>
-
-
-                            <!-- Input: Subproject Description -->
-                            <div class="mb-3">
-                                <label for="subprojectDescription" class="form-label">Description</label>
-                                <textarea class="form-control" id="subprojectDescription"
-                                          th:field="*{subprojectDescription}"
-                                          rows="3"
-                                          placeholder="Enter description"></textarea>
-                            </div>
-
-
-                            <!-- Input: Time Estimate -->
-                            <div class="mb-3">
-                                <label for="estimatedHours" class="form-label">Time Estimate (hours)</label>
-                                <input type="number" class="form-control" id="estimatedHours"
-                                       th:field="*{estimatedHours}" placeholder="e.g. 12">
-                            </div>
-
-                            <!-- Input: Start Date -->
-                            <div class="mb-3">
-                                <label for="plannedStart" class="form-label">Planned Start</label>
-                                <input type="date" class="form-control" id="plannedStart" th:field="*{subprojectStartDate}">
-                            </div>
-
-                            <!-- Input: End Date -->
-                            <div class="mb-3">
-                                <label for="plannedEnd" class="form-label">Planned End</label>
-                                <input type="date" class="form-control" id="plannedEnd" th:field="*{subprojectEndDate}">
-                            </div>
-
-                        </div>
-                    </div>
-                    <!-- Project Form Card (END) -->
-
-                    <!-- Priority Selection -->
-                    <div class="card shadow-sm rounded mb-4">
-                        <div class="card-header fw-semibold">
-                            Priority
-                        </div>
-                        <div class="card-body">
-
-
-                            <!-- Radio button: High -->
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" th:field="*{subprojectPriority}"
-                                       value="HIGH"
-                                       id="priorityHigh">
-                                <label class="form-check-label" for="priorityHigh">High</label>
-                            </div>
-
-                            <!-- Radio button: Medium -->
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" th:field="*{subprojectPriority}"
-                                       value="MEDIUM" id="priorityMedium">
-                                <label class="form-check-label" for="priorityMedium">Medium</label>
-                            </div>
-
-                            <!-- Radio button: Low -->
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" th:field="*{subprojectPriority}"
-                                       value="LOW"
-                                       id="priorityLow">
-                                <label class="form-check-label" for="priorityLow">Low</label>
-                            </div>
-
-                        </div>
-                    </div>
-                    <!-- Priority Selection (END) -->
-
-                    <!-- Status Selection -->
-                    <div class="card shadow-sm rounded mb-4">
-                        <div class="card-header fw-semibold">
-                            Status
-                        </div>
-                        <div class="card-body">
-
-
-                            <!-- Radio button: Completed -->
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" th:field="*{subprojectStatus}"
-                                       value="COMPLETED" id="statusCompleted">
-                                <label class="form-check-label" for="statusCompleted">Completed</label>
-                            </div>
-
-                            <!-- Radio button: In Progress -->
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" th:field="*{subprojectStatus}"
-                                       value="IN_PROGRESS" id="statusInProgress">
-                                <label class="form-check-label" for="statusInProgress">In progress</label>
-                            </div>
-
-                            <!-- Radio button: Not Started -->
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" th:field="*{subprojectStatus}"
-                                       value="NOT_STARTED" id="statusNotStarted">
-                                <label class="form-check-label" for="statusNotStarted">Not started</label>
-                            </div>
-
-                        </div>
-                    </div>
-                    <!-- Status Selection (END) -->
-
-
-                    <div class="d-flex justify-content-between mt-4">
-                        <!-- Cancel-button -->
-                        <div>
-                            <a th:href="@{projectmanager-project}" class="btn btn-outline-secondary" role="button">Cancel</a>
-                        </div>
-                        <!-- Submit-button -->
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
-                </form>
+          <div class="card shadow-sm rounded mb-4">
+            <div class="card-header fw-semibold">
+              Add Subproject
             </div>
-        </div>
-    </main>
+            <div class="card-body">
+              <div class="mb-3">
+                <label for="projectName" class="form-label">Subproject Name</label>
+                <input type="text" class="form-control" id="projectName" th:field="*{subProjectName}"
+                       placeholder="Enter project name">
+              </div>
+              <div class="mb-3">
+                <label for="projectDescription" class="form-label">Description</label>
+                <textarea class="form-control" id="projectDescription" th:field="*{subProjectDescription}"
+                          rows="3"
+                          placeholder="Enter description"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="estimatedHours" class="form-label">Time Estimate (hours)</label>
+                <input type="number" class="form-control" id="estimatedHours"
+                       th:field="*{estimatedHours}" placeholder="e.g. 12">
+              </div>
+              <div class="mb-3">
+                <label for="projectStartDate" class="form-label">Planned Start</label>
+                <input type="date" class="form-control" id="projectStartDate" name="projectStartDate"
+                       th:field="*{startDate}">
+              </div>
+              <div class="mb-3">
+                <label for="projectEndDate" class="form-label">Planned End</label>
+                <input type="date" class="form-control" id="projectEndDate" name="projectEndDate"
+                       th:field="*{endDate}">
+              </div>
+            </div>
+          </div>
+          <!-- Project Form Card (END) -->
+
+          <!-- Priority Card -->
+          <div class="card shadow-sm rounded mb-4">
+            <div class="card-header fw-semibold">
+              Priority
+            </div>
+            <div class="card-body">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" th:field="*{subPriority}" value="HIGH"
+                       id="priorityHigh">
+                <label class="form-check-label" for="priorityHigh">High</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" th:field="*{subPriority}"
+                       value="MEDIUM" id="priorityMedium">
+                <label class="form-check-label" for="priorityMedium">Medium</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" th:field="*{subPriority}" value="LOW"
+                       id="priorityLow">
+                <label class="form-check-label" for="priorityLow">Low</label>
+              </div>
+            </div>
+          </div>
+          <!-- Priority Card (END) -->
+
+          <!-- Status Card -->
+          <div class="card shadow-sm rounded mb-4">
+            <div class="card-header fw-semibold">
+              Status
+            </div>
+            <div class="card-body">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" th:field="*{status}"
+                       value="COMPLETED" id="statusCompleted">
+                <label class="form-check-label" for="statusCompleted">Completed</label>
+
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" th:field="*{status}"
+                       value="IN_PROGRESS" id="statusInProgress">
+                <label class="form-check-label" for="statusInProgress">In progress</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" th:field="*{status}"
+                       value="NOT_STARTED" id="statusNotStarted">
+                <label class="form-check-label" for="statusNotStarted">Not started</label>
+              </div>
+            </div>
+          </div>
+          <!-- Status Card (END) -->
+
+          <!-- Submit/Cancel Buttons -->
+          <div class="d-flex justify-content-end mt-4 gap-2">
+            <a th:href="@{/alphaSolutions/projectmanager-project/{projectId}(projectId=${projectId})}" role="button"
+               class="btn btn-outline-secondary">Cancel</a>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </main>
 </div>
 
 <!-- FOOTER -->

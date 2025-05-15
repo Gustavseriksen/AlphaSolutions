@@ -1,10 +1,7 @@
 package org.example.alphasolutions.Controller;
 
 import jakarta.servlet.http.HttpSession;
-import org.example.alphasolutions.Model.Admin;
-import org.example.alphasolutions.Model.Employee;
-import org.example.alphasolutions.Model.Project;
-import org.example.alphasolutions.Model.ProjectManager;
+import org.example.alphasolutions.Model.*;
 import org.example.alphasolutions.Service.ManagementSoftwareService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -289,7 +286,7 @@ public class ManagementSoftwareController {
     // ADMIN END -----------------------------------------------------------------------------
 
 
-    //PROJECT MANAGER ------------------------------------------------------------------------
+    //PROJECT MANAGER PROJECT ------------------------------------------------------------------------
 
     @GetMapping("/projectmanager-frontpage")
     public String viewProjectManagerFrontpage(HttpSession session, Model model) {
@@ -341,20 +338,6 @@ public class ManagementSoftwareController {
 
         return "redirect:/alphaSolutions/projectmanager-frontpage";
     }
-
-
-    @GetMapping("/projectmanager-project/{projectId}")
-    public String viewProject(HttpSession session, @PathVariable int projectId, Model model) {
-        String ID = (String) session.getAttribute("ID");
-        if (ID == null || !ID.endsWith("PM")) {
-            return "redirect:/alphaSolutions";
-        }
-
-        model.addAttribute("subprojects", managementSoftwareService.getSubprojectsByProjectId(projectId));
-
-        return "projectmanager-project";
-    }
-
 
     @GetMapping("/projectmanager-edit-project/{projectId}")
     public String editProjectbyId(@PathVariable int projectId, HttpSession session, Model model) {
@@ -425,24 +408,88 @@ public class ManagementSoftwareController {
         return "redirect:/";
     }
 
-    // Subproject -------------------------------------------------------------------------
+ */
+
+    // PROJECT MANAGER SUBPROJECT -------------------------------------------------------------------------
+
+    @GetMapping("/projectmanager-project/{projectId}")
+    public String viewProject(HttpSession session, @PathVariable int projectId, Model model){
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("PM")) {
+            return "redirect:/alphaSolutions";
+        }
+
+        model.addAttribute("project", managementSoftwareService.getProjectByProjectId(projectId));
+        model.addAttribute("subprojects", managementSoftwareService.getSubprojectsByProjectId(projectId));
+
+
+        return "projectmanager-project";
+    }
+
+    @GetMapping("/projectmanager-add-subproject/{projectId}")
+    public String projectmanagerAddSubproject(HttpSession session, Model model, @PathVariable int projectId) {
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("PM")) {
+            return "redirect:/alphaSolutions";
+        }
+
+        Subproject subproject = new Subproject();
+        subproject.setProjectId(projectId);
+
+        model.addAttribute("subproject", subproject);
+
+        return "projectmanager-add-subproject";
+    }
+
     @PostMapping("/add-subproject")
-    public String addSubproject(@ModelAttribute Subproject subproject) {
+    public String addSubproject(HttpSession session, @ModelAttribute Subproject subproject) {
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("PM")) {
+            return "redirect:/alphaSolutions";
+        }
+
         managementSoftwareService.addSubproject(subproject);
-        return "redirect:/";
+        return "redirect:/alphaSolutions/projectmanager-project/" + subproject.getProjectId();
     }
 
-    @PostMapping("/delete-subproject/{subprojectId}")
-    public String deleteSubproject(@PathVariable int subprojectId) {
+    @PostMapping("/delete-subproject/{subprojectId}/{projectId}")
+    public String deleteSubproject(HttpSession session, @PathVariable int subprojectId, @PathVariable int projectId) {
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("PM")) {
+            return "redirect:/alphaSolutions";
+        }
+
         managementSoftwareService.deleteSubproject(subprojectId);
-        return "redirect:/";
+        return "redirect:/alphaSolutions/projectmanager-project/" + projectId;
     }
 
-    @PostMapping("/edit-subproject/{subprojectId}")
-    public String editSubproject(@PathVariable int subprojectId, Subproject subproject) {
+    @GetMapping("/edit-subproject/{subprojectId}/{projectId}")
+    public String editSubproject(HttpSession session, @PathVariable int subprojectId, @PathVariable int projectId, Model model) {
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("PM")) {
+            return "redirect:/alphaSolutions";
+        }
+
+        model.addAttribute("subprojectId", subprojectId);
+        model.addAttribute("projectId", projectId);
+        model.addAttribute("subproject", managementSoftwareService.getSubprojectBySubId(subprojectId));
+        return "projectmanager-edit-subproject";
+    }
+
+    @PostMapping("/edit-subproject/{subprojectId}/{projectId}")
+    public String editSubproject(HttpSession session, @PathVariable int subprojectId, @PathVariable int projectId,
+                                 @ModelAttribute Subproject subproject) {
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("PM")) {
+            return "redirect:/alphaSolutions";
+        }
+
         managementSoftwareService.editSubproject(subprojectId, subproject);
-        return "redirect:/";
-    } // -------------------------------------------------------------------------
+        return "redirect:/alphaSolutions/projectmanager-project/" + projectId;
+    }
+
+    /*
+    // -------------------------------------------------------------------------
 
     // Task
     @PostMapping("/add-task")
@@ -469,4 +516,4 @@ public class ManagementSoftwareController {
 //        managementSoftwareService.checkIfDone();
 //        return "index";
 //    }
-    }
+}

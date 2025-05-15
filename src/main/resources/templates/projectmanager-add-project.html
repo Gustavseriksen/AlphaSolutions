@@ -64,14 +64,14 @@
                             <div class="mb-3">
                                 <label for="projectStartDate" class="form-label">Planned Start</label>
                                 <input type="date" class="form-control" id="projectStartDate" name="projectStartDate"
-                                       th:value="${project.projectStartDate}">
+                                       th:field="*{projectStartDate}">
                             </div>
 
                             <!-- Input: End Date -->
                             <div class="mb-3">
                                 <label for="projectEndDate" class="form-label">Planned End</label>
                                 <input type="date" class="form-control" id="projectEndDate" name="projectEndDate"
-                                       th:value="${project.projectEndDate}">
+                                       th:field="*{projectEndDate}">
                             </div>
 
                         </div>
