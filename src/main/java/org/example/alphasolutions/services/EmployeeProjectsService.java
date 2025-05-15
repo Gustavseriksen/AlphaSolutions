@@ -10,14 +10,15 @@ import java.util.List;
 
 @Service
 public class EmployeeProjectsService {
-    private final EmployeeProjectsRepository employeeProjectsRepository;
 
+    private final EmployeeProjectsRepository employeeProjectsRepository;
     private final ProjectRepository projectRepository;
 
     public EmployeeProjectsService(EmployeeProjectsRepository employeeProjectsRepository, ProjectRepository projectRepository) {
         this.employeeProjectsRepository = employeeProjectsRepository;
         this.projectRepository = projectRepository;
     }
+
 
     public void addProjectWithEmployees(Project project, List<Integer> employeeIds) {
         projectRepository.addProject(project);
@@ -30,12 +31,11 @@ public class EmployeeProjectsService {
 
         }
     }
-
-    public List<Employee> getEmployeesByProjectId(int projectId) {
+    public List<Employee> getEmployeesByProjectId(int projectId){
         return employeeProjectsRepository.getEmployeesByProjectId(projectId);
     }
 
-    public void deleteAllEmployeesAssignmentsFromProject(int projectId) {
+    public void deleteAllEmployeeAssignmentsFromProject(int projectId){
         employeeProjectsRepository.deleteAllEmployeeAssignmentsFromProject(projectId);
     }
 

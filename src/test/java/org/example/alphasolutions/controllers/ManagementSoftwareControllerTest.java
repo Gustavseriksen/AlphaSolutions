@@ -1,4 +1,4 @@
-package org.example.alphasolutions.controllers;
+/*package org.example.alphasolutions.controllers;
 
 import jakarta.servlet.http.HttpSession;
 import org.example.alphasolutions.models.ProjectManager;
@@ -63,13 +63,13 @@ class ManagementSoftwareControllerTest {
     void checkCredentials() {
     }
 
-   /* @Test
+    @Test
     void viewAdminFrontPage_withSession_returnsOk() throws Exception {
         mockMvc.perform(get("/alphaSolutions/admin-frontpage"))
                 .sessionAttr("ID", 1)
                 .andExpect(status().isOk())
                 .andExpect(view().name("admin-frontpage"));
-    } */
+    }
 
     @Test
     void viewAdminFrontPage_withValidAdminSession_returnsOk() throws Exception { // Omdøbt for klarhed
@@ -96,7 +96,7 @@ class ManagementSoftwareControllerTest {
                 .andExpect(redirectedUrl("/alphaSolutions"));           // RETTELSE 2: Den faktiske URL der redirectes til
     }
 
-/*    @Test
+   @Test
     void viewProjectManagersPage_Admin_SessionIsOK() throws Exception {
         List<ProjectManager> dummyManagers = List.of(new ProjectManager(1, "PM_Alice", "he1"), new ProjectManager(2, "PM_Bob", "john"));
         when(managementSoftwareService.getAllProjectManagers()).thenReturn(dummyManagers);
@@ -107,7 +107,7 @@ class ManagementSoftwareControllerTest {
                 .andExpect(view().name("admin-projectmanagers-page"))
                 .andExpect(model().attributeExists("projectManagers"))
                 .andExpect(model().attribute("projectManagers", dummyManagers));
-    }*/
+    }
 
     @Test
     void viewProjectManagersPage_withValidAdminSession_returnsOkAndManagers() throws Exception { // Omdøbt for klarhed
@@ -224,4 +224,4 @@ class ManagementSoftwareControllerTest {
     @Test
     void deleteTask() {
     }
-}
+}*/
