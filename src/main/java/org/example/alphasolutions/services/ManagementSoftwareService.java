@@ -1,7 +1,7 @@
-package org.example.alphasolutions.Service;
+package org.example.alphasolutions.services;
 
-import org.example.alphasolutions.Repository.ManagementSoftwareRepository;
-import org.example.alphasolutions.Model.*;
+import org.example.alphasolutions.repositories.ManagementSoftwareRepository;
+import org.example.alphasolutions.models.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

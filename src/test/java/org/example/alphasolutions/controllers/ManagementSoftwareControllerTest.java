@@ -1,12 +1,11 @@
-package org.example.alphasolutions.Controller;
+package org.example.alphasolutions.controllers;
 
 import jakarta.servlet.http.HttpSession;
-import org.example.alphasolutions.Model.ProjectManager;
-import org.example.alphasolutions.Service.ManagementSoftwareService;
+import org.example.alphasolutions.models.ProjectManager;
+import org.example.alphasolutions.services.ManagementSoftwareService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;

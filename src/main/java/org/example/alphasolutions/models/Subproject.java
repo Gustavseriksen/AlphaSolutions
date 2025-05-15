@@ -1,4 +1,4 @@
-package org.example.alphasolutions.Model;
+package org.example.alphasolutions.models;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

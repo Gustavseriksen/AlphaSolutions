@@ -1,6 +1,6 @@
-package org.example.alphasolutions.Repository.RowMappers;
+package org.example.alphasolutions.repositories.RowMappers;
 
-import org.example.alphasolutions.Model.Admin;
+import org.example.alphasolutions.models.Admin;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

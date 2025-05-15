@@ -1,6 +1,6 @@
-package org.example.alphasolutions.Repository;
+package org.example.alphasolutions.repositories;
 
-import org.example.alphasolutions.Model.*;
+import org.example.alphasolutions.models.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
