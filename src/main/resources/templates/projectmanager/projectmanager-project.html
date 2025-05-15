@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Project manager project</title>
+    <!-- External stylesheets -->
+    <link rel="stylesheet" href="/styles.css">
+    <!-- Bootstrap CSS for responsive design and styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body class="d-flex flex-column min-vh-100 bg-body-tertiary">
+
+
+<!-- TOP NAVBAR -->
+<nav class="navbar">
+    <!-- Logo -->
+    <a th:href="@{/alphaSolutions/pm/projectmanager-frontpage}" class="logo-link ms-2">
+        <img src="/logo.png" alt="Logo" width="246" height="45">
+    </a>
+    <!-- Sign-out button -->
+    <form th:action="@{/alphaSolutions/auth/logout}" method="post">
+        <button type="submit" class="signout-button">Sign out</button>
+    </form>
+</nav>
+<!-- TOP NAVBAR (END) -->
+
+<!-- PROJECT-NAME + DESCRIPTION + PROJECT-TIME + PROJECT-EDIT  -->
+<div class="container-fluid px-4 py-2">
+
+    <div class="row row-cols-1 row-cols-md-2 align-items-md-center g-5 py-1">
+        <div class="col d-flex flex-column align-items-start gap-2" style="margin-top: 70px;">
+            <!-- ProjectName -->
+            <h2 class="fw-bold text-body-emphasis" th:text="${project.getProjectName()}"></h2>
+            <!-- ProjectName -->
+            <p class="text-body-secondary" th:text="${project.getProjectDescription()}"></p>
+        </div>
+
+        <!-- Project time -->
+        <div class="col">
+            <div class="row row-cols-1 row-cols-sm-3 g-0">
+                <div class="bd-example-snippet bd-code-snippet">
+                    <div class="bd-example m-0 border-0">
+                        <ul class="list-group">
+                            <!-- image + project time estimate -->
+                            <li class="list-group-item">
+                                <img src="/clock-fill.svg" alt="Clock" width="18" height="18" >
+                                <span th:text="|Time estimate: ${project.getEstimatedHours()}|"></span>
+                            </li>
+                            <!-- image + project Time spent -->
+                            <li class="list-group-item">
+                                <img src="/clock.svg" alt="Clock" width="18" height="18">
+                                <span th:text="|Time used: ${project.getActualHoursUsed()}|"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project-edit -->
+            <div style="margin-top: -75px;">
+                <div class="bd-example-snippet bd-code-snippet text-end">
+                    <a th:href="@{/alphaSolutions/pm/projectmanager-edit-project}">
+                        <img src="/gear.svg" alt="Settings" class="icon-hover" width="60" height="60">
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- PROJECT-NAME + DESCRIPTION + PROJECT-TIME + PROJECT.EDIT (END) -->
+
+
+
+<!-- ADD SUBPROJECT AND BACK BUTTON -->
+<div class="d-flex justify-content-between align-items-center px-3 mb-4">
+    <!-- Left: Return-arrow image-link with hover effect -->
+    <a th:href="@{/alphaSolutions/pm/projectmanager-frontpage}">
+        <img src="/arrow-return-left.svg" alt="Return" class="icon-hover" style="height: 40px;">
+    </a>
+    <!-- Right: Add subproject button -->
+    <a th:href="@{/alphaSolutions/pm/projectmanager-add-subproject/{projectId}(projectId=${project.projectId})}">
+        <button class="btn btn-outline-dark" style="width: 170px; height: 50px;">
+
+            + Add Subproject
+        </button>
+    </a>
+</div>
+<!-- ADD TASK AND BACK BUTTON (END) -->
+
+
+
+
+
+
+
+
+<!-- SUBPROJECTS LOOP -->
+<div class="container-fluid px-4">
+
+    <!-- For-each loop -->
+    <div class="card mb-4" th:each="subproject : ${subprojects}">
+
+        <!-- Link for subproject view page -->
+
+        <a th:href="@{/alphaSolutions/pm/projectmanager-task/{subprojectId}(subprojectId=${subproject.subProjectId})}" class="card-header d-flex justify-content-between align-items-center text-decoration-none header-hover">
+
+            <!-- SubprojectName -->
+            <span class="text-dark" th:text="${subproject.subProjectName}"></span>
+
+            <!-- Status with color coordination (Switch-case) -->
+            <th:block th:switch="${subproject.status.name()}">
+
+                <span th:case="'COMPLETED'"
+                      class="badge rounded-1 fw-light fs-6 bg-success" th:text="${subproject.status}"></span>           <!-- COMPLETED = Green -->
+
+                <span th:case="'IN_PROGRESS'"
+                      class="badge rounded-1 fw-light fs-6 bg-primary" th:text="${subproject.status}"></span>           <!-- IN_PROGRESS = Blue -->
+
+                <span th:case="'NOT_STARTED'"
+                      class="badge rounded-1 fw-light fs-6 bg-secondary" th:text="${subproject.status}"></span>         <!-- NOT_STARTED = Grey -->
+
+                <span th:case="*"
+                      class="badge rounded-1 fw-light fs-6 bg-light text-dark" th:text="${subproject.status}"></span>   <!-- *(else) = light-grey & text-dark -->
+            </th:block>
+        </a>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-fixed mb-0 align-middle">
+
+                    <thead class="text-dark fs-4">
+                    <tr>
+                                <!-- Title "Time estimate" -->
+                        <th class="border-bottom-0 fw-semibold fs-6">Time Estimate</th>
+                                <!-- Title "Time spent" -->
+                        <th class="border-bottom-0 fw-semibold fs-6">Time Spent</th>
+                                <!-- Title "Priority" -->
+                        <th class="border-bottom-0 fw-semibold fs-6">Priority</th>
+                        <!-- Title "Planned start" -->
+                        <th class="border-bottom-0 fw-semibold fs-6">Planned start</th>
+                        <!-- Title "planned end" -->
+                        <th class="border-bottom-0 fw-semibold fs-6">Planned end</th>
+                        <!-- Title Edit -->
+                        <th class="border-bottom-0 fw-semibold fs-6">Edit</th>
+                                <!-- Title "delete" -->
+                        <th class="border-bottom-0 fw-semibold fs-6">Delete</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr> <!-- Time estimate -->
+                        <td class="border-bottom-0 fw-normal fs-6" th:text="${subproject.estimatedHours}"></td>
+
+                        <!-- Time spent -->
+                        <td class="border-bottom-0 fw-normal fs-6" th:text="${subproject.actualHoursUsed}"></td>
+
+                        <!-- Priority with color coordination (Switch-case) -->
+                        <td class="border-bottom-0">
+                            <span class="badge bg-primary rounded-3 fw-semibold fs-6" th:text="${subproject.subPriority}"></span>
+                        </td>
+
+                        <td class="border-bottom-0 fw-normal fs-6">
+                            <span class="d-block fw-normal" th:text="${subproject.startDate}"></span>
+                        </td>
+
+                        <td class="border-bottom-0 fw-normal fs-6">
+                            <span class="d-block fw-normal" th:text="${subproject.endDate}"></span>
+                        </td>
+
+                        <!-- Edit image-link -->
+                        <td class="border-bottom-0 fw-semibold fs-4">
+                            <a th:href="@{/alphaSolutions/pm/edit-subproject/{subProjectId}/{projectId}(subProjectId=${subproject.subProjectId}, projectId=${project.projectId})}">
+                                <img src="/gear.svg" alt="Settings" class="icon-hover" width="22" height="22">
+                            </a>
+                        </td>
+
+                                <!-- Delete image-link -->
+                        <td class="border-bottom-0 fw-semibold fs-4">
+                            <form th:action="@{/alphaSolutions/pm/delete-subproject/{subProjectId}/{projectId}(subProjectId=${subproject.subProjectId}, projectId=${project.projectId})}" method="post">
+                                <button type="submit" style="border: none; background: none; padding: 0;"
+                                        onclick="return confirm('Are you sure you want to delete this subproject?');">
+                                    <img src="/trash-fill.svg" alt="delete" class="icon-hover" width="22" height="22">
+                                </button>
+
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- SUBPROJECTS LOOP (END) -->
+
+
+<!-- FOOTER -->
+<div class="container">
+    <footer class="py-3 my-0">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3"></ul>
+        <!-- Customer support text -->
+        <p class="text-center text-body-secondary">Customer Support: (+45) 35 20 30 40</p>
+    </footer>
+</div>
+<!-- FOOTER (END) -->
+
+
+</body>
+</html>
