@@ -1,3 +1,4 @@
+-- (Keep your existing DROP and CREATE TABLE statements)
 DROP TABLE IF EXISTS Tasks;
 DROP TABLE IF EXISTS Subprojects;
 DROP TABLE IF EXISTS EmployeeProjects;
@@ -21,7 +22,7 @@ CREATE TABLE ProjectManagers (
 CREATE TABLE Employees (
                            employee_id INT AUTO_INCREMENT PRIMARY KEY,
                            username VARCHAR(50) NOT NULL UNIQUE,
-                           password VARCHAR(50) NOT NULL
+                           password VARCHAR(50) NOT NULL -- Added password for consistency
 );
 
 CREATE TABLE Projects (
@@ -71,14 +72,22 @@ CREATE TABLE Tasks (
 -- Insert data
 INSERT INTO Admins (username, password) VALUES ('ADM_bert', '123');
 INSERT INTO ProjectManagers (username, password) VALUES ('PM_bert', '123');
+
+-- Employees (Assuming employee_id will be 1 for EMP_bert, 2 for EMP_jane due to AUTO_INCREMENT)
 INSERT INTO Employees (username, password) VALUES ('EMP_bert', '123');
+INSERT INTO Employees (username, password) VALUES ('EMP_jane', 'pw_jane'); -- Added password
 
+-- Projects (Assuming project_id will be 1 for Project Alpha, 2 for Project Beta)
 INSERT INTO Projects (project_name, project_description, start_date, end_date, estimated_hours, actual_hours_used, project_priority, project_status)
-VALUES ('Project test', 'This is a project description test', '2025-04-01', '2025-06-01', 120, 95, 'HIGH', 'COMPLETED');
+VALUES ('Project Alpha', 'This is a project description test', '2025-04-01', '2025-06-01', 120, 95, 'HIGH', 'COMPLETED');
+INSERT INTO Projects (project_name, project_description, start_date, end_date, estimated_hours, actual_hours_used, project_priority, project_status)
+VALUES ('Project Beta', 'Another test project', '2025-05-01', '2025-07-01', 80, 0, 'MEDIUM', 'PENDING');
 
--- Make sure employee_id and project_id exist
+
+-- Initial Assignment: Employee 1 (EMP_bert) to Project 1 (Project Alpha)
 INSERT INTO EmployeeProjects (employee_id, project_id) VALUES (1, 1);
 
+-- Subprojects and Tasks for Project 1 (as in your original script)
 INSERT INTO Subprojects (project_id, subproject_name, subproject_description, subproject_priority, estimated_hours, actual_hours_used, subproject_status)
 VALUES (1, 'Subproject A', 'Subproject test description', 'MEDIUM', 40, 38, 'COMPLETED');
 
