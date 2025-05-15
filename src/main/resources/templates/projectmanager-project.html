@@ -95,17 +95,30 @@
 <!-- SUBPROJECTS LOOP -->
 <div class="container-fluid px-4">
 
-    <!-- !!!!FIX!!!! For-each loop !!!!FIX!!!! -->
-    <div class="card mb-4">
+    <!-- For-each loop -->
+    <div class="card mb-4" th:each="subproject : ${subprojects}">
 
-        <!-- Link for projects view page -->
-        <a href="https://www.example.com/" class="card-header d-flex justify-content-between align-items-center text-decoration-none header-hover">
+        <!-- Link for subproject view page -->
+        <a th:href="@{/alphaSolutions/projectmanager-task/{subprojectId}(subprojectId=${subproject.getSubprojectId()})}" class="card-header d-flex justify-content-between align-items-center text-decoration-none header-hover">
 
-            <!-- ProjectName -->
-            <span class="text-dark">Subproject #1</span>
+            <!-- SubprojectName -->
+            <span class="text-dark" th:text="${subproject.subprojectName}"></span>
 
-            <!-- !!!!FIX!!!! Status with color coordination (Switch-case) !!!!FIX!!!! -->
-            <span class="badge bg-success rounded-1 fw-light fs-6">Completed</span>
+            <!-- Status with color coordination (Switch-case) -->
+            <th:block th:switch="${subproject.subprojectStatus.name()}">
+
+                <span th:case="'COMPLETED'"
+                      class="badge rounded-1 fw-light fs-6 bg-success" th:text="${subproject.subprojectStatus}"></span>           <!-- COMPLETED = Green -->
+
+                <span th:case="'IN_PROGRESS'"
+                      class="badge rounded-1 fw-light fs-6 bg-primary" th:text="${subproject.subprojectStatus}"></span>           <!-- IN_PROGRESS = Blue -->
+
+                <span th:case="'NOT_STARTED'"
+                      class="badge rounded-1 fw-light fs-6 bg-secondary" th:text="${subproject.subprojectStatus}"></span>         <!-- NOT_STARTED = Grey -->
+
+                <span th:case="*"
+                      class="badge rounded-1 fw-light fs-6 bg-light text-dark" th:text="${subproject.subprojectStatus}"></span>   <!-- *(else) = light-grey & text-dark -->
+            </th:block>
         </a>
 
 
@@ -125,6 +138,10 @@
                         <th class="border-bottom-0 fw-semibold fs-6">Edit</th>
                                 <!-- Title "delete" -->
                         <th class="border-bottom-0 fw-semibold fs-6">Delete</th>
+                                <!-- Title "Planned start" -->
+                        <th class="border-bottom-0 fw-semibold fs-6">Planned start</th>
+                                <!-- Title "Planned end" -->
+                        <th class="border-bottom-0 fw-semibold fs-6">Planned end</th>
                     </tr>
                     </thead>
 
@@ -136,9 +153,22 @@
                                 <!-- Time spent -->
                         <td class="border-bottom-0 fw-normal fs-6">10</td>
 
-                                <!-- !!!!FIX!!!! Priority with color coordination (Switch-case) !!!!FIX!!!! -->
+                        <!-- Priority with color coordination (Switch-case) -->
                         <td class="border-bottom-0">
-                            <span class="badge bg-primary rounded-3 fw-semibold fs-6">Low</span>
+                            <th:block th:switch="${subproject.subprojectPriority.name()}">
+
+                                <span th:case="'HIGH'"
+                                      class="badge rounded-3 fw-semibold fs-6 bg-danger" th:text="${subproject.subprojectPriority}"></span>            <!-- HIGH = Red -->
+
+                                <span th:case="'MEDIUM'"
+                                      class="badge rounded-3 fw-semibold fs-6 bg-warning" th:text="${subproject.subprojectPriority}"></span>          <!-- MEDIUM = Yellow -->
+
+                                <span th:case="'LOW'"
+                                      class="badge rounded-3 fw-semibold fs-6 bg-info" th:text="${subproject.subprojectPriority}"></span>             <!-- LOW = Light-blue -->
+
+                                <span th:case="*"
+                                      class="badge rounded-3 fw-semibold fs-6 bg-light text-dark" th:text="${subproject.subprojectPriority}"></span>  <!-- *(else) = light-grey & text-dark -->
+                            </th:block>
                         </td>
 
                                 <!-- Edit image-link -->
@@ -154,6 +184,18 @@
                                 <img src="/trash-fill.svg" alt="delete" class="icon-hover" width="22" height="22">
                             </a>
                         </td>
+
+                        <!-- Start date -->
+                        <td class="border-bottom-0 fw-normal fs-6">
+                            <span class="d-block fw-normal" th:text="${subproject.subprojectStartDate}"></span>
+                        </td>
+
+                        <!-- End date -->
+                        <td class="border-bottom-0 fw-normal fs-6">
+                            <span class="d-block fw-normal" th:text="${subproject.subprojectEndDate}"></span>
+                        </td>
+
+
                     </tr>
                     </tbody>
                 </table>

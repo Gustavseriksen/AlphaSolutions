@@ -1,203 +1,154 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:https="">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Employee frontpage</title>
-  <link rel="stylesheet" href="/static/styles.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Employee frontpage</title>
+    <!-- External stylesheets -->
+    <link rel="stylesheet" href="/static/styles.css">
+    <!-- Bootstrap CSS for responsive design and styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body class="d-flex flex-column min-vh-100 bg-body-tertiary">
 
 
-<!-- Top NAVBAR -->
+<!-- TOP NAVBAR -->
 <nav class="navbar">
-  <a href="https://www.example.com/" class="logo-link ms-2">
-    <img src="/static/logo.png" alt="Logo" width="246" height="45">
-  </a>
-  <button class="signout-button">Sign out</button>
+    <!-- Logo -->
+    <div class="logo-link ms-2">
+        <img src="/logo.png" alt="Logo" width="246" height="45">
+    </div>
+    <!-- Sign-out button -->
+    <form th:action="@{/alphaSolutions/logout}" method="post">
+        <button type="submit" class="signout-button">Sign out</button>
+    </form>
 </nav>
-<!-- Top NAVBAR (END) -->
+<!-- TOP NAVBAR (END) -->
 
 
-<!-- USERNAME -->
+<!-- USERNAME + TEXT -->
 <div class="px-4 py-5 my-5 text-center">
-  <img class="d-block mx-auto mb-1" src="/static/UserLogo.svg" alt="" width="72" height="57">
-  <h1 class="display-5 fw-bold text-body-emphasis">Username</h1>
-  <div class="col-lg-6 mx-auto">
-    <p class="lead mb-4">Welcome back Username! You can view your projects below.</p>
-  </div>
+    <!-- Profile image -->
+    <img class="d-block mx-auto mb-1" src="/UserLogo.svg" alt="" width="72" height="57">
+    <!-- Username -->
+    <h1 class="display-5 fw-bold text-body-emphasis" th:text="${username}">username</h1>
+    <div class="col-lg-6 mx-auto">
+        <!-- Text -->
+        <p class="lead mb-4">Welcome back <span th:text="${username}">username</span>! You can view your projects below.</p>
+    </div>
 </div>
-<!-- USERNAME (END) -->
+<!-- USERNAME + TEXT (END) -->
 
 
-
-
-<!-- Projects -->
+<!-- PROJECTS LOOP -->
 <div class="container-fluid px-4">
 
-  <!-- Project #1 -->
-  <div class="card mb-4">
+    <!-- For-each loop -->
+    <div class="card mb-4" th:each="project : ${projects}">
 
-    <a href="https://www.example.com/" class="card-header d-flex justify-content-between align-items-center text-decoration-none header-hover">
-      <span class="text-dark">Project #1</span>
-      <span class="badge bg-success rounded-1 fw-light fs-6">Completed</span>
-    </a>
+        <!-- Link for project view page -->
+        <a th:href="@{/alphaSolutions/employee-project/{projectId}(projectId=${project.getProjectId()})}" class="card-header d-flex justify-content-between align-items-center text-decoration-none header-hover">
+
+            <!-- ProjectName -->
+            <span class="text-dark" th:text="${project.projectName}"></span>
+
+            <!-- Status with color coordination (Switch-case) -->
+            <th:block th:switch="${project.projectStatus.name()}">
+
+                <span th:case="'COMPLETED'"
+                      class="badge rounded-1 fw-light fs-6 bg-success" th:text="${project.projectStatus}"></span>           <!-- COMPLETED = Green -->
+
+                <span th:case="'IN_PROGRESS'"
+                      class="badge rounded-1 fw-light fs-6 bg-primary" th:text="${project.projectStatus}"></span>           <!-- IN_PROGRESS = Blue -->
+
+                <span th:case="'NOT_STARTED'"
+                      class="badge rounded-1 fw-light fs-6 bg-secondary" th:text="${project.projectStatus}"></span>         <!-- NOT_STARTED = Grey -->
+
+                <span th:case="*"
+                      class="badge rounded-1 fw-light fs-6 bg-light text-dark" th:text="${project.projectStatus}"></span>   <!-- *(else) = light-grey & text-dark -->
+            </th:block>
+        </a>
 
 
-    <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-fixed mb-0 align-middle">
-          <thead class="text-dark fs-4">
-          <tr>
-            <th class="border-bottom-0 fw-semibold fs-6" style="width: 20%;">Assigned</th>
-            <th class="border-bottom-0 fw-semibold fs-6">Time Estimate</th>
-            <th class="border-bottom-0 fw-semibold fs-6">Time Spent</th>
-            <th class="border-bottom-0 fw-semibold fs-6">Priority</th>
-            <th class="border-bottom-0 fw-semibold fs-6">Start</th>
-            <th class="border-bottom-0 fw-semibold fs-6">End</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td class="border-bottom-0 fw-normal fs-6 text-wrap">Martinjensen69, Peterbelly22, XfactorMartin94, ChristianEriksen00</td>
-            <td class="border-bottom-0 fw-normal fs-6">110</td>
-            <td class="border-bottom-0 fw-normal fs-6">125</td>
-            <td class="border-bottom-0">
-              <span class="badge bg-primary rounded-3 fw-semibold fs-6">Low</span>
-            </td>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-fixed mb-0 align-middle">
 
-            <td class="border-bottom-0 fw-normal fs-6">
-              <span class="d-block fw-normal">Planned start: 01/04</span>
-              <span class="d-block fw-light">Actual start: 01/04</span>
-            </td>
+                    <thead class="text-dark fs-4">
+                    <tr>
+                        <!-- Title "Assigned" -->
+                        <th class="border-bottom-0 fw-semibold fs-6" style="width: 20%;">Assigned</th>
+                        <!-- Title "Time estimate" -->
+                        <th class="border-bottom-0 fw-semibold fs-6">Time estimate</th>
+                        <!-- Title "Time spent" -->
+                        <th class="border-bottom-0 fw-semibold fs-6">Time spent</th>
+                        <!-- Title "Priority" -->
+                        <th class="border-bottom-0 fw-semibold fs-6">Priority</th>
+                        <!-- Title "Planned start" -->
+                        <th class="border-bottom-0 fw-semibold fs-6">Planned start</th>
+                        <!-- Title "Planned end" -->
+                        <th class="border-bottom-0 fw-semibold fs-6">Planned end</th>
+                    </tr>
+                    </thead>
 
-            <td class="border-bottom-0 fw-normal fs-6">
-              <span class="d-block fw-normal">Planned End: 05/05</span>
-              <span class="d-block fw-light">Actual End: 28/04</span>
-            </td>
+                    <tbody>
+                    <tr>
+                        <!-- Assigned employees (for-each loop) -->
+                        <td class="border-bottom-0 fw-normal fs-6 text-wrap">
+                            <span th:each="emp : ${employeeMap[project.projectId]}"
+                                  th:text="${emp.username + ', '}"></span>
+                        </td>
+                        <!-- Time estimate -->
+                        <td class="border-bottom-0 fw-normal fs-6" th:text="${project.estimatedHours}">
+                            <!-- Time spent -->
+                        <td class="border-bottom-0 fw-normal fs-6" th:text="${project.actualHoursUsed}">
 
-          </tr>
-          </tbody>
-        </table>
-      </div>
+
+                            <!-- Priority with color coordination (Switch-case) -->
+                        <td class="border-bottom-0">
+                            <th:block th:switch="${project.projectPriority.name()}">
+
+                                <span th:case="'HIGH'"
+                                      class="badge rounded-3 fw-semibold fs-6 bg-danger" th:text="${project.projectPriority}"></span>            <!-- HIGH = Red -->
+
+                                <span th:case="'MEDIUM'"
+                                      class="badge rounded-3 fw-semibold fs-6 bg-warning" th:text="${project.projectPriority}"></span>          <!-- MEDIUM = Yellow -->
+
+                                <span th:case="'LOW'"
+                                      class="badge rounded-3 fw-semibold fs-6 bg-info" th:text="${project.projectPriority}"></span>             <!-- LOW = Light-blue -->
+
+                                <span th:case="*"
+                                      class="badge rounded-3 fw-semibold fs-6 bg-light text-dark" th:text="${project.projectPriority}"></span>  <!-- *(else) = light-grey & text-dark -->
+                            </th:block>
+                        </td>
+
+                        <!-- Start date -->
+                        <td class="border-bottom-0 fw-normal fs-6">
+                            <span class="d-block fw-normal" th:text="${project.projectStartDate}"></span>
+                        </td>
+
+                        <!-- End date -->
+                        <td class="border-bottom-0 fw-normal fs-6">
+                            <span class="d-block fw-normal" th:text="${project.projectEndDate}"></span>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
-
-
-
-  <!-- Project #2 -->
-  <div class="card mb-4">
-
-    <a href="https://www.example.com/" class="card-header d-flex justify-content-between align-items-center text-decoration-none header-hover">
-      <span class="text-dark">Project #2</span>
-      <span class="badge bg-secondary rounded-1 fw-light fs-6">In progress </span>
-    </a>
-
-
-    <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-fixed mb-0 align-middle">
-          <thead class="text-dark fs-4">
-          <tr>
-            <th class="border-bottom-0 fw-semibold fs-6" style="width: 20%;">Assigned</th>
-            <th class="border-bottom-0 fw-semibold fs-6">Time Estimate</th>
-            <th class="border-bottom-0 fw-semibold fs-6">Time Spent</th>
-            <th class="border-bottom-0 fw-semibold fs-6">Priority</th>
-            <th class="border-bottom-0 fw-semibold fs-6">Start</th>
-            <th class="border-bottom-0 fw-semibold fs-6">End</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td class="border-bottom-0 fw-normal fs-6 text-wrap">AndreasVibes88, LarsTheKing90, MikkelOnFire07 </td>
-            <td class="border-bottom-0 fw-normal fs-6">50</td>
-            <td class="border-bottom-0 fw-normal fs-6">22</td>
-            <td class="border-bottom-0">
-              <span class="badge bg-warning rounded-3 fw-semibold fs-6">Medium</span>
-            </td>
-
-            <td class="border-bottom-0 fw-normal fs-6">
-              <span class="d-block fw-normal">Planned start: 03/04</span>
-              <span class="d-block fw-light">Actual start: 03/04</span>
-            </td>
-
-            <td class="border-bottom-0 fw-normal fs-6">
-              <span class="d-block fw-normal">Planned End: 20/06</span>
-              <span class="d-block fw-light">Actual End: </span>
-            </td>
-
-
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- Project #3 -->
-  <div class="card mb-4">
-
-    <a href="https://www.example.com/" class="card-header d-flex justify-content-between align-items-center text-decoration-none header-hover">
-      <span class="text-dark">Project #3</span>
-      <span class="badge bg-dark rounded-1 fw-light fs-6">Not started</span>
-    </a>
-
-
-    <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-fixed mb-0 align-middle">
-          <thead class="text-dark fs-4">
-          <tr>
-            <th class="border-bottom-0 fw-semibold fs-6" style="width: 20%;">Assigned</th>
-            <th class="border-bottom-0 fw-semibold fs-6">Time Estimate</th>
-            <th class="border-bottom-0 fw-semibold fs-6">Time Spent</th>
-            <th class="border-bottom-0 fw-semibold fs-6">Priority</th>
-            <th class="border-bottom-0 fw-semibold fs-6">Start</th>
-            <th class="border-bottom-0 fw-semibold fs-6">End</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td class="border-bottom-0 fw-normal fs-6 text-wrap">Martinjensen69, Peterbelly22, HyggeHansen22</td>
-            <td class="border-bottom-0 fw-normal fs-6">135</td>
-            <td class="border-bottom-0 fw-normal fs-6">0</td>
-            <td class="border-bottom-0">
-              <span class="badge bg-danger rounded-3 fw-semibold fs-6">High</span>
-            </td>
-
-            <td class="border-bottom-0 fw-normal fs-6">
-              <span class="d-block fw-normal">Planned start: 01/08</span>
-              <span class="d-block fw-light">Actual start: </span>
-            </td>
-
-            <td class="border-bottom-0 fw-normal fs-6">
-              <span class="d-block fw-normal">Planned End: 01/09</span>
-              <span class="d-block fw-light">Actual End: </span>
-            </td>
-
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
 </div>
-<!-- Projects (END) -->
-
-
-
-
+<!-- PROJECTS LOOP (END) -->
 
 
 <!-- FOOTER -->
 <div class="container">
-  <footer class="py-3 my-0">
-    <ul class="nav justify-content-center border-bottom pb-3 mb-3"></ul>
-    <p class="text-center text-body-secondary">Customer Support: (+45) 35 20 30 40</p>
-  </footer>
+    <footer class="py-3 my-0">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3"></ul>
+        <!-- Customer support text -->
+        <p class="text-center text-body-secondary">Customer Support: (+45) 35 20 30 40</p>
+    </footer>
 </div>
 <!-- FOOTER (END) -->
 

@@ -15,7 +15,7 @@
 <!-- TOP NAVBAR -->
 <nav class="navbar">
   <!-- Logo -->
-  <a th:href="@{/alphaSolutions/projectmanager-project}" class="logo-link ms-2">
+  <a th:href="@{/alphaSolutions/projectmanager-frontpage}" class="logo-link ms-2">
     <img src="/logo.png" alt="Logo" width="246" height="45">
   </a>
   <!-- Sign-out button -->
@@ -45,12 +45,12 @@
             <ul class="list-group">
               <!-- image + project time estimate -->
               <li class="list-group-item">
-                <img src="/static/clock-fill.svg" alt="Clock" width="18" height="18">
+                <img src="/clock-fill.svg" alt="Clock" width="18" height="18">
                 Time estimate: 42
               </li>
               <!-- image + project Time spent -->
               <li class="list-group-item">
-                <img src="/static/clock.svg" alt="Clock" width="18" height="18">
+                <img src="/clock.svg" alt="Clock" width="18" height="18">
                 Time spent: 17
               </li>
             </ul>
@@ -62,7 +62,7 @@
       <div style="margin-top: -75px;">
         <div class="bd-example-snippet bd-code-snippet text-end">
           <a th:href="@{/alphaSolutions/projectmanager-edit-subproject/{subprojectId}(subprojectId=${subproject.subprojectId})}">
-            <img src="/static/gear.svg" alt="Settings" class="icon-hover" width="60" height="60">
+            <img src="/gear.svg" alt="Settings" class="icon-hover" width="60" height="60">
           </a>
         </div>
       </div>
@@ -77,10 +77,10 @@
 <div class="d-flex justify-content-between align-items-center px-3 mb-4">
   <!-- Left: Return-arrow image-link with hover effect -->
   <a th:href="@{/alphaSolutions/projectmanager-frontpage}">
-    <img src="/static/arrow-return-left.svg" alt="Return" class="icon-hover" style="height: 40px;">
+    <img src="/arrow-return-left.svg" alt="Return" class="icon-hover" style="height: 40px;">
   </a>
   <!-- Right: Add Task button -->
-  <a th:href="@{/alphaSolutions/projectmanager-add-task}" target="_blank">
+  <a th:href="@{/alphaSolutions/projectmanager-add-task}" >
     <button class="btn btn-outline-dark" style="width: 150px; height: 50px;">
       + Add task
     </button>
@@ -140,8 +140,8 @@
             <th class="border-bottom-0 fw-semibold fs-6">
               <a href="https://www.example.com/">
                 <div class="image-swap" style="width: 22px; height: 22px;">
-                  <img src="/static/plus-square.svg" class="img-normal" alt="default" width="22" height="22">
-                  <img src="/static/plus-square-fill.svg" class="img-hover" alt="hover" width="22" height="22">
+                  <img src="/plus-square.svg" class="img-normal" alt="default" width="22" height="22">
+                  <img src="/plus-square-fill.svg" class="img-hover" alt="hover" width="22" height="22">
                 </div>
               </a>
             </th>
@@ -177,14 +177,14 @@
                 <!-- Edit image-link -->
             <td class="border-bottom-0 fw-semibold fs-4">
               <a th:href="@{/alphaSolutions/projectmanager-edit-task/{taskId}(taskId=${task.taskId})}">
-                <img src="/static/gear.svg" alt="Settings" class="icon-hover" width="22" height="22">
+                <img src="/gear.svg" alt="Settings" class="icon-hover" width="22" height="22">
               </a>
             </td>
 
                 <!-- Delete image-link -->
             <td class="border-bottom-0 fw-semibold fs-4">
               <a href="https://www.example.com/">
-                <img src="/static/trash-fill.svg" alt="delete" class="icon-hover" width="22" height="22">
+                <img src="/trash-fill.svg" alt="delete" class="icon-hover" width="22" height="22">
               </a>
             </td>
 
