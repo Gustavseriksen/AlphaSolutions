@@ -65,12 +65,23 @@ class ManagementSoftwareControllerTest {
     void checkCredentials() {
     }
 
-    @Test
+   /* @Test
     void viewAdminFrontPage_withSession_returnsOk() throws Exception {
-        mockMvc.perform(get("/alphaSolutions/admin-frontpage")
-                        .sessionAttr("ID", 1))
+        mockMvc.perform(get("/alphaSolutions/admin-frontpage"))
+                .sessionAttr("ID", 1)
                 .andExpect(status().isOk())
                 .andExpect(view().name("admin-frontpage"));
+    } */
+
+    @Test
+    void viewAdminFrontPage_withValidAdminSession_returnsOk() throws Exception { // Omdøbt for klarhed
+        mockMvc.perform(get("/alphaSolutions/admin-frontpage") // URL'en ser korrekt ud nu
+                        .sessionAttr("ID", "testAdmin123ADM")   // Sæt ID som en String der slutter på "ADM"
+                        .sessionAttr("username", "adminUser")) // Sæt også et username for en komplet test
+                .andExpect(status().isOk()) // Forvent HTTP 200 OK
+                .andExpect(view().name("admin-frontpage")) // Forvent det korrekte view-navn
+                .andExpect(model().attributeExists("username")) // Tjek at "username" er tilføjet til modellen
+                .andExpect(model().attribute("username", "adminUser")); // Tjek evt. også værdien af username
     }
 
     @Test
@@ -82,12 +93,12 @@ class ManagementSoftwareControllerTest {
 
     @Test
     void redirect_To_Index_When_NoValidSession() throws Exception {
-        mockMvc.perform(get("/admin-projectmanagers-page"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/alphaSolutions"));
+        mockMvc.perform(get("/alphaSolutions/admin-projectmanagers-page")) // RETTELSE 1: Korrekt fuld URL
+                .andExpect(status().is3xxRedirection())                 // Forventer en redirect status (f.eks. 302)
+                .andExpect(redirectedUrl("/alphaSolutions"));           // RETTELSE 2: Den faktiske URL der redirectes til
     }
 
-    @Test
+/*    @Test
     void viewProjectManagersPage_Admin_SessionIsOK() throws Exception {
         List<ProjectManager> dummyManagers = List.of(new ProjectManager(1, "PM_Alice", "he1"), new ProjectManager(2, "PM_Bob", "john"));
         when(managementSoftwareService.getAllProjectManagers()).thenReturn(dummyManagers);
@@ -98,6 +109,29 @@ class ManagementSoftwareControllerTest {
                 .andExpect(view().name("admin-projectmanagers-page"))
                 .andExpect(model().attributeExists("projectManagers"))
                 .andExpect(model().attribute("projectManagers", dummyManagers));
+    }*/
+
+    @Test
+    void viewProjectManagersPage_withValidAdminSession_returnsOkAndManagers() throws Exception { // Omdøbt for klarhed
+        // 1. Forbered testdata
+        List<ProjectManager> dummyManagers = List.of(
+                new ProjectManager(1, "PM_Alice", "pw1"),
+                new ProjectManager(2, "PM_Bob", "pw2")
+        );
+
+        // 2. Opsæt mock for servicekaldet
+        // (Dette forudsætter at managementSoftwareService er korrekt mocked i din testklasse,
+        // f.eks. med @MockBean private ManagementSoftwareService managementSoftwareService;)
+        when(managementSoftwareService.getAllProjectManagers()).thenReturn(dummyManagers);
+
+        // 3. Udfør anmodningen med en gyldig admin-session
+        mockMvc.perform(get("/alphaSolutions/admin-projectmanagers-page")
+                        .sessionAttr("ID", "validAdminID_ADM")   // Sæt ID som en String der slutter på "ADM"
+                        .sessionAttr("username", "testAdmin")) // Det er også god praksis at sætte username, hvis det bruges
+                .andExpect(status().isOk()) // Forvent HTTP 200 OK
+                .andExpect(view().name("admin-projectmanagers-page")) // Forvent korrekt view-navn
+                .andExpect(model().attributeExists("projectManagers")) // Tjek at "projectManagers" er i modellen
+                .andExpect(model().attribute("projectManagers", dummyManagers)); // Tjek at indholdet er korrekt
     }
 
     @Test

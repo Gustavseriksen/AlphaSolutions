@@ -33,20 +33,20 @@
         <form th:action="@{/alphaSolutions/projectmanager-update-subproject/{subprojectId}(subprojectId=${subproject.subprojectId})}"
               th:object="${subproject}" method="post">
 
-          <!-- Project Card "Edit Project" -->
+          <!-- Project Card "Edit Subproject" -->
           <div class="card shadow-sm rounded mb-4">
             <div class="card-header fw-semibold">
               Edit Subproject
             </div>
             <div class="card-body">
 
-              <!-- Input: Project Name -->
+              <!-- Input: Subproject Name -->
               <div class="mb-3">
                 <label for="subprojectName" class="form-label">Subproject Name</label>
                 <input type="text" class="form-control" id="subprojectName" th:field="*{subprojectName}"  placeholder="Enter project subname">
               </div>
 
-              <!-- Input: Project Description -->
+              <!-- Input: Subproject Description -->
               <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
                 <textarea class="form-control" id="description" rows="3" th:field="*{subprojectDescription}"  placeholder="Enter description"></textarea>
@@ -133,59 +133,6 @@
           </div>
           <!-- Status Selection (END) -->
 
-
-          <!-- Choose Employees -->
-          <div class="card shadow-sm rounded mb-4">
-            <div class="card-header fw-semibold">
-              Choose Employees
-            </div>
-
-            <div class="card-body px-0 pb-2">
-              <!-- Responsive scrollable table container with a max height to avoid overflow -->
-              <div class="table-responsive p-0" style="max-height: 300px; overflow-y: auto;">
-                <!-- Bootstrap-styled table without bottom margin -->
-                <table class="table align-items-center mb-0">
-                  <thead>
-                  <tr>
-                    <!-- Column header for employee name -->
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                      Employee
-                    </th>
-                    <!-- Column header for checkbox selection (right-aligned) -->
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-end">
-                      Select
-                    </th>
-                  </tr>
-                  </thead>
-                  <tbody>
-
-                  <!-- Loop through each employee and display their info -->
-                  <tr th:each="employee : ${employees}">
-                    <td>
-                      <div class="d-flex px-2 py-1">
-                        <!-- Person image -->
-                        <div>
-                          <img src="/person-fill.svg"
-                               class="avatar avatar-sm me-3 border-radius-lg" alt="user">
-                        </div>
-                        <!-- Display employee username -->
-                        <div class="d-flex flex-column justify-content-center">
-                          <h6 class="mb-0 text-sm" th:text="${employee.username}">EMP_NAME</h6>
-                        </div>
-                      </div>
-                    </td>
-                    <!-- Checkbox to select employee -->
-                    <td class="text-end pe-3">
-                      <input type="checkbox" name="selectedEmployees"
-                             th:value="${employee.employee_id}" th:checked="${subprojectEmployeesIds.contains(employee.employee_id)}">
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <!-- Choose Employees (END) -->
 
           <div class="d-flex justify-content-between mt-4">
             <!-- Cancel-button -->
