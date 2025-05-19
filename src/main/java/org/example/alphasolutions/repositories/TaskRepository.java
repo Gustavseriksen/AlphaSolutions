@@ -20,7 +20,7 @@ public class TaskRepository {
     public void addTask(Task task) {
         String sql = "INSERT INTO Tasks (subproject_id, task_name, task_description, task_priority," +
                 "estimated_hours, actual_hours_used, task_status) " +
-                "VALUES(?,?,?,?,?,?)";
+                "VALUES(?,?,?,?,?,?,?)";
         jdbcTemplate.update(sql, task.getSubProjectId(), task.getTaskName(), task.getTaskDescription(),
                 task.getPriority().name(), task.getEstimatedHours(),
                 task.getActualUsedHours(), task.getStatus().name());
