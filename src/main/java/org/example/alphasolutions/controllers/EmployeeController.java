@@ -9,10 +9,6 @@ import org.example.alphasolutions.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
 import java.util.List;
@@ -53,8 +49,6 @@ public class EmployeeController {
             System.err.println("Error parsing employee ID from session: " + ID);
             return "index";
         }
-
-
 
 
         String username = (String) session.getAttribute("username");
@@ -100,7 +94,7 @@ public class EmployeeController {
         Task task = taskService.getTaskByTaskId(taskId);
         boolean success = taskService.updateActualHours(taskId, number);
 
-        if(!success) {
+        if (!success) {
             return "redirect:/alphaSolutions/emp/employee-task/" + task.getSubProjectId();
         }
         return "redirect:/alphaSolutions/emp/employee-task/" + task.getSubProjectId();
@@ -120,33 +114,4 @@ public class EmployeeController {
 
         return "/employee/employee-project";
     }
-
-/*
-    // Task
-    @PostMapping("/add-task")
-    public String addTask(@ModelAttribute Task task) {
-        managementSoftwareService.addTask(task);
-        return "redirect:/";
-    }
-
-    @PostMapping("/delete-task/{taskId}")
-    public String deleteTask(@PathVariable int taskId) {
-        managementSoftwareService.deleteTask(taskId);
-        return "redirect:/";
-    }
-
-    @PostMapping("/edit-task")
-    public String editTask() {
-        managementSoftwareService.editTask();
-        return "redirect:/";
-    }
-
-//    // Check if done
-//    @GetMapping("/check-if-done")
-//    public String checkIfDone(Model model) {
-//        managementSoftwareService.checkIfDone();
-//        return "index";
-//    }
-//}
-*/
 }
