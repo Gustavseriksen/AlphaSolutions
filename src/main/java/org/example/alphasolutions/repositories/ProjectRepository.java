@@ -36,8 +36,17 @@ public class ProjectRepository {
 
     }
 
-    public void editProject() {
-        //er i tvivl om hvordan jeg skal lave den her nu
+    public void editProject(int projectId, Project project) {
+
+        String sql = "UPDATE Projects SET " +
+                "project_name = ?, project_description = ?, start_date = ?, " +
+                "end_date = ?, estimated_hours = ?, actual_hours_used = ?, " +
+                "project_priority = ?, project_status = ? " +
+                "WHERE project_id = ?";
+
+        jdbcTemplate.update(sql, project.getProjectName(), project.getProjectDescription(), project.getProjectStartDate(),
+                project.getProjectEndDate(), project.getEstimatedHours(), project.getActualHoursUsed(),
+                project.getProjectPriority().name(), project.getProjectStatus().name(), projectId);
     }
 
     public List<Project> getAllProjects() {

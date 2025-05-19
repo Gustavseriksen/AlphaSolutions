@@ -7,26 +7,24 @@ public class Task {
     private int taskId;
     private int subProjectId;
     private String taskName;
-    private String priority;
-    private Date startDate;
-    private Date endDate;
+    private Priority priority;
     private double estimatedHours;
     private double actualUsedHours;
     private Status status;
 
     public Task(int taskId, int subProjectId, String taskName,
-                String priority, Date startDate, Date endDate, double estimatedHours,
+                Priority priority, double estimatedHours,
                 double actualUsedHours, Status status) {
         this.taskId = taskId;
         this.subProjectId = subProjectId;
         this.taskName = taskName;
         this.priority = priority;
-        this.startDate = startDate;
-        this.endDate = endDate;
         this.estimatedHours = estimatedHours;
         this.actualUsedHours = actualUsedHours;
         this.status = status;
     }
+
+    public Task() {}
 
 
     public int getTaskId() {
@@ -53,29 +51,14 @@ public class Task {
         this.taskName = taskName;
     }
 
-    public String getPriority() {
+    public Priority getPriority() {
         return priority;
     }
 
-    public void setPriority(String priority) {
+    public void setPriority(Priority priority) {
         this.priority = priority;
     }
 
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
 
     public double getEstimatedHours() {
         return estimatedHours;
