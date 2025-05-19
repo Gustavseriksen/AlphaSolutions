@@ -23,7 +23,7 @@ class ProjectManagerRepositoryTest {
 
 
     @Test
-    void addProjectManager() {
+    void addProjectManagerTest() {
         // Arrange
         ProjectManager newManager = new ProjectManager();
         newManager.setUsername("PM_jane");
@@ -46,7 +46,7 @@ class ProjectManagerRepositoryTest {
     }
 
     @Test
-    void deleteProjectManager() {
+    void deleteProjectManagerTest() {
         // Arrange
         ProjectManager manager = new ProjectManager();
         manager.setUsername("PM_temp");
@@ -67,7 +67,7 @@ class ProjectManagerRepositoryTest {
 
 
     @Test
-    void getAllProjectManagers_shouldReturnAllProjectManagersFromDatabase() {
+    void getAllProjectManagersTest() {
         // Act
         List<ProjectManager> managers = projectManagerRepository.getAllProjectManagers();
 
@@ -93,7 +93,7 @@ class ProjectManagerRepositoryTest {
 
 
     @Test
-    void getProjectManagerById_shouldReturnCorrectProjectManager() {
+    void getProjectManagerByIdTest() {
         // Act
         ProjectManager manager = projectManagerRepository.getProjectManagerById(1);
 
@@ -105,7 +105,7 @@ class ProjectManagerRepositoryTest {
     }
 
     @Test
-    void editProjectManagerById_shouldUpdateUsernameAndPassword() {
+    void editProjectManagerByIdTest() {
         // Arrange
         int managerId = 1; // PM_bert har ID 1 ifølge testdata
         ProjectManager updatedManager = new ProjectManager();

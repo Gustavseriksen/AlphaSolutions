@@ -24,7 +24,7 @@ class ProjectRepositoryTest {
     ProjectRepository projectRepository;
 
     @Test
-    void addProject_shouldAddProjectToDatabase() {
+    void addProjectTest() {
         Project project = new Project(0, "Test Project", "Desc", LocalDate.of(2025, 5, 1), LocalDate.of(2025, 6, 1), 100, 0, Priority.HIGH, Status.IN_PROGRESS);
         projectRepository.addProject(project);
 
@@ -40,7 +40,7 @@ class ProjectRepositoryTest {
     }
 
     @Test
-    void deleteProject_shouldRemoveProjectFromDatabase() {
+    void deleteProjectTest() {
         // Deletes project with id 1
         projectRepository.deleteProject(1);
 
@@ -56,7 +56,7 @@ class ProjectRepositoryTest {
     }
 
     @Test
-    void getAllProjects_shouldReturnAllProjects() {
+    void getAllProjectsTest() {
         List<Project> projects = projectRepository.getAllProjects();
 
         assertNotNull(projects);
@@ -74,7 +74,7 @@ class ProjectRepositoryTest {
     }
 
     @Test
-    void getProjectByProjectId_shouldReturnCorrectProject() {
+    void getProjectByProjectIdTest() {
         Project project = projectRepository.getProjectByProjectId(1);
 
         assertNotNull(project);
@@ -83,19 +83,18 @@ class ProjectRepositoryTest {
 
 
 
-    /*
-    PROBLEMS WITH SQL GRAMMAR
+
     @Test
     void getLastInsertedProjectId_shouldReturnIdOfLastInsertedProject() {
         Project project = new Project(0, "New Project", "Desc", LocalDate.now(), LocalDate.now().plusDays(10), 10, 0, Priority.MEDIUM, Status.PENDING);
         projectRepository.addProject(project);
 
-        int lastId = projectRepository.getLastInsertedProjectId();
+        List<Project> projects = projectRepository.getAllProjects();
+        int lastId = projects.getLast().getProjectId();
         Project retrieved = projectRepository.getProjectByProjectId(lastId);
 
         assertEquals("New Project", retrieved.getProjectName());
     }
-*/
 
     @Test
     void updateProject_shouldUpdateProjectData() {

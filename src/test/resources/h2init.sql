@@ -73,6 +73,7 @@
 
     -- Insert data
     INSERT INTO Admins (username, password) VALUES ('ADM_bert', '123');
+
     INSERT INTO ProjectManagers (username, password) VALUES ('PM_bert', '123');
     INSERT INTO ProjectManagers (username, password) VALUES ('PM_john', 'password');
 

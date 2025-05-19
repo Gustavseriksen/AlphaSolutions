@@ -19,7 +19,7 @@ class CredentialsRepositoryTest {
     CredentialsRepository credentialsRepository;
 
     @Test
-    void checkAdminCredentials_validUsername() {
+    void checkAdminCredentialsTest() {
         // Arrange
         String username = "ADM_bert";
         String password = "123";

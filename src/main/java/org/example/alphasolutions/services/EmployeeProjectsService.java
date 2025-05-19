@@ -23,7 +23,8 @@ public class EmployeeProjectsService {
     public void addProjectWithEmployees(Project project, List<Integer> employeeIds) {
         projectRepository.addProject(project);
 
-        int projectId = projectRepository.getLastInsertedProjectId();
+        List<Project> projects = projectRepository.getAllProjects();
+        int projectId = projects.getLast().getProjectId();
         if (employeeIds != null) {
             for (int employeeId : employeeIds) {
                 employeeProjectsRepository.assignEmployeeToProject(employeeId, projectId);
