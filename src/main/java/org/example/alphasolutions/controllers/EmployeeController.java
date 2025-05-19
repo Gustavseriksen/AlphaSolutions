@@ -3,11 +3,12 @@ package org.example.alphasolutions.controllers;
 import jakarta.servlet.http.HttpSession;
 import org.example.alphasolutions.models.Employee;
 import org.example.alphasolutions.models.Project;
-import org.example.alphasolutions.services.EmployeeProjectsService;
-import org.example.alphasolutions.services.EmployeeService;
-import org.example.alphasolutions.services.ProjectService;
-import org.example.alphasolutions.services.SubprojectService;
+import org.example.alphasolutions.models.Subproject;
+import org.example.alphasolutions.models.Task;
+import org.example.alphasolutions.services.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,13 +26,14 @@ public class EmployeeController {
     private final EmployeeProjectsService employeeProjectsService;
     private final EmployeeService employeeService;
     private final SubprojectService subprojectService;
+    private final TaskService taskService;
 
-
-    public EmployeeController(EmployeeService employeeService, ProjectService projectService, EmployeeProjectsService employeeProjectsService, SubprojectService subprojectService) {
+    public EmployeeController(EmployeeService employeeService, SubprojectService subprojectService, ProjectService projectService, TaskService taskService, EmployeeProjectsService employeeProjectsService) {
         this.employeeService = employeeService;
-        this.projectService = projectService;
-        this.employeeProjectsService = employeeProjectsService;
         this.subprojectService = subprojectService;
+        this.projectService = projectService;
+        this.taskService = taskService;
+        this.employeeProjectsService = employeeProjectsService;
     }
 
 
@@ -72,7 +74,37 @@ public class EmployeeController {
         return "/employee/employee-frontpage";
     }
 
+    @GetMapping("/employee-task/{subprojectId}")
+    public String employeeTask(HttpSession session, @PathVariable int subprojectId, Model model) {
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("EMP")) {
+            return "index";
+        }
 
+        Subproject subproject = subprojectService.getSubprojectBySubId(subprojectId);
+        model.addAttribute("subproject", subproject);
+        model.addAttribute("project", projectService.getProjectByProjectId(subproject.getProjectId()));
+        model.addAttribute("tasks", taskService.getTasksBySubId(subprojectId));
+
+
+        return "/employee/employee-task";
+    }
+
+    @PostMapping("update-actual-hours/{taskId}")
+    public String updateActualHours(HttpSession session, @PathVariable int taskId, @RequestParam int number) {
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("EMP")) {
+            return "index";
+        }
+
+        Task task = taskService.getTaskByTaskId(taskId);
+        boolean success = taskService.updateActualHours(taskId, number);
+
+        if(!success) {
+            return "redirect:/alphaSolutions/emp/employee-task/" + task.getSubProjectId();
+        }
+        return "redirect:/alphaSolutions/emp/employee-task/" + task.getSubProjectId();
+    }
 
     @GetMapping("/employee-project/{projectId}")
     public String viewProject(HttpSession session, @PathVariable int projectId, Model model) {
@@ -88,12 +120,6 @@ public class EmployeeController {
 
         return "/employee/employee-project";
     }
-
-
-
-    //public String viewProjectManagerFrontpage(HttpSession session, Model model) {
-
-
 
 /*
     // Task
