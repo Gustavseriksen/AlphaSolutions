@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Employee frontpage</title>
     <!-- External stylesheets -->
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/styles.css">
     <!-- Bootstrap CSS for responsive design and styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -19,7 +19,7 @@
         <img src="/logo.png" alt="Logo" width="246" height="45">
     </div>
     <!-- Sign-out button -->
-    <form th:action="@{/alphaSolutions/logout}" method="post">
+    <form th:action="@{/alphaSolutions/auth/logout}" method="post">
         <button type="submit" class="signout-button">Sign out</button>
     </form>
 </nav>
@@ -47,7 +47,7 @@
     <div class="card mb-4" th:each="project : ${projects}">
 
         <!-- Link for project view page -->
-        <a th:href="@{/alphaSolutions/employee-project/{projectId}(projectId=${project.getProjectId()})}" class="card-header d-flex justify-content-between align-items-center text-decoration-none header-hover">
+        <a th:href="@{/alphaSolutions/emp/employee-project/{projectId}(projectId=${project.getProjectId()})}" class="card-header d-flex justify-content-between align-items-center text-decoration-none header-hover">
 
             <!-- ProjectName -->
             <span class="text-dark" th:text="${project.projectName}"></span>
@@ -95,8 +95,7 @@
                     <tr>
                         <!-- Assigned employees (for-each loop) -->
                         <td class="border-bottom-0 fw-normal fs-6 text-wrap">
-                            <span th:each="emp : ${employeeMap[project.projectId]}"
-                                  th:text="${emp.username + ', '}"></span>
+                            <span th:each="emp : ${employeeMap[project.projectId]}" th:text="${emp.username + ', '}"></span>
                         </td>
                         <!-- Time estimate -->
                         <td class="border-bottom-0 fw-normal fs-6" th:text="${project.estimatedHours}">

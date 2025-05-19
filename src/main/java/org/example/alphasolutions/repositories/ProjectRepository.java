@@ -95,4 +95,26 @@ public class ProjectRepository {
     }
 
 
+
+    public List<Project> getProjectsByEmployeeId(int employeeId) {
+
+        String sql = "SELECT p.* FROM Projects p " +
+                "JOIN EmployeeProjects ep ON p.project_id = ep.project_id " +
+                "WHERE ep.employee_id = ?";
+
+
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new Project(
+                rs.getInt("project_id"),
+                rs.getString("project_name"),
+                rs.getString("project_description"),
+                rs.getObject("start_date", LocalDate.class),
+                rs.getObject("end_date", LocalDate.class),
+                rs.getInt("estimated_hours"),
+                rs.getInt("actual_hours_used"),
+                Priority.valueOf(rs.getString("project_priority")),
+                Status.valueOf(rs.getString("project_status"))
+        ), employeeId);
+    }
+
+
 }

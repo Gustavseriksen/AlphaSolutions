@@ -39,6 +39,9 @@ public class ProjectService {
         projectRepository.updateProject(projectID, project);
     }
 
+    public List<Project> getProjectsByEmployeeId(int employeeId) {
+        return projectRepository.getProjectsByEmployeeId(employeeId);
+    }
 
 
 }
