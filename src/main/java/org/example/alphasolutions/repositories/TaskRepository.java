@@ -18,10 +18,10 @@ public class TaskRepository {
     }
 
     public void addTask(Task task) {
-        String sql = "INSERT INTO Tasks (subproject_id, task_name, task_priority," +
+        String sql = "INSERT INTO Tasks (subproject_id, task_name, task_description, task_priority," +
                 "estimated_hours, actual_hours_used, task_status) " +
                 "VALUES(?,?,?,?,?,?)";
-        jdbcTemplate.update(sql, task.getSubProjectId(), task.getTaskName(),
+        jdbcTemplate.update(sql, task.getSubProjectId(), task.getTaskName(), task.getTaskDescription(),
                 task.getPriority().name(), task.getEstimatedHours(),
                 task.getActualUsedHours(), task.getStatus().name());
     }
@@ -33,10 +33,10 @@ public class TaskRepository {
 
     public void editTask(int taskId, Task task) {
         String sql = "UPDATE Tasks SET " +
-                "task_name = ?, task_priority = ?, " +
+                "task_name = ?, task_description = ?, task_priority = ?, " +
                 " estimated_hours = ?, actual_hours_used = ?, task_status = ? " +
                 "WHERE task_id = ?";
-        jdbcTemplate.update(sql, task.getTaskName(), task.getPriority().name(),
+        jdbcTemplate.update(sql, task.getTaskName(), task.getTaskDescription(), task.getPriority().name(),
                 task.getEstimatedHours(), task.getActualUsedHours(), task.getStatus().name(), taskId);
     }
 
@@ -47,6 +47,7 @@ public class TaskRepository {
                 rs.getInt("task_id"),
                 rs.getInt("subproject_id"),
                 rs.getString("task_name"),
+                rs.getString("task_description"),
                 Priority.valueOf(rs.getString("task_priority")),
                 rs.getInt("estimated_hours"),
                 rs.getInt("actual_hours_used"),
@@ -60,6 +61,7 @@ public class TaskRepository {
                 rs.getInt("task_id"),
                 rs.getInt("subproject_id"),
                 rs.getString("task_name"),
+                rs.getString("task_description"),
                 Priority.valueOf(rs.getString("task_priority")),
                 rs.getInt("estimated_hours"),
                 rs.getInt("actual_hours_used"),

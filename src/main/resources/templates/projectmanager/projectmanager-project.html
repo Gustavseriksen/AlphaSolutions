@@ -60,7 +60,7 @@
             <!-- Project-edit -->
             <div style="margin-top: -75px;">
                 <div class="bd-example-snippet bd-code-snippet text-end">
-                    <a th:href="@{/alphaSolutions/pm/projectmanager-edit-project}">
+                    <a th:href="@{/alphaSolutions/pm/projectmanager-edit-project/{projectId}(projectId=${project.projectId})}">
                         <img src="/gear.svg" alt="Settings" class="icon-hover" width="60" height="60">
                     </a>
                 </div>
@@ -96,7 +96,6 @@
     <div class="card mb-4" th:each="subproject : ${subprojects}">
 
         <!-- Link for subproject view page -->
-
         <a th:href="@{/alphaSolutions/pm/projectmanager-task/{subprojectId}(subprojectId=${subproject.subProjectId})}"
            class="card-header d-flex justify-content-between align-items-center text-decoration-none header-hover">
 
@@ -156,8 +155,20 @@
 
                         <!-- Priority with color coordination (Switch-case) -->
                         <td class="border-bottom-0">
-                            <span class="badge bg-primary rounded-3 fw-semibold fs-6"
-                                  th:text="${subproject.subPriority}"></span>
+                            <th:block th:switch="${subproject.subPriority.name()}">
+
+                                <span th:case="'HIGH'"
+                                      class="badge rounded-3 fw-semibold fs-6 bg-danger" th:text="${subproject.subPriority}"></span>            <!-- HIGH = Red -->
+
+                                <span th:case="'MEDIUM'"
+                                      class="badge rounded-3 fw-semibold fs-6 bg-warning" th:text="${subproject.subPriority}"></span>          <!-- MEDIUM = Yellow -->
+
+                                <span th:case="'LOW'"
+                                      class="badge rounded-3 fw-semibold fs-6 bg-info" th:text="${subproject.subPriority}"></span>             <!-- LOW = Light-blue -->
+
+                                <span th:case="*"
+                                      class="badge rounded-3 fw-semibold fs-6 bg-light text-dark" th:text="${subproject.subPriority}"></span>  <!-- *(else) = light-grey & text-dark -->
+                            </th:block>
                         </td>
 
                         <td class="border-bottom-0 fw-normal fs-6">

@@ -15,7 +15,7 @@
 <nav class="navbar">
   <!-- Logo -->
   <a th:href="@{/alphaSolutions/pm/projectmanager-frontpage}" class="logo-link ms-2">
-    <img src="/static/logo.png" alt="Logo" width="246" height="45">
+    <img src="/logo.png" alt="Logo" width="246" height="45">
   </a>
 </nav>
 <!-- TOP NAVBAR (END) -->
@@ -46,7 +46,13 @@
               <!-- Input: Task Name -->
               <div class="mb-3">
                 <label for="taskName" class="form-label">Task Name</label>
-                <input type="text" class="form-control" id="taskName" th:field="*{taskName}"  placeholder="Enter project taskname">
+                <input type="text" class="form-control" id="taskName" th:field="*{taskName}"  placeholder="Enter task name">
+              </div>
+
+              <!-- Input: Task Description -->
+              <div class="mb-3">
+                <label for="taskDescription" class="form-label">Task Description</label>
+                <input type="text" class="form-control" id="taskDescription" th:field="*{taskDescription}"  placeholder="Enter task description">
               </div>
 
               <!-- Input: Time Estimate -->
@@ -123,7 +129,7 @@
           <div class="d-flex justify-content-between mt-4">
             <!-- Cancel-button -->
             <div>
-              <a th:href="@{/alphaSolutions/pm/projectmanager-task/{subprojectId}(subprojectid=${task.subProjectId})}" class="btn btn-outline-secondary" role="button">Cancel</a>
+              <a th:href="@{/alphaSolutions/pm/projectmanager-task/{subprojectId}(subprojectId=${task.subProjectId})}" class="btn btn-outline-secondary" role="button">Cancel</a>
             </div>
             <!-- Submit-button -->
             <div class="d-flex gap-2">
