@@ -7,17 +7,19 @@ public class Task {
     private int taskId;
     private int subProjectId;
     private String taskName;
+    private String taskDescription;
     private Priority priority;
     private double estimatedHours;
     private double actualUsedHours;
     private Status status;
 
-    public Task(int taskId, int subProjectId, String taskName,
+    public Task(int taskId, int subProjectId, String taskName, String taskDescription,
                 Priority priority, double estimatedHours,
                 double actualUsedHours, Status status) {
         this.taskId = taskId;
         this.subProjectId = subProjectId;
         this.taskName = taskName;
+        this.taskDescription = taskDescription;
         this.priority = priority;
         this.estimatedHours = estimatedHours;
         this.actualUsedHours = actualUsedHours;
@@ -83,4 +85,13 @@ public class Task {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    public String getTaskDescription() {
+        return taskDescription;
+    }
+
+    public void setTaskDescription(String taskDescription) {
+        this.taskDescription = taskDescription;
+    }
+
 }

@@ -14,7 +14,7 @@
 <!-- TOP NAVBAR -->
 <nav class="navbar">
   <!-- Logo -->
-  <a th:href="@{/alphaSolutions/pm/employee-frontpage}" class="logo-link ms-2">
+  <a th:href="@{/alphaSolutions/emp/employee-frontpage}" class="logo-link ms-2">
     <img src="/logo.png" alt="Logo" width="246" height="45">
   </a>
   <!-- Sign-out button -->
@@ -115,8 +115,6 @@
             <th class="border-bottom-0 fw-semibold fs-6">Time Spent</th>
             <!-- Title "Priority" -->
             <th class="border-bottom-0 fw-semibold fs-6">Priority</th>
-            <!-- Title Edit -->
-            <th class="border-bottom-0 fw-semibold fs-6">Edit</th>
             <!-- Plus button -->
             <th class="border-bottom-0 fw-semibold fs-6">
               <form th:action="@{/alphaSolutions/emp/update-actual-hours/{taskId}(taskId=${task.taskId})}"

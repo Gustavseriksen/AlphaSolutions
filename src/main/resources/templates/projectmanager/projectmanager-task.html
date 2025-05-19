@@ -59,7 +59,7 @@
             <!-- Subproject-edit -->
             <div style="margin-top: -75px;">
                 <div class="bd-example-snippet bd-code-snippet text-end">
-                    <a th:href="@{/alphaSolutions/pm/projectmanager-edit-subproject/{subprojectId}(subprojectId=${subproject.subProjectId})}">
+                    <a th:href="@{/alphaSolutions/pm/edit-subproject/{subprojectId}/{projectId}(subprojectId=${subproject.subProjectId}, projectId=${subproject.projectId})}">
                         <img src="/gear.svg" alt="Settings" class="icon-hover" width="60" height="60">
                     </a>
                 </div>
@@ -94,7 +94,7 @@
     <div class="card mb-4" th:each="task : ${tasks}">
 
         <!-- Link for projects view page -->
-        <a href="https://www.example.com/"
+        <a th:href="@{/alphaSolutions/pm/projectmanager-task-info/{taskId}(taskId=${task.taskId})}"
            class="card-header d-flex justify-content-between align-items-center text-decoration-none header-hover">
 
             <!-- ProjectName -->
