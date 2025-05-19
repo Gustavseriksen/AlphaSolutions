@@ -322,4 +322,17 @@ public class ProjectManagerController {
     }
 
 
+    @GetMapping("/projectmanager-task-info/{taskId}")
+    public String viewTaskInfo(HttpSession session, @PathVariable int taskId, Model model) {
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("PM")) {
+            return "index";
+        }
+
+        model.addAttribute("task", taskService.getTaskByTaskId(taskId));
+
+        return "/projectmanager/projectmanager-task-info";
+    }
+
+
 }
