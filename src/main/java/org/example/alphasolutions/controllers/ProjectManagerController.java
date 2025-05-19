@@ -187,6 +187,10 @@ public class ProjectManagerController {
             return "index";
         }
 
+        Project project = projectService.getProjectByProjectId(projectId);
+        Subproject subproject = subprojectService.getSubprojectBySubId(subprojectId);
+        project.setActualHoursUsed(project.getActualHoursUsed() - subproject.getActualHoursUsed());
+        projectService.editProject(projectId, project);
         subprojectService.deleteSubproject(subprojectId);
         return "redirect:/alphaSolutions/pm/projectmanager-project/" + projectId;
     }
@@ -274,6 +278,14 @@ public class ProjectManagerController {
         }
 
         Task task = taskService.getTaskByTaskId(taskId);
+        Subproject subproject = subprojectService.getSubprojectBySubId(task.getSubProjectId());
+        Project project = projectService.getProjectByProjectId(subproject.getProjectId());
+
+        subproject.setActualHoursUsed(subproject.getActualHoursUsed() - task.getActualUsedHours());
+        project.setActualHoursUsed(project.getActualHoursUsed() - task.getActualUsedHours());
+
+        subprojectService.editSubproject(subproject.getSubProjectId(), subproject);
+        projectService.editProject(project.getProjectId(), project);
         taskService.deleteTask(taskId);
 
         return "redirect:/alphaSolutions/pm/projectmanager-task/" + task.getSubProjectId();

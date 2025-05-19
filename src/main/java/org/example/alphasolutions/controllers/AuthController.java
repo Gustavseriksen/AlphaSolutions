@@ -33,7 +33,7 @@ public class AuthController {
                 session.setAttribute("username", admin.getUsername());
                 return "redirect:/alphaSolutions/admin/admin-frontpage";
             } else {
-                return "redirect:/alphaSolutions"; // eller /index hvis det er din login-side
+                return "index"; // eller /index hvis det er din login-side
             }
 
         } else if (username.startsWith("PM")) {
@@ -43,7 +43,7 @@ public class AuthController {
                 session.setAttribute("username", projectManager.getUsername());
                 return "redirect:/alphaSolutions/pm/projectmanager-frontpage";
             } else {
-                return "redirect:/alphaSolutions"; // eller /index hvis det er din login-side
+                return "index"; // eller /index hvis det er din login-side
             }
 
         } else if (username.startsWith("EMP")) {
@@ -56,7 +56,7 @@ public class AuthController {
                 return "redirect:/alphaSolutions"; // eller /index hvis det er din login-side
             }
         } else {
-            return "redirect:/alphaSolutions";
+            return "index";
         }
     }
 
