@@ -4,10 +4,8 @@ import jakarta.servlet.http.HttpSession;
 import org.example.alphasolutions.models.Employee;
 import org.example.alphasolutions.models.Project;
 import org.example.alphasolutions.models.Subproject;
-import org.example.alphasolutions.services.EmployeeProjectsService;
-import org.example.alphasolutions.services.EmployeeService;
-import org.example.alphasolutions.services.ProjectService;
-import org.example.alphasolutions.services.SubprojectService;
+import org.example.alphasolutions.models.Task;
+import org.example.alphasolutions.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,13 +23,15 @@ public class ProjectManagerController {
     private final EmployeeService employeeService;
     private final EmployeeProjectsService employeeProjectsService;
     private final SubprojectService subprojectService;
+    private final TaskService taskService;
 
 
-    public ProjectManagerController(ProjectService projectService, EmployeeService employeeService, EmployeeProjectsService employeeProjectsService, SubprojectService subprojectService) {
+    public ProjectManagerController(ProjectService projectService, EmployeeService employeeService, EmployeeProjectsService employeeProjectsService, SubprojectService subprojectService, TaskService taskService) {
         this.projectService = projectService;
         this.employeeService = employeeService;
         this.employeeProjectsService = employeeProjectsService;
         this.subprojectService = subprojectService;
+        this.taskService = taskService;
     }
 
     @GetMapping("/projectmanager-frontpage")
@@ -138,6 +138,8 @@ public class ProjectManagerController {
 
     }
 
+    // SUBPROJECT ----------------------------------------------------------------------------------
+
     @GetMapping("/projectmanager-project/{projectId}")
     public String viewProject(HttpSession session, @PathVariable int projectId, Model model) {
         String ID = (String) session.getAttribute("ID");
@@ -213,5 +215,111 @@ public class ProjectManagerController {
         subprojectService.editSubproject(subprojectId, subproject);
         return "redirect:/alphaSolutions/pm/projectmanager-project/" + projectId;
     }
+
+
+    // TASK ----------------------------------------------------------------------------------
+
+    @GetMapping("/projectmanager-task/{subprojectId}")
+    public String getTaskPage(HttpSession session, @PathVariable int subprojectId, Model model) {
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("PM")) {
+            return "index";
+        }
+
+        Subproject subproject = subprojectService.getSubprojectBySubId(subprojectId);
+
+        model.addAttribute("project", projectService.getProjectByProjectId(subproject.getProjectId()));
+        model.addAttribute("subproject", subproject);
+        model.addAttribute("tasks", taskService.getTasksBySubId(subprojectId));
+
+
+        return "/projectmanager/projectmanager-task";
+    }
+
+    @GetMapping("/projectmanager-add-task/{subprojectId}")
+    public String AddTask(HttpSession session, @PathVariable int subprojectId, Model model) {
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("PM")) {
+            return "index";
+        }
+
+        Task task = new Task();
+        task.setSubProjectId(subprojectId);
+
+
+        model.addAttribute("task", task);
+        model.addAttribute("subprojectId", subprojectId);
+
+        return "/projectmanager/projectmanager-add-task";
+    }
+
+    @PostMapping("/projectmanager-add-task/{subprojectId}")
+    public String AddTask(HttpSession session, @PathVariable int subprojectId, @ModelAttribute Task task) {
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("PM")) {
+            return "index";
+        }
+
+        task.setSubProjectId(subprojectId);
+        taskService.addTask(task);
+
+        return "redirect:/alphaSolutions/pm/projectmanager-task/" + subprojectId;
+    }
+
+    @PostMapping("/projectmanager-delete-task/{taskId}")
+    public String DeleteTask(HttpSession session, @PathVariable int taskId) {
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("PM")) {
+            return "index";
+        }
+
+        Task task = taskService.getTaskByTaskId(taskId);
+        taskService.deleteTask(taskId);
+
+        return "redirect:/alphaSolutions/pm/projectmanager-task/" + task.getSubProjectId();
+    }
+
+    @GetMapping("/projectmanager-edit-task/{taskId}")
+    public String projectmanagerEditTask(HttpSession session, @PathVariable int taskId, Model model) {
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("PM")) {
+            return "index";
+        }
+
+        Task task = taskService.getTaskByTaskId(taskId);
+        model.addAttribute("task", task);
+
+        return "/projectmanager/projectmanager-edit-task";
+    }
+
+    @PostMapping("/projectmanager-edit-task")
+    public String projectmanagerEditTask(HttpSession session, @ModelAttribute Task task) {
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("PM")) {
+            return "index";
+        }
+
+        taskService.editTask(task.getTaskId(), task);
+
+        return "redirect:/alphaSolutions/pm/projectmanager-task/" + task.getSubProjectId();
+    }
+
+    @PostMapping("update-actual-hours/{taskId}")
+    public String updateActualHours(HttpSession session, @PathVariable int taskId, @RequestParam int number) {
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("PM")) {
+            return "index";
+        }
+
+        Task task = taskService.getTaskByTaskId(taskId);
+        boolean success = taskService.updateActualHours(taskId, number);
+
+        if(!success) {
+            return "redirect:/alphaSolutions/pm/projectmanager-task/" + task.getSubProjectId();
+        }
+        return "redirect:/alphaSolutions/pm/projectmanager-task/" + task.getSubProjectId();
+
+    }
+
 
 }

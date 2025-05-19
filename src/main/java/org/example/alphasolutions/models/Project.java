@@ -13,8 +13,8 @@ public class Project {
     private LocalDate projectStartDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate projectEndDate;
-    private int estimatedHours;
-    private int actualHoursUsed;
+    private double estimatedHours;
+    private double actualHoursUsed;
     private Priority projectPriority;
     private Status projectStatus;
 
@@ -87,20 +87,20 @@ public class Project {
 
 
     // Getter & setter for estimated hours:
-    public int getEstimatedHours() {
+    public double getEstimatedHours() {
         return estimatedHours;
     }
 
-    public void setEstimatedHours(int estimatedHours) {
+    public void setEstimatedHours(double estimatedHours) {
         this.estimatedHours = estimatedHours;
     }
 
     // Getter & setter for actualHoursUsed:
-    public int getActualHoursUsed() {
+    public double getActualHoursUsed() {
         return actualHoursUsed;
     }
 
-    public void setActualHoursUsed(int actualHoursUsed) {
+    public void setActualHoursUsed(double actualHoursUsed) {
         this.actualHoursUsed = actualHoursUsed;
     }
 

@@ -44,7 +44,7 @@
                         <ul class="list-group">
                             <!-- image + project time estimate -->
                             <li class="list-group-item">
-                                <img src="/clock-fill.svg" alt="Clock" width="18" height="18" >
+                                <img src="/clock-fill.svg" alt="Clock" width="18" height="18">
                                 <span th:text="|Time estimate: ${project.getEstimatedHours()}|"></span>
                             </li>
                             <!-- image + project Time spent -->
@@ -72,7 +72,6 @@
 <!-- PROJECT-NAME + DESCRIPTION + PROJECT-TIME + PROJECT.EDIT (END) -->
 
 
-
 <!-- ADD SUBPROJECT AND BACK BUTTON -->
 <div class="d-flex justify-content-between align-items-center px-3 mb-4">
     <!-- Left: Return-arrow image-link with hover effect -->
@@ -90,12 +89,6 @@
 <!-- ADD TASK AND BACK BUTTON (END) -->
 
 
-
-
-
-
-
-
 <!-- SUBPROJECTS LOOP -->
 <div class="container-fluid px-4">
 
@@ -104,7 +97,8 @@
 
         <!-- Link for subproject view page -->
 
-        <a th:href="@{/alphaSolutions/pm/projectmanager-task/{subprojectId}(subprojectId=${subproject.subProjectId})}" class="card-header d-flex justify-content-between align-items-center text-decoration-none header-hover">
+        <a th:href="@{/alphaSolutions/pm/projectmanager-task/{subprojectId}(subprojectId=${subproject.subProjectId})}"
+           class="card-header d-flex justify-content-between align-items-center text-decoration-none header-hover">
 
             <!-- SubprojectName -->
             <span class="text-dark" th:text="${subproject.subProjectName}"></span>
@@ -113,16 +107,20 @@
             <th:block th:switch="${subproject.status.name()}">
 
                 <span th:case="'COMPLETED'"
-                      class="badge rounded-1 fw-light fs-6 bg-success" th:text="${subproject.status}"></span>           <!-- COMPLETED = Green -->
+                      class="badge rounded-1 fw-light fs-6 bg-success" th:text="${subproject.status}"></span>
+                <!-- COMPLETED = Green -->
 
                 <span th:case="'IN_PROGRESS'"
-                      class="badge rounded-1 fw-light fs-6 bg-primary" th:text="${subproject.status}"></span>           <!-- IN_PROGRESS = Blue -->
+                      class="badge rounded-1 fw-light fs-6 bg-primary" th:text="${subproject.status}"></span>
+                <!-- IN_PROGRESS = Blue -->
 
                 <span th:case="'NOT_STARTED'"
-                      class="badge rounded-1 fw-light fs-6 bg-secondary" th:text="${subproject.status}"></span>         <!-- NOT_STARTED = Grey -->
+                      class="badge rounded-1 fw-light fs-6 bg-secondary" th:text="${subproject.status}"></span>
+                <!-- NOT_STARTED = Grey -->
 
                 <span th:case="*"
-                      class="badge rounded-1 fw-light fs-6 bg-light text-dark" th:text="${subproject.status}"></span>   <!-- *(else) = light-grey & text-dark -->
+                      class="badge rounded-1 fw-light fs-6 bg-light text-dark" th:text="${subproject.status}"></span>
+                <!-- *(else) = light-grey & text-dark -->
             </th:block>
         </a>
 
@@ -132,11 +130,11 @@
 
                     <thead class="text-dark fs-4">
                     <tr>
-                                <!-- Title "Time estimate" -->
+                        <!-- Title "Time estimate" -->
                         <th class="border-bottom-0 fw-semibold fs-6">Time Estimate</th>
-                                <!-- Title "Time spent" -->
+                        <!-- Title "Time spent" -->
                         <th class="border-bottom-0 fw-semibold fs-6">Time Spent</th>
-                                <!-- Title "Priority" -->
+                        <!-- Title "Priority" -->
                         <th class="border-bottom-0 fw-semibold fs-6">Priority</th>
                         <!-- Title "Planned start" -->
                         <th class="border-bottom-0 fw-semibold fs-6">Planned start</th>
@@ -144,7 +142,7 @@
                         <th class="border-bottom-0 fw-semibold fs-6">Planned end</th>
                         <!-- Title Edit -->
                         <th class="border-bottom-0 fw-semibold fs-6">Edit</th>
-                                <!-- Title "delete" -->
+                        <!-- Title "delete" -->
                         <th class="border-bottom-0 fw-semibold fs-6">Delete</th>
                     </tr>
                     </thead>
@@ -158,7 +156,8 @@
 
                         <!-- Priority with color coordination (Switch-case) -->
                         <td class="border-bottom-0">
-                            <span class="badge bg-primary rounded-3 fw-semibold fs-6" th:text="${subproject.subPriority}"></span>
+                            <span class="badge bg-primary rounded-3 fw-semibold fs-6"
+                                  th:text="${subproject.subPriority}"></span>
                         </td>
 
                         <td class="border-bottom-0 fw-normal fs-6">
@@ -176,9 +175,10 @@
                             </a>
                         </td>
 
-                                <!-- Delete image-link -->
+                        <!-- Delete image-link -->
                         <td class="border-bottom-0 fw-semibold fs-4">
-                            <form th:action="@{/alphaSolutions/pm/delete-subproject/{subProjectId}/{projectId}(subProjectId=${subproject.subProjectId}, projectId=${project.projectId})}" method="post">
+                            <form th:action="@{/alphaSolutions/pm/delete-subproject/{subProjectId}/{projectId}(subProjectId=${subproject.subProjectId}, projectId=${project.projectId})}"
+                                  method="post">
                                 <button type="submit" style="border: none; background: none; padding: 0;"
                                         onclick="return confirm('Are you sure you want to delete this subproject?');">
                                     <img src="/trash-fill.svg" alt="delete" class="icon-hover" width="22" height="22">

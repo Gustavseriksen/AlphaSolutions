@@ -23,8 +23,8 @@ public class ProjectService {
         projectRepository.deleteProject(projectId);
     }
 
-    public void editProject() {
-        projectRepository.editProject();
+    public void editProject(int projectId, Project project) {
+        projectRepository.editProject(projectId, project);
     }
 
     public List<Project> getAllProjects() {
