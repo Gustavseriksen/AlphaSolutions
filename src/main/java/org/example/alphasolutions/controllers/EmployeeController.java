@@ -121,6 +121,18 @@ public class EmployeeController {
         return "/employee/employee-project";
     }
 
+    @GetMapping("/employee-task-info/{taskId}")
+    public String viewTaskInfo(HttpSession session, @PathVariable int taskId, Model model) {
+        String ID = (String) session.getAttribute("ID");
+        if (ID == null || !ID.endsWith("EMP")) {
+            return "index";
+        }
+
+        model.addAttribute("task", taskService.getTaskByTaskId(taskId));
+
+        return "/employee/employee-task-info";
+    }
+
 /*
     // Task
     @PostMapping("/add-task")

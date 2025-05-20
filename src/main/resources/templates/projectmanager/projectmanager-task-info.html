@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Project manager task</title>
+  <title>Project manager task info</title>
   <!-- External stylesheets -->
   <link rel="stylesheet" href="/styles.css">
   <!-- Bootstrap CSS for responsive design and styling -->
@@ -59,7 +59,7 @@
       <!-- Subproject-edit -->
       <div style="margin-top: -75px;">
         <div class="bd-example-snippet bd-code-snippet text-end">
-          <a th:href="@{/alphaSolutions/pm/edit-task/{taskId}/{subProjectId}(taskId=${task.taskId}, subProjectId=${task.subProjectId})}">
+          <a th:href="@{/alphaSolutions/pm/projectmanager-edit-task/{taskId}(taskId=${task.taskId})}">
             <img src="/gear.svg" alt="Settings" class="icon-hover" width="60" height="60">
           </a>
         </div>
@@ -74,7 +74,7 @@
 <!-- BACK BUTTON -->
 <div class="d-flex justify-content-between align-items-center px-3 mb-4">
   <!-- Left: Return-arrow image-link with hover effect -->
-  <a th:href="@{/alphaSolutions/pm/projectmanager-task/{taskId}(taskId=${task.taskId})}">
+  <a th:href="@{/alphaSolutions/pm/projectmanager-task/{subprojectId}(subprojectId=${task.getSubProjectId()})}">
     <img src="/arrow-return-left.svg" alt="Return" class="icon-hover" style="height: 40px;">
   </a>
 </div>
@@ -82,8 +82,9 @@
 
 
 
+
 <!-- FOOTER -->
-<div class="container">
+<div class="container mt-auto">
   <footer class="py-3 my-0">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3"></ul>
     <!-- Customer support text -->
