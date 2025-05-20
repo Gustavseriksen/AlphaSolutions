@@ -4,6 +4,7 @@ import org.example.alphasolutions.models.Priority;
 import org.example.alphasolutions.models.Status;
 import org.example.alphasolutions.models.Subproject;
 import org.example.alphasolutions.models.Task;
+import org.example.alphasolutions.repositories.RowMappers.TaskRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -43,29 +44,17 @@ public class TaskRepository {
     public List<Task> getTasksBySubId(int subId) {
         String sql = "SELECT * FROM Tasks WHERE subproject_id = ?";
 
-        return jdbcTemplate.query(sql, new Object[]{subId}, (rs, rowNum) -> new Task(
-                rs.getInt("task_id"),
-                rs.getInt("subproject_id"),
-                rs.getString("task_name"),
-                rs.getString("task_description"),
-                Priority.valueOf(rs.getString("task_priority")),
-                rs.getInt("estimated_hours"),
-                rs.getInt("actual_hours_used"),
-                Status.valueOf(rs.getString("task_status"))));
+        return jdbcTemplate.query(sql, new TaskRowMapper(), subId);
     }
 
     public Task getTaskByTaskId(int taskId) {
         String sql = "SELECT * FROM Tasks WHERE task_id = ?";
 
-        return jdbcTemplate.queryForObject(sql, new Object[]{taskId}, (rs, rowNum) -> new Task(
-                rs.getInt("task_id"),
-                rs.getInt("subproject_id"),
-                rs.getString("task_name"),
-                rs.getString("task_description"),
-                Priority.valueOf(rs.getString("task_priority")),
-                rs.getInt("estimated_hours"),
-                rs.getInt("actual_hours_used"),
-                Status.valueOf(rs.getString("task_status"))));
+        try {
+            return jdbcTemplate.queryForObject(sql, new TaskRowMapper(), taskId); // Bruger den nye RowMapper
+        } catch (org.springframework.dao.EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
 }
