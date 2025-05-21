@@ -214,11 +214,14 @@ class EmployeeControllerTest {
         Project dummyProject = new Project();
         dummyProject.setProjectId(projectId);
         dummyProject.setProjectName("Employee Detailed Project View");
+        dummyProject.setProjectPriority(Priority.LOW);
         dummyProject.setProjectStatus(Status.PENDING); // Set a status
 
         Subproject subproject1 = new Subproject();
         subproject1.setSubProjectId(101);
         subproject1.setSubProjectName("Subproject for Project View");
+        subproject1.setStatus(Status.NOT_STARTED);
+        subproject1.setSubPriority(Priority.HIGH);
         subproject1.setProjectId(projectId); // Link to its parent project
 
         List<Subproject> dummySubprojects = Collections.singletonList(subproject1);
