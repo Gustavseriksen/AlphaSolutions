@@ -1,7 +1,5 @@
 package org.example.alphasolutions.models;
 
-import java.util.Date;
-
 public class Task {
 
     private int taskId;
@@ -26,7 +24,8 @@ public class Task {
         this.status = status;
     }
 
-    public Task() {}
+    public Task() {
+    }
 
 
     public int getTaskId() {
@@ -90,8 +89,5 @@ public class Task {
         return taskDescription;
     }
 
-    public void setTaskDescription(String taskDescription) {
-        this.taskDescription = taskDescription;
-    }
 
 }

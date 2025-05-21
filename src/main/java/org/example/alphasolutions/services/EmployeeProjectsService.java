@@ -32,16 +32,14 @@ public class EmployeeProjectsService {
 
         }
     }
-    public List<Employee> getEmployeesByProjectId(int projectId){
+
+    public List<Employee> getEmployeesByProjectId(int projectId) {
         return employeeProjectsRepository.getEmployeesByProjectId(projectId);
     }
 
-    public void deleteAllEmployeeAssignmentsFromProject(int projectId){
-        employeeProjectsRepository.deleteAllEmployeeAssignmentsFromProject(projectId);
-    }
 
     public void updateProjectWithEmployees(int projectId, Project project, List<Integer> selectedEmployeeIds) {
-        projectRepository.updateProject(projectId, project);
+        projectRepository.editProject(projectId, project);
 
         employeeProjectsRepository.deleteAllEmployeeAssignmentsFromProject(projectId);
 

@@ -1,7 +1,7 @@
 package org.example.alphasolutions.repositories;
 
 import org.example.alphasolutions.models.ProjectManager;
-import org.example.alphasolutions.repositories.RowMappers.ProjectManagerRowMappers;
+import org.example.alphasolutions.rowMappers.ProjectManagerRowMappers;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 

@@ -2,7 +2,7 @@ package org.example.alphasolutions.models;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Subproject {
 
@@ -12,9 +12,9 @@ public class Subproject {
     private String subProjectDescription;
     private Priority subPriority;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date startDate;
+    private LocalDate startDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date endDate;
+    private LocalDate endDate;
     private double estimatedHours;
     private double actualHoursUsed;
     private Status status;
@@ -22,8 +22,8 @@ public class Subproject {
     //Constructor
 
     public Subproject(int subProjectId, int projectId, String subProjectName,
-                      String subProjectDescription, Priority subPriority, Date startDate,
-                      Date endDate, double estimatedHours, double actualHoursUsed, Status status) {
+                      String subProjectDescription, Priority subPriority, LocalDate startDate,
+                      LocalDate endDate, double estimatedHours, double actualHoursUsed, Status status) {
         this.subProjectId = subProjectId;
         this.projectId = projectId;
         this.subProjectName = subProjectName;
@@ -36,7 +36,8 @@ public class Subproject {
         this.status = status;
     }
 
-    public Subproject(){}
+    public Subproject() {
+    }
 
     //Getter and Setter for attributes
     public int getSubProjectId() {
@@ -79,19 +80,19 @@ public class Subproject {
         this.subProjectName = subProjectName;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

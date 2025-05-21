@@ -2,7 +2,6 @@ package org.example.alphasolutions.services;
 
 import org.example.alphasolutions.models.ProjectManager;
 import org.example.alphasolutions.repositories.ProjectManagerRepository;
-import org.example.alphasolutions.repositories.ProjectRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.example.alphasolutions.repositories.RowMappers;
+package org.example.alphasolutions.rowMappers;
 
 import org.example.alphasolutions.models.Admin;
 import org.springframework.jdbc.core.RowMapper;

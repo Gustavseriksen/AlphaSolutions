@@ -12,7 +12,9 @@ public class ProjectManager {
         this.username = username;
         this.password = password;
     }
-    public ProjectManager() {}
+
+    public ProjectManager() {
+    }
 
 
     //Getter and Setter for Attributes

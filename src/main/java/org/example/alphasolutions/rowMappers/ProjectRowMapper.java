@@ -1,4 +1,4 @@
-package org.example.alphasolutions.repositories.RowMappers;
+package org.example.alphasolutions.rowMappers;
 
 import org.example.alphasolutions.models.Priority;
 import org.example.alphasolutions.models.Project;
@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate; // Nødvendig for LocalDate mapping
+import java.time.LocalDate;
 
 
 public class ProjectRowMapper implements RowMapper<Project> {

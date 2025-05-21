@@ -11,7 +11,9 @@ public class Employee {
         this.username = username;
         this.password = password;
     }
-    public Employee() {}
+
+    public Employee() {
+    }
 
     // Getter & setter for employee_id:
     public int getEmployee_id() {
@@ -35,6 +37,7 @@ public class Employee {
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
