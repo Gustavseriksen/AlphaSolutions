@@ -22,7 +22,7 @@ class EmployeeProjectsRepositoryTest {
 
 
     @Test
-    void getEmployeesByProjectId_returnsEmployees() {
+    void getEmployeesByProjectId_Test() {
         // Gets already existing relation (EMP_bert is connected to Alpha project)
         List<Employee> employees = employeeProjectsRepository.getEmployeesByProjectId(1); // Project Alpha
 
@@ -33,7 +33,7 @@ class EmployeeProjectsRepositoryTest {
 
     @Test
 
-    void assignEmployeeToProject_shouldAddEntry() {
+    void assignEmployeeToProject_Test() {
 
         //Assigns EMP_jane (id=2) to Project Beta (id=2)
         employeeProjectsRepository.assignEmployeeToProject(2, 2); // Jane til Beta
@@ -45,7 +45,7 @@ class EmployeeProjectsRepositoryTest {
 
 
     @Test
-    void deleteAllEmployeeAssignmentsFromProject_shouldRemoveAll() {
+    void deleteAllEmployeeAssignmentsFromProject_Test() {
         // Deletes all assignmees for project Alpha (id=1)
         employeeProjectsRepository.deleteAllEmployeeAssignmentsFromProject(1); // Project Alpha
 

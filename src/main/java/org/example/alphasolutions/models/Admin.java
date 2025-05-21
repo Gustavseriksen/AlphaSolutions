@@ -12,6 +12,8 @@ public class Admin {
         this.password = password;
     }
 
+    public Admin() {
+    }
 
     // Getter & setter for Admin_id:
     public int getAdmin_id() {

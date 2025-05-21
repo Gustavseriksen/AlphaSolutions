@@ -133,32 +133,4 @@ public class EmployeeController {
         return "/employee/employee-task-info";
     }
 
-/*
-    // Task
-    @PostMapping("/add-task")
-    public String addTask(@ModelAttribute Task task) {
-        managementSoftwareService.addTask(task);
-        return "redirect:/";
-    }
-
-    @PostMapping("/delete-task/{taskId}")
-    public String deleteTask(@PathVariable int taskId) {
-        managementSoftwareService.deleteTask(taskId);
-        return "redirect:/";
-    }
-
-    @PostMapping("/edit-task")
-    public String editTask() {
-        managementSoftwareService.editTask();
-        return "redirect:/";
-    }
-
-//    // Check if done
-//    @GetMapping("/check-if-done")
-//    public String checkIfDone(Model model) {
-//        managementSoftwareService.checkIfDone();
-//        return "index";
-//    }
-//}
-*/
 }

@@ -35,21 +35,21 @@ class SubprojectRepositoryTest {
     }
 
     @Test
-    void getSubprojectBySubId_shouldReturnCorrectSubproject() {
+    void getSubprojectBySubId_Test() {
         Subproject subproject = subprojectRepository.getSubprojectBySubId(1);
         assertThat(subproject).isNotNull();
         assertThat(subproject.getSubProjectName()).isEqualTo("Subproject A");
     }
 
     @Test
-    void getSubsByProjectId_shouldReturnList() {
+    void getSubsByProjectId_Test() {
         List<Subproject> subs = subprojectRepository.getSubsByProjectId(1);
         assertThat(subs).isNotEmpty();
         assertThat(subs.getFirst().getSubProjectName()).isEqualTo("Subproject A");
     }
 
     @Test
-    void editSubproject_shouldUpdateSubproject() {
+    void editSubproject_Test() {
         Subproject subproject = subprojectRepository.getSubprojectBySubId(1);
         subproject.setSubProjectName("Updated Name");
         subproject.setSubProjectDescription("Updated description");
@@ -68,14 +68,5 @@ class SubprojectRepositoryTest {
         assertThat(updated.getStatus()).isEqualTo(Status.IN_PROGRESS);
     }
 
-    /*
-    skal bruge en getallsubprojects
-    @Test
-    void deleteSubproject_shouldRemoveSubproject() {
-        subprojectRepository.deleteSubproject(1);
-        List<Subproject> subs = subprojectRepository.get
-        assertTrue();
-
-    }
-*/
+    //Missing delete subproject
 }
