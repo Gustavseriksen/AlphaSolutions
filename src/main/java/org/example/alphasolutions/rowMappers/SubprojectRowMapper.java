@@ -1,4 +1,4 @@
-package org.example.alphasolutions.repositories.RowMappers;
+package org.example.alphasolutions.rowMappers;
 
 import org.example.alphasolutions.models.Priority;
 import org.example.alphasolutions.models.Status;
@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class SubprojectRowMapper implements RowMapper<Subproject> {
 
@@ -18,8 +19,8 @@ public class SubprojectRowMapper implements RowMapper<Subproject> {
                 rs.getString("subproject_name"),
                 rs.getString("subproject_description"),
                 Priority.valueOf(rs.getString("subproject_priority")),
-                rs.getDate("start_date"),
-                rs.getDate("end_date"),
+                rs.getObject("start_date", LocalDate.class),
+                rs.getObject("end_date", LocalDate.class),
                 rs.getDouble("estimated_hours"),
                 rs.getDouble("actual_hours_used"),
                 Status.valueOf(rs.getString("subproject_status"))

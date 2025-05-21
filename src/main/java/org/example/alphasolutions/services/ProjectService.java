@@ -15,10 +15,6 @@ public class ProjectService {
         this.projectRepository = projectRepository;
     }
 
-    public void addProject(Project project) {
-        projectRepository.addProject(project);
-    }
-
     public void deleteProject(int projectId) {
         projectRepository.deleteProject(projectId);
     }
@@ -33,10 +29,6 @@ public class ProjectService {
 
     public Project getProjectByProjectId(int projectId) {
         return projectRepository.getProjectByProjectId(projectId);
-    }
-
-    public void updateProject(int projectID, Project project) {
-        projectRepository.updateProject(projectID, project);
     }
 
     public List<Project> getProjectsByEmployeeId(int employeeId) {

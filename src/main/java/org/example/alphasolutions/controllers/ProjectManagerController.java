@@ -326,7 +326,7 @@ public class ProjectManagerController {
         Task task = taskService.getTaskByTaskId(taskId);
         boolean success = taskService.updateActualHours(taskId, number);
 
-        if(!success) {
+        if (!success) {
             return "redirect:/alphaSolutions/pm/projectmanager-task/" + task.getSubProjectId();
         }
         return "redirect:/alphaSolutions/pm/projectmanager-task/" + task.getSubProjectId();

@@ -100,7 +100,7 @@ class ProjectRepositoryTest {
     void updateProject_Test() {
         Project updatedProject = new Project(0, "Updated Project", "Updated Desc", LocalDate.of(2025, 7, 1), LocalDate.of(2025, 8, 1), 50, 20, Priority.LOW, Status.IN_PROGRESS);
 
-        projectRepository.updateProject(1, updatedProject);
+        projectRepository.editProject(1, updatedProject);
 
         Project fromDb = projectRepository.getProjectByProjectId(1);
 

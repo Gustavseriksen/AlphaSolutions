@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -54,8 +53,8 @@ class SubprojectRepositoryTest {
         subproject.setSubProjectName("Updated Name");
         subproject.setSubProjectDescription("Updated description");
         subproject.setSubPriority(Priority.LOW);
-        subproject.setStartDate(Date.valueOf(LocalDate.of(2025, 4, 15)));
-        subproject.setEndDate(Date.valueOf(LocalDate.of(2025, 5, 15)));
+        subproject.setStartDate(LocalDate.of(2025, 4, 15));
+        subproject.setEndDate(LocalDate.of(2025, 5, 15));
         subproject.setEstimatedHours(45);
         subproject.setActualHoursUsed(40);
         subproject.setStatus(Status.IN_PROGRESS);

@@ -1,10 +1,7 @@
 package org.example.alphasolutions.repositories;
 
-import org.example.alphasolutions.models.Priority;
-import org.example.alphasolutions.models.Status;
-import org.example.alphasolutions.models.Subproject;
 import org.example.alphasolutions.models.Task;
-import org.example.alphasolutions.repositories.RowMappers.TaskRowMapper;
+import org.example.alphasolutions.rowMappers.TaskRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -56,7 +53,7 @@ public class TaskRepository {
             return null;
         }
     }
-    
+
 
 }
 
