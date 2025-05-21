@@ -68,14 +68,5 @@ class SubprojectRepositoryTest {
         assertThat(updated.getStatus()).isEqualTo(Status.IN_PROGRESS);
     }
 
-    /*
-    skal bruge en getallsubprojects
-    @Test
-    void deleteSubproject_shouldRemoveSubproject() {
-        subprojectRepository.deleteSubproject(1);
-        List<Subproject> subs = subprojectRepository.get
-        assertTrue();
-
-    }
-*/
+    //Missing delete subproject
 }

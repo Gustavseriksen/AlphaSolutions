@@ -1,9 +1,6 @@
 package org.example.alphasolutions.controllers;
 
-import org.example.alphasolutions.models.Project;
-import org.example.alphasolutions.models.Status;
-import org.example.alphasolutions.models.Subproject;
-import org.example.alphasolutions.models.Task;
+import org.example.alphasolutions.models.*;
 import org.example.alphasolutions.services.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -89,12 +86,14 @@ class EmployeeControllerTest {
         Project project1 = new Project();
         project1.setProjectId(1);
         project1.setProjectName("Employee Project Alpha");
+        project1.setProjectPriority(Priority.LOW);
         project1.setProjectStatus(Status.IN_PROGRESS); // Set a realistic status using YOUR Status enum
         // You can set other fields here if your Thymeleaf uses them, like budget, deadline, etc.
 
         Project project2 = new Project();
         project2.setProjectId(2);
         project2.setProjectName("Employee Project Beta");
+        project2.setProjectPriority(Priority.MEDIUM);
         project2.setProjectStatus(Status.COMPLETED); // Another realistic status
         // Set other fields as needed
 
@@ -137,6 +136,8 @@ class EmployeeControllerTest {
         Task task1 = new Task();
         task1.setTaskId(201);
         task1.setTaskName("First task in subproject");
+        task1.setPriority(Priority.HIGH);
+        task1.setStatus(Status.NOT_STARTED);
         task1.setSubProjectId(subprojectId); // Link to its parent subproject
 
         List<Task> dummyTasks = Collections.singletonList(task1); // A list with one task
