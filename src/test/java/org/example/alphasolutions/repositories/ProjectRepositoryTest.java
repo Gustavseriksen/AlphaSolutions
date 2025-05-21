@@ -24,7 +24,7 @@ class ProjectRepositoryTest {
     ProjectRepository projectRepository;
 
     @Test
-    void addProjectTest() {
+    void addProject_Test() {
         Project project = new Project(0, "Test Project", "Desc", LocalDate.of(2025, 5, 1), LocalDate.of(2025, 6, 1), 100, 0, Priority.HIGH, Status.IN_PROGRESS);
         projectRepository.addProject(project);
 
@@ -40,7 +40,7 @@ class ProjectRepositoryTest {
     }
 
     @Test
-    void deleteProjectTest() {
+    void deleteProject_Test() {
         // Deletes project with id 1
         projectRepository.deleteProject(1);
 
@@ -56,13 +56,13 @@ class ProjectRepositoryTest {
     }
 
     @Test
-    void getAllProjectsTest() {
+    void getAllProjects_Test() {
         List<Project> projects = projectRepository.getAllProjects();
 
         assertNotNull(projects);
         assertTrue(projects.size() >= 2); // 2 based on testdata
 
-        // Eksempel check på projektnavne
+        // check on projectnames
         boolean containsAlpha = false;
         boolean containsBeta = false;
         for (Project p : projects) {
@@ -74,7 +74,7 @@ class ProjectRepositoryTest {
     }
 
     @Test
-    void getProjectByProjectIdTest() {
+    void getProjectByProjectId_Test() {
         Project project = projectRepository.getProjectByProjectId(1);
 
         assertNotNull(project);
@@ -85,7 +85,7 @@ class ProjectRepositoryTest {
 
 
     @Test
-    void getLastInsertedProjectId_shouldReturnIdOfLastInsertedProject() {
+    void getLastInsertedProjectId_Test() {
         Project project = new Project(0, "New Project", "Desc", LocalDate.now(), LocalDate.now().plusDays(10), 10, 0, Priority.MEDIUM, Status.PENDING);
         projectRepository.addProject(project);
 
@@ -97,7 +97,7 @@ class ProjectRepositoryTest {
     }
 
     @Test
-    void updateProject_shouldUpdateProjectData() {
+    void updateProject_Test() {
         Project updatedProject = new Project(0, "Updated Project", "Updated Desc", LocalDate.of(2025, 7, 1), LocalDate.of(2025, 8, 1), 50, 20, Priority.LOW, Status.IN_PROGRESS);
 
         projectRepository.updateProject(1, updatedProject);

@@ -22,7 +22,7 @@ class EmployeeRepositoryTest {
     EmployeeRepository employeeRepository;
 
     @Test
-    void addEmployeeTest() {
+    void addEmployee_Test() {
         //Arrange
         Employee newEmployee = new Employee();
         newEmployee.setUsername("EMP_johannes");
@@ -44,7 +44,7 @@ class EmployeeRepositoryTest {
     }
 
     @Test
-    void getAllEmployeesTest() {
+    void getAllEmployees_Test() {
         // Act
         List<Employee> employees = employeeRepository.getAllEmployees();
 
@@ -69,7 +69,7 @@ class EmployeeRepositoryTest {
     }
 
     @Test
-    void getEmployeeByIdTest() {
+    void getEmployeeById_Test() {
         // Act
         Employee employee = employeeRepository.getEmployeeById(1);
 
@@ -81,7 +81,7 @@ class EmployeeRepositoryTest {
     }
 
     @Test
-    void editEmployeeByIdTest() {
+    void editEmployeeById_Test() {
         // Arrange
         int employeeId = 1; // EMP_bert has ID 1
         Employee updatedEmployee = new Employee();
@@ -100,7 +100,7 @@ class EmployeeRepositoryTest {
 
 
     @Test
-    void deleteEmployeeTest() {
+    void deleteEmployee_Test() {
         // Arrange
         Employee tempEmployee = new Employee();
         tempEmployee.setUsername("EMP_temp");
