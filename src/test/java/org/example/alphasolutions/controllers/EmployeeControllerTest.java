@@ -48,7 +48,7 @@ class EmployeeControllerTest {
     void setUp() {
         session = new MockHttpSession();
         session.setAttribute("ID", "123EMP"); // Simulates an employee ID in the session
-        session.setAttribute("username", "EMP_employeeUser"); // Simulates a username
+        session.setAttribute("username", "employeeUser"); // Simulates a username
     }
 
 
