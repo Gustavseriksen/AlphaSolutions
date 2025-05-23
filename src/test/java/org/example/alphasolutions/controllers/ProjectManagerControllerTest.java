@@ -39,7 +39,7 @@ class ProjectManagerControllerTest {
     private MockHttpSession getValidPMSession() {
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("ID", "123PM");
-        session.setAttribute("username", "john");
+        session.setAttribute("username", "PM_john");
         return session;
     }
 
@@ -55,7 +55,6 @@ class ProjectManagerControllerTest {
         List<Project> projectList = List.of(project);
 
         Mockito.when(projectService.getAllProjects()).thenReturn(projectList);
-        Mockito.when(employeeProjectsService.getEmployeesByProjectId(1)).thenReturn(List.of());
 
         mockMvc.perform(get("/alphaSolutions/pm/projectmanager-frontpage").session(session))
                 .andExpect(status().isOk())
@@ -66,7 +65,6 @@ class ProjectManagerControllerTest {
     @Test
     void viewAddProject_validSession_shouldReturnView() throws Exception {
         MockHttpSession session = getValidPMSession();
-        Mockito.when(employeeService.getAllEmployees()).thenReturn(List.of());
 
         mockMvc.perform(get("/alphaSolutions/pm/projectmanager-add-project").session(session))
                 .andExpect(status().isOk())
@@ -79,7 +77,6 @@ class ProjectManagerControllerTest {
         int projectId = 1;
 
         Mockito.when(projectService.getProjectByProjectId(projectId)).thenReturn(new Project());
-        Mockito.when(subprojectService.getSubprojectsByProjectId(projectId)).thenReturn(List.of());
 
         mockMvc.perform(get("/alphaSolutions/pm/projectmanager-project/{projectId}", projectId).session(session))
                 .andExpect(status().isOk())
@@ -106,7 +103,6 @@ class ProjectManagerControllerTest {
 
         Mockito.when(subprojectService.getSubprojectBySubId(subprojectId)).thenReturn(subproject);
         Mockito.when(projectService.getProjectByProjectId(1)).thenReturn(new Project());
-        Mockito.when(taskService.getTasksBySubId(subprojectId)).thenReturn(List.of());
 
         mockMvc.perform(get("/alphaSolutions/pm/projectmanager-task/{subprojectId}", subprojectId).session(session))
                 .andExpect(status().isOk())
