@@ -58,7 +58,6 @@ public class Project {
     public String getProjectDescription() {
         return projectDescription;
     }
-
 // Getter & setter for ProjectStartDate:
 
     public LocalDate getProjectStartDate() {

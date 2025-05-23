@@ -1,7 +1,6 @@
 package org.example.alphasolutions.repositories;
 
 import org.example.alphasolutions.models.Employee;
-import org.example.alphasolutions.models.ProjectManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

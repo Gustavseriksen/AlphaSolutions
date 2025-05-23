@@ -2,7 +2,6 @@ package org.example.alphasolutions.controllers;
 
 import org.example.alphasolutions.models.*;
 import org.example.alphasolutions.services.*;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +48,7 @@ class EmployeeControllerTest {
     void setUp() {
         session = new MockHttpSession();
         session.setAttribute("ID", "123EMP"); // Simulates an employee ID in the session
-        session.setAttribute("username", "employeeUser"); // Simulates a username
+        session.setAttribute("username", "EMP_employeeUser"); // Simulates a username
     }
 
 
