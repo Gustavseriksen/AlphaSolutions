@@ -86,15 +86,13 @@ class EmployeeControllerTest {
         project1.setProjectId(1);
         project1.setProjectName("Employee Project Alpha");
         project1.setProjectPriority(Priority.LOW);
-        project1.setProjectStatus(Status.IN_PROGRESS); // Set a realistic status using YOUR Status enum
-        // You can set other fields here if your Thymeleaf uses them, like budget, deadline, etc.
+        project1.setProjectStatus(Status.IN_PROGRESS);
 
         Project project2 = new Project();
         project2.setProjectId(2);
         project2.setProjectName("Employee Project Beta");
         project2.setProjectPriority(Priority.MEDIUM);
-        project2.setProjectStatus(Status.COMPLETED); // Another realistic status
-        // Set other fields as needed
+        project2.setProjectStatus(Status.COMPLETED);
 
         // Put the fake projects into a list
         List<Project> dummyProjects = Arrays.asList(project1, project2);
@@ -102,7 +100,7 @@ class EmployeeControllerTest {
         // Tell our "fake" ProjectService what to do:
         // When asked for projects by employee ID 123, return our dummy projects.
         when(projectService.getProjectsByEmployeeId(employeeId)).thenReturn(dummyProjects);
-        // When asked for employees by ANY project ID, just return an empty list (for simplicity in this test).
+        //Empty list for simplicity
         when(employeeProjectsService.getEmployeesByProjectId(anyInt())).thenReturn(Collections.emptyList());
 
         // Perform the GET request to the employee frontpage
@@ -125,12 +123,12 @@ class EmployeeControllerTest {
         Subproject dummySubproject = new Subproject();
         dummySubproject.setSubProjectId(subprojectId);
         dummySubproject.setSubProjectName("Employee Subproject Task Test");
-        dummySubproject.setProjectId(projectId); // Link to its parent project
+        dummySubproject.setProjectId(projectId);
 
         Project dummyProject = new Project();
         dummyProject.setProjectId(projectId);
         dummyProject.setProjectName("Parent Project for Subtask");
-        dummyProject.setProjectStatus(Status.NOT_STARTED); // Set a status for the parent project
+        dummyProject.setProjectStatus(Status.NOT_STARTED);
 
         Task task1 = new Task();
         task1.setTaskId(201);
